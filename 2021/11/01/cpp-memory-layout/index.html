@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HansanF">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="用g++查看内存布局的方法：&amp;emsp;&amp;emsp;g++版本&gt;8.0：g++ -fdump-lang-class vptr.cpp&amp;emsp;&amp;emsp;g++版本&lt;8.0：g++ -fdump-class-hierarchy vptr.cpp参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;Ineedapassward&#x2F;article&#x2F;details">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++类和对象的内存布局">
+<meta property="og:url" content="http://example.com/2021/11/01/cpp-memory-layout/index.html">
+<meta property="og:site_name" content="HansanF&#39;s Studio">
+<meta property="og:description" content="用g++查看内存布局的方法：&amp;emsp;&amp;emsp;g++版本&gt;8.0：g++ -fdump-lang-class vptr.cpp&amp;emsp;&amp;emsp;g++版本&lt;8.0：g++ -fdump-class-hierarchy vptr.cpp参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;Ineedapassward&#x2F;article&#x2F;details">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-31T23:08:12.000Z">
+<meta property="article:modified_time" content="2022-05-04T07:09:30.497Z">
+<meta property="article:author" content="HansanF">
+<meta property="article:tag" content="CPP">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>C++类和对象的内存布局 - HansanF&#39;s Studio</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HansanF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C++类和对象的内存布局">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-01 07:08" pubdate>
+        November 1, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++类和对象的内存布局</h1>
+            
+            <div class="markdown-body">
+              <h3 id="用g-查看内存布局的方法："><a href="#用g-查看内存布局的方法：" class="headerlink" title="用g++查看内存布局的方法："></a>用g++查看内存布局的方法：</h3><p>&amp;emsp;&amp;emsp;g++版本&gt;8.0：<code>g++ -fdump-lang-class vptr.cpp</code><br>&amp;emsp;&amp;emsp;g++版本&lt;8.0：<code>g++ -fdump-class-hierarchy vptr.cpp</code><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ineedapassward/article/details/118417116">参考：https://blog.csdn.net/Ineedapassward/article/details/118417116</a></p>
+<h3 id="类的内存布局"><a href="#类的内存布局" class="headerlink" title="类的内存布局"></a>类的内存布局</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shichao1470/article/details/91563282">参考：https://blog.csdn.net/shichao1470/article/details/91563282</a></p>
+<h3 id="菱形继承下对象的内存布局"><a href="#菱形继承下对象的内存布局" class="headerlink" title="菱形继承下对象的内存布局"></a>菱形继承下对象的内存布局</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/j4ya_/article/details/80177897">参考：https://blog.csdn.net/j4ya_&#x2F;article&#x2F;details&#x2F;80177897</a></p>
+<h3 id="菱形继承下类的内存布局"><a href="#菱形继承下类的内存布局" class="headerlink" title="菱形继承下类的内存布局"></a>菱形继承下类的内存布局</h3><figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>&#123;<br>        cout&lt;&lt;<span class="hljs-string">&quot;Base::func()&quot;</span>&lt;&lt;endl; <br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">X</span>: <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Base&#123;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>&#123;<br>        cout&lt;&lt;<span class="hljs-string">&quot;X::func()&quot;</span>&lt;&lt;endl; <br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Y</span>: <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Base&#123;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>&#123;<br>        cout&lt;&lt;<span class="hljs-string">&quot;Y::func()&quot;</span>&lt;&lt;endl; <br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">funcY</span><span class="hljs-params">()</span></span>&#123;&#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Z</span>: <span class="hljs-keyword">public</span> X,  <span class="hljs-keyword">public</span> Y&#123;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>&#123;<br>        cout&lt;&lt;<span class="hljs-string">&quot;Z::func()&quot;</span>&lt;&lt;endl; <br>    &#125;<br>&#125;;<br><br><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(Base)&lt;&lt;endl<br>        &lt;&lt;<span class="hljs-built_in">sizeof</span>(X)&lt;&lt;endl<br>        &lt;&lt;<span class="hljs-built_in">sizeof</span>(Y)&lt;&lt;endl<br>        &lt;&lt;<span class="hljs-built_in">sizeof</span>(Z)&lt;&lt;endl ; <br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>64位系统下运行，sizeof(int *) 等于8，输出结果为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">8<br>8<br>8<br>16<br></code></pre></td></tr></table></figure>
+
+<p><strong>问题：</strong><br>&amp;emsp;&amp;emsp;类Base的size为8，是因为有一个虚表指针，<br>&amp;emsp;&amp;emsp;类X和类Y的size也为8，也是因为各自只有一个虚表指针？<br>&amp;emsp;&amp;emsp;类Z的size为16，是为甚？不采用虚继承的时候结果不变，为甚？<br>使用g++查看内存布局，结果如下：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">Vtable <span class="hljs-keyword">for</span> Z<br>Z::_ZTV1Z: <span class="hljs-number">6</span> entries<br><span class="hljs-number">0</span>     (int <span class="hljs-comment">(*)(...))0</span><br><span class="hljs-comment">8     (int (*)</span>(...))(&amp; _ZTI1Z)<br><span class="hljs-number">16</span>    (int <span class="hljs-comment">(*)(...))Z::func</span><br><span class="hljs-comment">24    (int (*)</span>(...))-<span class="hljs-number">8</span><br><span class="hljs-number">32</span>    (int <span class="hljs-comment">(*)(...))(&amp; _ZTI1Z)</span><br><span class="hljs-comment">40    (int (*)</span>(...))Z::_ZThn8_N1Z4funcEv<br><br><span class="hljs-keyword">Class</span> Z<br>   size=<span class="hljs-number">16</span> align=<span class="hljs-number">8</span><br>   base size=<span class="hljs-number">16</span> base align=<span class="hljs-number">8</span><br>Z (<span class="hljs-number">0</span>x0x3feb780) <span class="hljs-number">0</span><br>    vptr=((&amp; Z::_ZTV1Z) + <span class="hljs-number">16</span>)<br>  X (<span class="hljs-number">0</span>x0x3feb7c0) <span class="hljs-number">0</span> nearly-<span class="hljs-keyword">empty</span><br>      primary-<span class="hljs-keyword">for</span> Z (<span class="hljs-number">0</span>x0x3feb780)<br>    Base (<span class="hljs-number">0</span>x0x3fdca48) <span class="hljs-number">0</span> nearly-<span class="hljs-keyword">empty</span><br>        primary-<span class="hljs-keyword">for</span> X (<span class="hljs-number">0</span>x0x3feb7c0)<br>  Y (<span class="hljs-number">0</span>x0x3feb800) <span class="hljs-number">8</span> nearly-<span class="hljs-keyword">empty</span><br>      vptr=((&amp; Z::_ZTV1Z) + <span class="hljs-number">40</span>)<br>    Base (<span class="hljs-number">0</span>x0x3fdca80) <span class="hljs-number">8</span> nearly-<span class="hljs-keyword">empty</span><br>        primary-<span class="hljs-keyword">for</span> Y (<span class="hljs-number">0</span>x0x3feb800)<br></code></pre></td></tr></table></figure>
+<p>为啥</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Y</span> (<span class="hljs-number">0</span>x0x3feb800) <span class="hljs-number">8</span> nearly-empty<br>    <span class="hljs-attribute">vptr</span>=((&amp; Z::_ZTV1Z) + <span class="hljs-number">40</span>)<br>  <span class="hljs-attribute">Base</span> (<span class="hljs-number">0</span>x0x3fdca80) <span class="hljs-number">8</span> nearly-empty<br>      <span class="hljs-attribute">primary</span>-for Y (<span class="hljs-number">0</span>x0x3feb800)<br></code></pre></td></tr></table></figure>
+<p>这里是什么东西啊？</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CPP/">CPP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/01/linux-tips/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">linux_tips</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/31/error-non-const-lvalue/">
+                        <span class="hidden-mobile">error_non_const_lvalue</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

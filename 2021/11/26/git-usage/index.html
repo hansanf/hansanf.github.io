@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="git在线练习平台https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念 配置文件全局配置文件全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git confi">
+    <meta name="description" content="git在线练习平台 https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念  配置文件  全局配置文件 全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git_usage">
 <meta property="og:url" content="http://example.com/2021/11/26/git-usage/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="git在线练习平台https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念 配置文件全局配置文件全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git confi">
+<meta property="og:description" content="git在线练习平台 https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念  配置文件  全局配置文件 全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/6e26501083b945e1a65f2c225387b949.png">
 <meta property="article:published_time" content="2021-11-26T12:35:17.000Z">
@@ -240,23 +240,27 @@
             <h1 style="display: none">git_usage</h1>
             
             <div class="markdown-body">
-              <h3 id="git在线练习平台"><a href="#git在线练习平台" class="headerlink" title="git在线练习平台"></a>git在线练习平台</h3><p><a target="_blank" rel="noopener" href="https://learngitbranching.js.org/">https://learngitbranching.js.org</a></p>
+              <h3 id="git在线练习平台"><a class="markdownIt-Anchor" href="#git在线练习平台"></a> git在线练习平台</h3>
+<p><a target="_blank" rel="noopener" href="https://learngitbranching.js.org">https://learngitbranching.js.org</a></p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/sp1YUQ2vnQaIGH4tO3j1Vw">git常用命令和基本概念</a></p>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="全局配置文件"><a href="#全局配置文件" class="headerlink" title="全局配置文件"></a>全局配置文件</h4><p>全局配置文件有<code>~/.gitconfig</code>和<code>~/.git-credentials</code>两个</p>
+<h3 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h3>
+<h4 id="全局配置文件"><a class="markdownIt-Anchor" href="#全局配置文件"></a> 全局配置文件</h4>
+<p>全局配置文件有<code>~/.gitconfig</code>和<code>~/.git-credentials</code>两个</p>
 <p><code>~/.gitconfig</code>对应着<code>git config --global</code>命令。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">//查<br>git config --global --list<br> <br>git config --global user.name<br> <br>//增<br>git config  --global --add user.name fgq<br> <br>//删<br>git config  --global --<span class="hljs-built_in">unset</span> user.name<br> <br>//改<br>git config --global user.name fgq<br></code></pre></td></tr></table></figure>
 <p>比如修改GitHub账号名</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config  --global  user.name hansanf<br></code></pre></td></tr></table></figure>
-<p><code>~/.gitconfig</code>文件就会相应的做出修改<br><img src="https://img-blog.csdnimg.cn/6e26501083b945e1a65f2c225387b949.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><code>~/.gitconfig</code>文件就会相应的做出修改<br />
+<img src="https://img-blog.csdnimg.cn/6e26501083b945e1a65f2c225387b949.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" /></p>
 <p><code>~/.git-credentials</code>中文是资格证书，里面保存github的token，使每次登陆都可以免密。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">https://GitHub用户名:具体的token@github.com<br></code></pre></td></tr></table></figure>
-
-<h4 id="局部配置文件"><a href="#局部配置文件" class="headerlink" title="局部配置文件"></a>局部配置文件</h4><p>在使用 <code>git init 文件目录</code>命令配置的git工作区中，即<code>文件目录/.git/config</code>，是局部配置文件，对应着<code>git config --local</code>命令。</p>
+<h4 id="局部配置文件"><a class="markdownIt-Anchor" href="#局部配置文件"></a> 局部配置文件</h4>
+<p>在使用 <code>git init 文件目录</code>命令配置的git工作区中，即<code>文件目录/.git/config</code>，是局部配置文件，对应着<code>git config --local</code>命令。</p>
 <p><code>.gitignore</code>也是只对当前工作区起作用，可以把要忽略的文件名填进去，然后Git就会自动忽略这些文件</p>
 <p>示例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 忽略所有.开头的隐藏文件:</span><br>.*<br><span class="hljs-comment"># 忽略所有.class文件:</span><br>*.class<br><br><span class="hljs-comment"># 不忽略.gitignore和App.class:</span><br>!.gitignore<br>!App.class<br></code></pre></td></tr></table></figure>
-
-<p>参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/themagickeyjianan/article/details/79683980?spm=1001.2014.3001.5506">修改git config配置文件</a></p>
+<p>参考：<br />
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/themagickeyjianan/article/details/79683980?spm=1001.2014.3001.5506">修改git config配置文件</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Lakers2015/article/details/111990909">Git 中的.gitignore文件的作用及配置</a></p>
 
             </div>

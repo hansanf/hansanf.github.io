@@ -191,6 +191,53 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/05/05/bug-truncation-of-constant-value/" target="_self">
+          bug记录：常量值截断(truncation of constant value)
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/05/bug-truncation-of-constant-value/" target="_self">
+          
+          char和unsigned char char的取值范围：-128~127   -128: 16进制0x80  二进制1000 0000   -127: 16进制0xff    二进制1111 1111，注意第一位是符号位，0111 1111是127 unsigned char的取值范围：0~255，16进制0x00 ~ 0xff  内存中的0xf0: 1111 0000 1234567char
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-05 23:38" pubdate>
+              2022-05-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Bug/">Bug</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/05/04/test-in-mac/" target="_self">
           test_in_mac
         </a>
@@ -199,7 +246,7 @@
       <p class="index-excerpt">
         <a href="/2022/05/04/test-in-mac/" target="_self">
           
-          a test for mac hexosecond test
+          a test for mac hexo second test
         </a>
       </p>
 
@@ -232,7 +279,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/26/git-usage/" target="_self">
           
-          git在线练习平台https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念 配置文件全局配置文件全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git confi
+          git在线练习平台 https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念  配置文件  全局配置文件 全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git
         </a>
       </p>
 
@@ -272,7 +319,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/25/linux-environment-path/" target="_self">
           
-          环境变量三个文件1. &#x2F;etc&#x2F;profile系统级别，可以所有用户起作用，网上有说是在用户登录时读取的。但在我电脑上使用source &#x2F;etc&#x2F;profile后只在当前终端起作用，新建终端仍不生效，为了以后在每个终端上都生效可以在~&#x2F;.bashrc中添加source &#x2F;etc&#x2F;profile。注意~&#x2F;.bashrc和&#x2F;etc&#x2F;profile中还包括对终端其他方面的设置，比如显示格式、颜色 2.
+          环境变量  三个文件  1. &#x2F;etc&#x2F;profile 系统级别，可以所有用户起作用，网上有说是在用户登录时读取的。但在我电脑上使用source &#x2F;etc&#x2F;profile后只在当前终端起作用，新建终端仍不生效，为了以后在每个终端上都生效可以在~&#x2F;.bashrc中添加source &#x2F;etc&#x2F;profile。 注意~&#x2F;.bashrc和&#x2F;etc&#x2F;profile中还包括对终端其他方面的设置，比如显示格式
         </a>
       </p>
 
@@ -312,7 +359,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/25/cmd-ln/" target="_self">
           
-          ln命令格式和参数语法格式： ln [参数] [源文件或目录] [目标文件或目录]    参数 全称 作用    空 hard 对源文件建立硬链接   -s soft 对源文件建立软连接（符号链接）   -f force 强制创建链接，即使目标文件已经存在   -b backup 强制创建链接，即使目标文件已经存在   -i Interactive 交互模式，若目标文件已经存在，则提示用户确认进行
+          ln命令  格式和参数 语法格式： ln [参数] [源文件或目录] [目标文件或目录]    参数 全称 作用     空 hard 对源文件建立硬链接   -s soft 对源文件建立软连接（符号链接）   -f force 强制创建链接，即使目标文件已经存在   -b backup 强制创建链接，即使目标文件已经存在   -i Interactive 交互模式，若目标文件已经存在，则提示用
         </a>
       </p>
 
@@ -352,7 +399,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/24/variable-arguments/" target="_self">
           
-          参数列表的…… 表示函数的参数个数可变，典型的如printf() 1int printf (const char * szFormat, ...); 第一个参数是一个格式化字符串，后面是与格式化字符串中的代码相对应的不同类型的多个参数。 123char* name &#x3D; &quot;fgq&quot;;int age &#x3D; 18; printf(&quot;info &amp;#123;name:%s, ag
+          参数列表的… … 表示函数的参数个数可变，典型的如printf() 1int printf (const char * szFormat, ...); 第一个参数是一个格式化字符串，后面是与格式化字符串中的代码相对应的不同类型的多个参数。 123char* name &#x3D; &quot;fgq&quot;;int age &#x3D; 18; printf(&quot;info &amp;#123;name:%s,
         </a>
       </p>
 
@@ -392,7 +439,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/23/marco-tips/" target="_self">
           
-          宏的使用技巧 1、在带参宏定义中，形式参数不分配内存单元，因此不必作类型定义2、\ 用来换行3、 # 把变量变为字符串  1.在switch中使代码更简洁1234567891011121314151617string func(int level)&amp;#123;	switch(level)&amp;#123;#define XX(i,name) \	case i: \		return name; \			X
+          宏的使用技巧  1、在带参宏定义中，形式参数不分配内存单元，因此不必作类型定义 2、\ 用来换行 3、 # 把变量变为字符串   1.在switch中使代码更简洁 1234567891011121314151617string func(int level)&amp;#123;	switch(level)&amp;#123;#define XX(i,name) \	case i: \		return name;
         </a>
       </p>
 
@@ -432,7 +479,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/19/template_pattern/" target="_self">
           
-          模板模式意图: 定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。 主要解决: 一些方法通用，却在每一个子类都重新写了这一方法。  例子建造房子的流程都是一样的，比如：打地基-&gt;砌砖头-&gt;盖屋顶但是不同种类的房子，比如茅草房和别墅，在这三个步骤中所要做的具体事情不一样此时就可以应用模板模式，在接口类（基类）中抽
+          模板模式 意图: 定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。 主要解决: 一些方法通用，却在每一个子类都重新写了这一方法。  例子 建造房子的流程都是一样的，比如：打地基-&gt;砌砖头-&gt;盖屋顶 但是不同种类的房子，比如茅草房和别墅，在这三个步骤中所要做的具体事情不一样 此时就可以应用模板模式，在接口类（
         </a>
       </p>
 
@@ -479,7 +526,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/19/design-pattern-priciple-classification/" target="_self">
           
-          设计模式的设计原则和分类设计原则1、依赖倒置原则（DIP） 高层模块（稳定）不应该依赖于底层模块（变化），二者都应该依赖于抽象（稳定）。 抽象（稳定）不应该依赖于实现细节（变化），实现细节应该依赖于抽象（稳定）。  2、开放封闭原则（OCP） 对扩展开放，对更改封闭。 类模块应该是可扩展的，但是不可修改。  3、单一职责原则（SRP） 一个类应该仅有一个引起他变化的原因。 变化的方向隐含着类的责任
+          设计模式的设计原则和分类  设计原则  1、依赖倒置原则（DIP）  高层模块（稳定）不应该依赖于底层模块（变化），二者都应该依赖于抽象（稳定）。 抽象（稳定）不应该依赖于实现细节（变化），实现细节应该依赖于抽象（稳定）。   2、开放封闭原则（OCP）  对扩展开放，对更改封闭。 类模块应该是可扩展的，但是不可修改。   3、单一职责原则（SRP）  一个类应该仅有一个引起他变化的原因。 变化
         </a>
       </p>
 
@@ -526,7 +573,7 @@
       <p class="index-excerpt">
         <a href="/2021/11/12/vscode-opencv/" target="_self">
           
-          win10 vscode 加载opencv库从头到尾的配置：1、Visual Studio Code 配置2、openCV 配置3、MinGw 配置4、cmake 配置完整过程参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;zhaiax672&#x2F;article&#x2F;details&#x2F;88971248 如果使用vscode已经可以编译c++程序了，即可以省略掉大部分vscode和的MinGW的配置过程（只
+          win10 vscode 加载opencv库 从头到尾的配置： 1、Visual Studio Code 配置 2、openCV 配置 3、MinGw 配置 4、cmake 配置 完整过程参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;zhaiax672&#x2F;article&#x2F;details&#x2F;88971248 如果使用vscode已经可以编译c++程序了，即可以省略掉大部分vscode和的MinGW
         </a>
       </p>
 
@@ -547,53 +594,6 @@
               <a href="/tags/vscode/">vscode</a>
             
               <a href="/tags/opencv/">opencv</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/11/07/UML/" target="_self">
-          设计模式之类图表示
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/11/07/UML/" target="_self">
-          
-          类图属性一个大矩形里面分三层：  类名 成员名：可见性 名称 ：类型 [ &#x3D; 默认值] 方法名：可见性  名称(参数列表) [ ： 返回类型]  可见性：  +：表示public -：表示private #：表示protected（friendly也归入这类）  类之间关系1、依赖依赖关系使用带箭头的虚线来表示，箭头从使用类指向被依赖的类。 人依赖手机：依赖（Dependency）关系是
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-07 21:13" pubdate>
-              2021-11-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
             
           </div>
         

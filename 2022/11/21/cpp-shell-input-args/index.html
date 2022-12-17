@@ -16,23 +16,20 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="git在线练习平台 https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念  配置文件  全局配置文件 全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git">
+    <meta name="description" content="C++ 可执行文件输入参数  1. getopt_long()函数 使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long  2. 设置参数选项 参数选项的形式可以分为两种，一是 -n, 二是 --name -n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。  2.1 段选项字符串 书写规则：  多个短选项可以连在一起 如果某个要解析的选项">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git_usage">
-<meta property="og:url" content="http://example.com/2021/11/26/git-usage/index.html">
+<meta property="og:title" content="C++和shell脚本的输入参数设置">
+<meta property="og:url" content="http://example.com/2022/11/21/cpp-shell-input-args/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="git在线练习平台 https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念  配置文件  全局配置文件 全局配置文件有~&#x2F;.gitconfig和~&#x2F;.git-credentials两个 ~&#x2F;.gitconfig对应着git config --global命令。 12345678910111213&#x2F;&#x2F;查git config --global --list git">
+<meta property="og:description" content="C++ 可执行文件输入参数  1. getopt_long()函数 使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long  2. 设置参数选项 参数选项的形式可以分为两种，一是 -n, 二是 --name -n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。  2.1 段选项字符串 书写规则：  多个短选项可以连在一起 如果某个要解析的选项">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/6e26501083b945e1a65f2c225387b949.png">
-<meta property="article:published_time" content="2021-11-26T12:35:17.000Z">
-<meta property="article:modified_time" content="2022-05-04T07:09:30.499Z">
+<meta property="article:published_time" content="2022-11-21T07:57:06.000Z">
+<meta property="article:modified_time" content="2022-11-21T08:10:51.598Z">
 <meta property="article:author" content="HansanF">
-<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/6e26501083b945e1a65f2c225387b949.png">
   
   
-  <title>git_usage - HansanF&#39;s Studio</title>
+  <title>C++和shell脚本的输入参数设置 - HansanF&#39;s Studio</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -178,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="git_usage">
+            <span class="h2" id="subtitle" title="C++和shell脚本的输入参数设置">
               
             </span>
 
@@ -188,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-26 20:35" pubdate>
-        November 26, 2021 pm
+      <time datetime="2022-11-21 15:57" pubdate>
+        November 21, 2022 pm
       </time>
     </span>
   
@@ -199,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      742 字
+      694 字
     </span>
   
 
@@ -208,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7 分钟
+      6 分钟
     </span>
   
 
@@ -237,44 +234,38 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">git_usage</h1>
+            <h1 style="display: none">C++和shell脚本的输入参数设置</h1>
             
             <div class="markdown-body">
-              <h3 id="git在线练习平台"><a class="markdownIt-Anchor" href="#git在线练习平台"></a> git在线练习平台</h3>
-<p><a target="_blank" rel="noopener" href="https://learngitbranching.js.org">https://learngitbranching.js.org</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/sp1YUQ2vnQaIGH4tO3j1Vw">git常用命令和基本概念</a></p>
-<h3 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h3>
-<h4 id="全局配置文件"><a class="markdownIt-Anchor" href="#全局配置文件"></a> 全局配置文件</h4>
-<p>全局配置文件有<code>~/.gitconfig</code>和<code>~/.git-credentials</code>两个</p>
-<p><code>~/.gitconfig</code>对应着<code>git config --global</code>命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">//查<br>git config --global --list<br> <br>git config --global user.name<br> <br>//增<br>git config  --global --add user.name fgq<br> <br>//删<br>git config  --global --<span class="hljs-built_in">unset</span> user.name<br> <br>//改<br>git config --global user.name fgq<br></code></pre></td></tr></table></figure>
-<p>比如修改GitHub账号名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config  --global  user.name hansanf<br></code></pre></td></tr></table></figure>
-<p><code>~/.gitconfig</code>文件就会相应的做出修改<br />
-<img src="https://img-blog.csdnimg.cn/6e26501083b945e1a65f2c225387b949.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" /></p>
-<p><code>~/.git-credentials</code>中文是资格证书，里面保存github的token，使每次登陆都可以免密。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">https://GitHub用户名:具体的token@github.com<br></code></pre></td></tr></table></figure>
-<h4 id="局部配置文件"><a class="markdownIt-Anchor" href="#局部配置文件"></a> 局部配置文件</h4>
-<p>在使用 <code>git init 文件目录</code>命令配置的git工作区中，即<code>文件目录/.git/config</code>，是局部配置文件，对应着<code>git config --local</code>命令。</p>
-<p><code>.gitignore</code>也是只对当前工作区起作用，可以把要忽略的文件名填进去，然后Git就会自动忽略这些文件</p>
-<p>示例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 忽略所有.开头的隐藏文件:</span><br>.*<br><span class="hljs-comment"># 忽略所有.class文件:</span><br>*.class<br><br><span class="hljs-comment"># 不忽略.gitignore和App.class:</span><br>!.gitignore<br>!App.class<br></code></pre></td></tr></table></figure>
-<p>参考：<br />
-<a target="_blank" rel="noopener" href="https://blog.csdn.net/themagickeyjianan/article/details/79683980?spm=1001.2014.3001.5506">修改git config配置文件</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Lakers2015/article/details/111990909">Git 中的.gitignore文件的作用及配置</a></p>
+              <h2 id="c-可执行文件输入参数"><a class="markdownIt-Anchor" href="#c-可执行文件输入参数"></a> C++ 可执行文件输入参数</h2>
+<h3 id="1-getopt_long函数"><a class="markdownIt-Anchor" href="#1-getopt_long函数"></a> 1. getopt_long()函数</h3>
+<p>使用手册： <a target="_blank" rel="noopener" href="https://linux.die.net/man/3/getopt_long">https://linux.die.net/man/3/getopt_long</a></p>
+<h3 id="2-设置参数选项"><a class="markdownIt-Anchor" href="#2-设置参数选项"></a> 2. 设置参数选项</h3>
+<p>参数选项的形式可以分为两种，一是 -n, 二是 --name</p>
+<p>-n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。</p>
+<h4 id="21-段选项字符串"><a class="markdownIt-Anchor" href="#21-段选项字符串"></a> 2.1 段选项字符串</h4>
+<p>书写规则：</p>
+<ul>
+<li>多个短选项可以连在一起</li>
+<li>如果某个要解析的选项需要一个参数，则在选项名后面跟一个冒号</li>
+<li>如果某个要解析的选项的参数可选，则在选项名后面跟两个冒号</li>
+</ul>
+<p>一般如这种形式:<br />
+<code>const char* short_options = &quot;hx:t:c:&quot;</code><br />
+该字符串解释为：</p>
+<div class="code-wrapper"><pre><code class="hljs">-h 
 
+-t t_arg
+
+-c c_arg
+</code></pre></div>
+<p>细心的话为发现多了h后面还有一个x:没有被说明，因为h(help)后面不需要接参数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">char</span>* short_options = <span class="hljs-string">&quot;hx:n:h:&quot;</span>;    <span class="hljs-comment">// 带参数的，要使用的命令，需要在这里声明</span><br><span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">option</span> long_options[] = &#123;<br>        &#123;<span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;h&#x27;</span>&#125;,<br>        &#123;<span class="hljs-string">&quot;decode&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;d&#x27;</span>&#125;,<br>        &#123;<span class="hljs-string">&quot;encode&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;e&#x27;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;output&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;o&#x27;</span>&#125;,<br>        &#123;<span class="hljs-literal">nullptr</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">nullptr</span>, <span class="hljs-number">0</span>&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/git/">git</a>
-                    
-                  </div>
                 
               </div>
               
@@ -289,18 +280,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/04/test-in-mac/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">test_in_mac</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/25/linux-environment-path/">
-                        <span class="hidden-mobile">环境变量</span>
+                      <a href="/2022/09/02/ffmpeg-usage/">
+                        <span class="hidden-mobile">ffmpeg-usage</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

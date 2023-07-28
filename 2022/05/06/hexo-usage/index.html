@@ -24,7 +24,7 @@
 <meta property="og:description" content="部署hexo环境 首先安装node.js和Git12345brew install node.jsbrew install git#查看安装的版本node -vgit --version 安装hexo1npm install -g hexo-cli 创建博客目录，初始化123mkdir blogcd bloghexo init  移植到另一台电脑 备份好原来的 blog 目录 &#x3D;&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-06T02:23:53.000Z">
-<meta property="article:modified_time" content="2023-07-28T18:11:51.910Z">
+<meta property="article:modified_time" content="2023-07-28T18:22:32.254Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="github">
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      348 字
+      485 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      5 分钟
     </span>
   
 
@@ -247,9 +247,12 @@
 <h3 id="移植到另一台电脑"><a href="#移植到另一台电脑" class="headerlink" title="移植到另一台电脑"></a>移植到另一台电脑</h3><ol>
 <li>备份好原来的 blog 目录 &#x3D;&gt; old_blog</li>
 <li>新电脑配置好 hexo 环境，并新建好blog 目录 &#x3D;&gt; new_blog</li>
-<li>将 old_blog 目录下的 _conifg.yml、source、和themes 复制到 new_blog 目录</li>
+<li>将 old_blog 目录下的 _conifg.yml、source、和themes 复制到 new_blog 目录<br>Note：可以将blog 目录直接备份在github repo 中，可以很方便的进行移植。</li>
+<li>验证本地版本是否可用：<code>hexo g; hexo s</code>  </li>
+<li>此时还不能远程推送到git repo, 需要安装hexo-deployer-git插件<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm install hexo-deployer-git <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure></li>
+<li>如果是ssh 方式登录github 需要上传新电脑公钥到github</li>
+<li>Work Done</li>
 </ol>
-<p>Note：可以将blog 目录直接备份在github repo 中，可以很方便的进行移植。</p>
 <h3 id="hexo集成到docker镜像"><a href="#hexo集成到docker镜像" class="headerlink" title="hexo集成到docker镜像"></a>hexo集成到docker镜像</h3><p><a target="_blank" rel="noopener" href="https://gitee.com/LakeVilladom/docker-hexo">docker-hexo</a></p>
 
             </div>

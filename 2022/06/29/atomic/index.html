@@ -19,7 +19,7 @@
     <meta name="description" content="内存模型内存模型：指令执行顺序的模型 现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。 指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。 内存模型详细介绍：  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;24301047  https">
 <meta property="og:type" content="article">
 <meta property="og:title" content="atomic">
-<meta property="og:url" content="http://example.com/2022/06/29/atomic/index.html">
+<meta property="og:url" content="http://hansanf.space/2022/06/29/atomic/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
 <meta property="og:description" content="内存模型内存模型：指令执行顺序的模型 现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。 指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。 内存模型详细介绍：  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;24301047  https">
 <meta property="og:locale" content="en_US">
@@ -68,7 +68,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"hansanf.space","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>

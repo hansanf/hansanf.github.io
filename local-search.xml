@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>core_file</title>
+    <link href="/2023/07/29/core-file/"/>
+    <url>/2023/07/29/core-file/</url>
+    
+    <content type="html"><![CDATA[<p>【core 文件设置】<br>11&#x2F;100<br>发布文章<br>weixin_39488566<br>未选择任何文件<br>new</p><h3 id="core-文件设置"><a href="#core-文件设置" class="headerlink" title="core 文件设置"></a>core 文件设置</h3><h3 id="常规core文件设置"><a href="#常规core文件设置" class="headerlink" title="常规core文件设置"></a>常规core文件设置</h3><h4 id="core-文件大小"><a href="#core-文件大小" class="headerlink" title="core 文件大小"></a>core 文件大小</h4><p> 查看：ulimit -c<br> 临时设置： ulimit -c unlimited （当前终端有效）</p><h4 id="修改core文件路径"><a href="#修改core文件路径" class="headerlink" title="修改core文件路径"></a>修改core文件路径</h4><ol><li>临时修改（重启后失效）<br>修改 <code>/proc/sys/kernel/core_pattern</code></li></ol><figure class="highlight awk"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs awk">echo <span class="hljs-string">&#x27;/corefile/core_%e.%p&#x27;</span> | sudo tee <span class="hljs-regexp">/proc/</span>sys<span class="hljs-regexp">/kernel/</span>core_pattern<br></code></pre></td></tr></table></figure><ol start="2"><li>永久生效<br>修改 <code>/etc/sysctl.conf </code>, 在其中加入两行<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">kernel.core_pattern</span>=/corefile/core_%e.%p<br><span class="hljs-attr">kernel.core_uses_pid</span>=<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>kernel.core_uses_pid 表示在core 文件结尾不加 pid，因为已经有了%p，所以不需要再添加<br>执行<code>sudo sysctl -p /etc/sysctl.conf</code>, 使修改生效。</li></ol><h3 id="apport-core-文件"><a href="#apport-core-文件" class="headerlink" title="apport core 文件"></a>apport core 文件</h3><p>在 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 文件中写入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">|/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E<br></code></pre></td></tr></table></figure><p>安装好apport 后可以通过apport对core 进行收集，core文件保存在&#x2F;var&#x2F;lib&#x2F;apport&#x2F;coredump&#x2F; 目录下 （应该可以设置，没找到在哪设置的）</p><p>注：<br>Apport 并不直接用于分析 core 文件。它主要用于收集和报告应用程序崩溃信息，并将其提交给开发人员或错误报告系统。<br>使用 Apport 收集 core 文件有以下优点：</p><ol><li><p>自动收集和报告：Apport 可以自动捕获应用程序的崩溃信息，并生成相应的崩溃报告。这样，你无需手动分析 core 文件，而是可以直接获得一个包含崩溃信息的报告。</p></li><li><p>附带环境信息：Apport 的崩溃报告通常会包含应用程序崩溃时的环境信息，如操作系统版本、软件包版本、硬件信息等。这些信息对于开发人员来说是非常有用的，可以帮助他们更好地理解和重现崩溃问题。</p></li><li><p>易于提交和跟踪：Apport 默认会将崩溃报告上传到错误报告系统（如 Launchpad），使开发人员能够轻松地接收和跟踪报告。这样，开发人员可以更快地了解和解决崩溃问题。</p></li><li><p>用户友好：Apport 的崩溃报告通常以用户友好的方式呈现，包含易于理解的错误消息、堆栈跟踪和其他相关信息。这使得用户能够更好地理解崩溃问题，并提供有用的反馈。</p></li></ol><h3 id="调试代码"><a href="#调试代码" class="headerlink" title="调试代码"></a>调试代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>*(<span class="hljs-type">int</span> *)<span class="hljs-number">0</span> = <span class="hljs-number">8</span>;<br><br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><p>core 文件设置<br>常规core文件设置<br>core 文件大小<br>查看：ulimit -c<br>临时设置： ulimit -c unlimited （当前终端有效）</p><p>修改core文件路径<br>临时修改（重启后失效）<br>修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern<br>echo ‘&#x2F;corefile&#x2F;core_%e.%p’ | sudo tee &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern<br>永久生效<br>修改 &#x2F;etc&#x2F;sysctl.conf , 在其中加入两行<br>kernel.core_pattern&#x3D;&#x2F;corefile&#x2F;core_%e.%p<br>kernel.core_uses_pid&#x3D;0<br>kernel.core_uses_pid 表示在core 文件结尾不加 pid，因为已经有了%p，所以不需要再添加<br>执行sudo sysctl -p &#x2F;etc&#x2F;sysctl.conf, 使修改生效。</p><p>apport core 文件<br>在 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 文件中写入</p><p>|&#x2F;usr&#x2F;share&#x2F;apport&#x2F;apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g – %E<br>安装好apport 后可以通过apport对core 进行收集，core文件保存在&#x2F;var&#x2F;lib&#x2F;apport&#x2F;coredump&#x2F; 目录下 （应该可以设置，没找到在哪设置的）</p><p>注：<br>Apport 并不直接用于分析 core 文件。它主要用于收集和报告应用程序崩溃信息，并将其提交给开发人员或错误报告系统。<br>使用 Apport 收集 core 文件有以下优点：</p><p>自动收集和报告：Apport 可以自动捕获应用程序的崩溃信息，并生成相应的崩溃报告。这样，你无需手动分析 core 文件，而是可以直接获得一个包含崩溃信息的报告。</p><p>附带环境信息：Apport 的崩溃报告通常会包含应用程序崩溃时的环境信息，如操作系统版本、软件包版本、硬件信息等。这些信息对于开发人员来说是非常有用的，可以帮助他们更好地理解和重现崩溃问题。</p><p>易于提交和跟踪：Apport 默认会将崩溃报告上传到错误报告系统（如 Launchpad），使开发人员能够轻松地接收和跟踪报告。这样，开发人员可以更快地了解和解决崩溃问题。</p><p>用户友好：Apport 的崩溃报告通常以用户友好的方式呈现，包含易于理解的错误消息、堆栈跟踪和其他相关信息。这使得用户能够更好地理解崩溃问题，并提供有用的反馈。</p><p>调试代码<br>int main(void)<br>{<br>    *(int *)0 &#x3D; 8;</p><p>return 0;<br>}<br>Markdown 1089 字数 49 行数 当前行 27, 当前列 0HTML 1008 字数 32 段落<br>文章发布成功</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>core dump</tag>
+      
+      <tag>core file</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>template_meta_program</title>
     <link href="/2023/02/14/template-meta-program/"/>
     <url>/2023/02/14/template-meta-program/</url>
@@ -268,7 +289,7 @@
     <link href="/2022/07/19/gcc-so-include/"/>
     <url>/2022/07/19/gcc-so-include/</url>
     
-    <content type="html"><![CDATA[<h3 id="libgcc-s-so-1是什么"><a href="#libgcc-s-so-1是什么" class="headerlink" title="libgcc_s.so.1是什么"></a>libgcc_s.so.1是什么</h3><p><a href="https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html">The GCC low-level runtime library</a></p><p>会在有需要的时候自动启动的C 运行时库，可以替代某些机器完成整数、浮点运算，还有一些其他的功能。</p><h3 id="运行时库"><a href="#运行时库" class="headerlink" title="运行时库"></a>运行时库</h3><p>应用程序和操作系统之间的桥梁，对操作系统硬件的抽象，包括对IO 操作、程序启动和程序退出、栈等的实现。不同的操作系统对应不同的运行时库，但提供的接口基本一致，比如windows 和linux 的运行时库，都提供fread 功能，但是其实现应该是不一样的，fread 就包括在运行时库中。</p><h3 id="编译参数顺序"><a href="#编译参数顺序" class="headerlink" title="编译参数顺序"></a>编译参数顺序</h3><p>LINKFLAGS_AFTER_LIBS(False)决定cxxflags、ldflags（编译参数和链接参数）是放在库前还是库后，对cmake 和bcloud 而言有用，对gcc 而言没有所谓这些参数之分，都是编译参数，链接的库名也都是编译参数，但是编译参数之间的顺序可能会影响能否编译成功</p><h3 id="libc-so"><a href="#libc-so" class="headerlink" title="libc.so"></a>libc.so</h3><p>&#x2F;usr&#x2F;lib&#x2F;aarch64-linux-gnu&#x2F;libc.so 是个链接脚本，表示在链接时去链哪个库，可以根据需要选择动态库还是静态库</p><h3 id="符号集版本"><a href="#符号集版本" class="headerlink" title="符号集版本"></a>符号集版本</h3><p><a href="mailto:&#102;&#117;&#x6e;&#x63;&#64;&#x47;&#76;&#73;&#x42;&#x43;&#x5f;&#x32;&#46;&#x33;&#x31;">&#102;&#117;&#x6e;&#x63;&#64;&#x47;&#76;&#73;&#x42;&#x43;&#x5f;&#x32;&#46;&#x33;&#x31;</a> </p><p>GLIBC_2.31表示符号集版本，向下兼容，即如果需要<a href="mailto:&#102;&#x75;&#110;&#x63;&#x40;&#71;&#76;&#73;&#x42;&#x43;&#x5f;&#50;&#x2e;&#50;&#57;">&#102;&#x75;&#110;&#x63;&#x40;&#71;&#76;&#73;&#x42;&#x43;&#x5f;&#50;&#x2e;&#50;&#57;</a>时也没问题</p><h3 id="强符号和若符号"><a href="#强符号和若符号" class="headerlink" title="强符号和若符号"></a>强符号和若符号</h3><p>符号表中的 STRONG 和 WEAK</p><p>强符号：全局且初始化的参数和默认的函数，都属于强符号，强符号全局只能唯一，找不到直接报 undefined  reference</p><p>弱符号：全局且未初始化的参数，也可以在代码中来指定。弱符号在链接时候找不到可以暂时用0地址代替，链接时不会报 undefined，作为插件接口或用户自定义接口使用更加方便。</p><h3 id="gcc-安装"><a href="#gcc-安装" class="headerlink" title="gcc 安装"></a>gcc 安装</h3><p><a href="https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?_wkts_=1676342805235">https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?_wkts_=1676342805235</a></p><p>wget <a href="https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0">https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0</a></p><p>Note: gcc 安装后 c 和 c++ 的标准库还是原来的版本</p><h3 id="添加系统头文件搜索路径"><a href="#添加系统头文件搜索路径" class="headerlink" title="添加系统头文件搜索路径"></a>添加系统头文件搜索路径</h3><p><a href="https://blog.csdn.net/yjk13703623757/article/details/83154578">https://blog.csdn.net/yjk13703623757/article/details/83154578</a></p><p>gcc的环境变量CPLUS_INCLUDE_PATH（C程序使用的是C_INCLUDE_PATH）</p><h3 id="gcc-低版本问题"><a href="#gcc-低版本问题" class="headerlink" title="gcc 低版本问题"></a>gcc 低版本问题</h3><p> gcc4 gcc5 不支持直接使用enum 作为map 的键指，需要自己指定hash 方法。</p>]]></content>
+    <content type="html"><![CDATA[<h3 id="libgcc-s-so-1是什么"><a href="#libgcc-s-so-1是什么" class="headerlink" title="libgcc_s.so.1是什么"></a>libgcc_s.so.1是什么</h3><p><a href="https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html">The GCC low-level runtime library</a></p><p>会在有需要的时候自动启动的C 运行时库，可以替代某些机器完成整数、浮点运算，还有一些其他的功能。</p><h3 id="运行时库"><a href="#运行时库" class="headerlink" title="运行时库"></a>运行时库</h3><p>应用程序和操作系统之间的桥梁，对操作系统硬件的抽象，包括对IO 操作、程序启动和程序退出、栈等的实现。不同的操作系统对应不同的运行时库，但提供的接口基本一致，比如windows 和linux 的运行时库，都提供fread 功能，但是其实现应该是不一样的，fread 就包括在运行时库中。</p><h3 id="编译参数顺序"><a href="#编译参数顺序" class="headerlink" title="编译参数顺序"></a>编译参数顺序</h3><p>LINKFLAGS_AFTER_LIBS(False)决定cxxflags、ldflags（编译参数和链接参数）是放在库前还是库后，对cmake 和bcloud 而言有用，对gcc 而言没有所谓这些参数之分，都是编译参数，链接的库名也都是编译参数，但是编译参数之间的顺序可能会影响能否编译成功</p><h3 id="libc-so"><a href="#libc-so" class="headerlink" title="libc.so"></a>libc.so</h3><p>&#x2F;usr&#x2F;lib&#x2F;aarch64-linux-gnu&#x2F;libc.so 是个链接脚本，表示在链接时去链哪个库，可以根据需要选择动态库还是静态库</p><h3 id="符号集版本"><a href="#符号集版本" class="headerlink" title="符号集版本"></a>符号集版本</h3><p><a href="mailto:&#x66;&#x75;&#110;&#99;&#x40;&#x47;&#x4c;&#73;&#66;&#67;&#95;&#50;&#x2e;&#51;&#49;">&#x66;&#x75;&#110;&#99;&#x40;&#x47;&#x4c;&#73;&#66;&#67;&#95;&#50;&#x2e;&#51;&#49;</a> </p><p>GLIBC_2.31表示符号集版本，向下兼容，即如果需要<a href="mailto:&#102;&#117;&#x6e;&#x63;&#x40;&#x47;&#x4c;&#73;&#66;&#x43;&#x5f;&#x32;&#x2e;&#x32;&#x39;">&#102;&#117;&#x6e;&#x63;&#x40;&#x47;&#x4c;&#73;&#66;&#x43;&#x5f;&#x32;&#x2e;&#x32;&#x39;</a>时也没问题</p><h3 id="强符号和若符号"><a href="#强符号和若符号" class="headerlink" title="强符号和若符号"></a>强符号和若符号</h3><p>符号表中的 STRONG 和 WEAK</p><p>强符号：全局且初始化的参数和默认的函数，都属于强符号，强符号全局只能唯一，找不到直接报 undefined  reference</p><p>弱符号：全局且未初始化的参数，也可以在代码中来指定。弱符号在链接时候找不到可以暂时用0地址代替，链接时不会报 undefined，作为插件接口或用户自定义接口使用更加方便。</p><h3 id="gcc-安装"><a href="#gcc-安装" class="headerlink" title="gcc 安装"></a>gcc 安装</h3><p><a href="https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?_wkts_=1676342805235">https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?_wkts_=1676342805235</a></p><p>wget <a href="https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0">https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0</a></p><p>Note: gcc 安装后 c 和 c++ 的标准库还是原来的版本</p><h3 id="添加系统头文件搜索路径"><a href="#添加系统头文件搜索路径" class="headerlink" title="添加系统头文件搜索路径"></a>添加系统头文件搜索路径</h3><p><a href="https://blog.csdn.net/yjk13703623757/article/details/83154578">https://blog.csdn.net/yjk13703623757/article/details/83154578</a></p><p>gcc的环境变量CPLUS_INCLUDE_PATH（C程序使用的是C_INCLUDE_PATH）</p><h3 id="gcc-低版本问题"><a href="#gcc-低版本问题" class="headerlink" title="gcc 低版本问题"></a>gcc 低版本问题</h3><p> gcc4 gcc5 不支持直接使用enum 作为map 的键指，需要自己指定hash 方法。</p>]]></content>
     
     
     
@@ -504,9 +525,9 @@
     
     <tags>
       
-      <tag>hexo</tag>
-      
       <tag>github</tag>
+      
+      <tag>hexo</tag>
       
     </tags>
     
@@ -563,11 +584,11 @@
     
     <tags>
       
-      <tag>github</tag>
-      
       <tag>git</tag>
       
       <tag>ssh</tag>
+      
+      <tag>github</tag>
       
     </tags>
     

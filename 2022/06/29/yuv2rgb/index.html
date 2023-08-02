@@ -71,7 +71,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -241,6 +241,12 @@
             <!-- SEO header -->
             <h1 style="display: none">yuv2rgb</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：5 days ago
+                
+              </p>
+            
             <div class="markdown-body">
               <h1 id="YUV详解"><a href="#YUV详解" class="headerlink" title="YUV详解"></a>YUV详解</h1><h3 id="YUV分类"><a href="#YUV分类" class="headerlink" title="YUV分类"></a>YUV分类</h3><h5 id="1、按采样方式分类"><a href="#1、按采样方式分类" class="headerlink" title="1、按采样方式分类"></a>1、按采样方式分类</h5><p>   （1） YUV444: 全量UV，类似于RGB，每个像素点都有一套自己的YUV<br><img src="https://img-blog.csdnimg.cn/000b2132c524457583a034fcb2bd787c.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>   （2） YUV422: 50%的UV，与全量相比，UV数量减少一半，每行中由 2 个 Y 分量共用一套 UV 分量。<br><img src="https://img-blog.csdnimg.cn/eea18cfb6599473aab6374a6cc7b1fc2.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
 <p>（3）YUV420: 25%的UV， UV的数量减少到1&#x2F;4，每行两个Y、每列两个Y，共由 4 个 Y 分量共用一套 UV 分量。<img src="https://img-blog.csdnimg.cn/e01002399f09464e8916f4421fa5e8c0.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
@@ -296,6 +302,15 @@
               
             </div>
 
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
             
           </article>
         </div>

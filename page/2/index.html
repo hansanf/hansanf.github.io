@@ -191,6 +191,39 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/02/13/bug-record/" target="_self">
+          bug_record
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/13/bug-record/" target="_self">
+          
+          编译问题linux 环境问题问题描述： 程序有许多printf 时，使用管道符或重定向到文件均比直接打印到标准输出的性能要好 原因: https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lhfcws&#x2F;p&#x2F;3197735.html Console 会给多个进程共享，因此对console操作时会存在进程同步和缓存问题。 ssh远程连接没有该问题，只有在本地运行才有
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-13 14:42" pubdate>
+              2023-02-13
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/11/21/cpp-shell-input-args/" target="_self">
           C++和shell脚本的输入参数设置
         </a>
@@ -538,46 +571,6 @@
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/06/cpp-mutable/" target="_self">
-          cpp_mutable
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/06/cpp-mutable/" target="_self">
-          
-          mutable 关键字mutabel 介绍 为什么std::mutex 前通常用mutable 修饰在const成员函数中，对mutex的加锁和释放锁操作会违背const的不可变语义，所以，只能将mutex定义为mutable，从而可以在const修饰的函数中加锁，实现线程安全。 123456789101112131415161718192021222324#include &lt;mutex&amp;g
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-06 20:11" pubdate>
-              2022-07-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/CPP/">CPP</a>
-            
-          </div>
         
       </div>
     </article>

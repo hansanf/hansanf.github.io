@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://qn.save.hansanf.space//qiniu_cname.png">
 <meta property="og:image" content="http://qn.save.hansanf.space/qn_input_parse_domain_name.png">
 <meta property="article:published_time" content="2023-08-02T13:11:09.000Z">
-<meta property="article:modified_time" content="2023-08-02T15:42:08.872Z">
+<meta property="article:modified_time" content="2023-08-02T15:50:01.353Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="图床">
 <meta property="article:tag" content="域名">
@@ -282,7 +282,8 @@
 <p>在计算机网络中，CNAME是Canonical Name的缩写，即规范名。CNAME是DNS（Domain Name System）中的一种资源记录类型，用于建立域名的别名关系。</p>
 <p>通常，一个域名可以有多个资源记录类型，例如A记录（指向IPv4地址）、AAAA记录（指向IPv6地址）、MX记录（指向邮件服务器）、TXT记录（用于存储任意文本信息）等。而CNAME记录允许将一个域名指向另一个域名，而不是直接指向IP地址。</p>
 <p>举个例子，假设有两个域名：</p>
-<p><a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> - 一个网站的主要域名，其A记录指向服务器的IPv4地址。<br><a target="_blank" rel="noopener" href="http://www.example.net/">www.example.net</a> - 另一个域名，希望将其指向和访问<a target="_blank" rel="noopener" href="http://www.example.com相同的内容./">www.example.com相同的内容。</a><br>这时候，可以在<a target="_blank" rel="noopener" href="http://www.example.net的dns配置中添加一个cname记录,将它指向www.example.com.这样,当用户访问www.example.net时,dns服务器会解析cname记录并将其转换为www.example.com,然后再查找www.example.com的a记录,最终将用户重定向到服务器的ipv4地址./">www.example.net的DNS配置中添加一个CNAME记录，将它指向www.example.com。这样，当用户访问www.example.net时，DNS服务器会解析CNAME记录并将其转换为www.example.com，然后再查找www.example.com的A记录，最终将用户重定向到服务器的IPv4地址。</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> - 一个网站的主要域名，其A记录指向服务器的IPv4地址。<br><a target="_blank" rel="noopener" href="http://www.example.net/">www.example.net</a> - 另一个域名，希望将其指向和访问<a target="_blank" rel="noopener" href="http://www.example.com相同的内容./">www.example.com相同的内容。</a>   </p>
+<p>这时候，可以在<a target="_blank" rel="noopener" href="http://www.example.net/">www.example.net</a> 的DNS配置中添加一个CNAME记录，将它指向<a target="_blank" rel="noopener" href="http://www.example.com./">www.example.com。</a>  这样，当用户访问<a target="_blank" rel="noopener" href="http://www.example.net时,/">www.example.net时，</a> DNS服务器会解析CNAME记录并将其转换为<a target="_blank" rel="noopener" href="http://www.example.com,/">www.example.com，</a> 然后再查找<a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a>  的A记录，最终将用户重定向到服务器的IPv4地址。</p>
 <p>CNAME记录有一些限制和注意事项，例如不能在CNAME记录和其他记录（如MX记录、NS记录）之间共存。同时，CNAME记录的使用也可能会导致额外的DNS查询，稍微增加一些延迟，因为它需要进一步解析其他域名。因此，在使用CNAME记录时，需要仔细考虑其适用场景和潜在影响。</p>
 <ol start="2">
 <li>什么是cdn</li>

@@ -237,12 +237,6 @@
             <!-- SEO header -->
             <h1 style="display: none">GLOG_usage</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：6 days ago
-                
-              </p>
-            
             <div class="markdown-body">
               <figure class="highlight reasonml"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><pre><code class="hljs reasonml">头文件包含：<br>#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;glog/logging.h&quot;</span>   <span class="hljs-comment">// 添加头文件</span><br><br>初始化：<br>FLAGS_log_dir = <span class="hljs-string">&quot;./&quot;</span>;  <span class="hljs-comment">// 指定地址log文件路径，默认是在/tmp/</span><br>google::<span class="hljs-constructor">InitGoogleLogging(<span class="hljs-params">argv</span>[0])</span>;   <span class="hljs-comment">// 设置log文件名称，argv[0].INFO</span><br><br>记录信息：<br><span class="hljs-constructor">LOG(WARNING)</span> &lt;&lt; <span class="hljs-string">&quot;WARNING: this is a test for glog&quot;</span>; <br><span class="hljs-constructor">LOG(INFO)</span> &lt;&lt; <span class="hljs-string">&quot;INFO: this is a test for glog&quot;</span>;<br></code></pre></td></tr></table></figure>
 

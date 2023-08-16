@@ -237,12 +237,6 @@
             <!-- SEO header -->
             <h1 style="display: none">环境变量</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：6 days ago
-                
-              </p>
-            
             <div class="markdown-body">
               <h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="三个文件"><a href="#三个文件" class="headerlink" title="三个文件"></a>三个文件</h3><h4 id="1-etc-profile"><a href="#1-etc-profile" class="headerlink" title="1. /etc/profile"></a>1. <code>/etc/profile</code></h4><p>系统级别，可以所有用户起作用，网上有说是在用户登录时读取的。但在我电脑上使用<code>source /etc/profile</code>后只在当前终端起作用，新建终端仍不生效，为了以后在每个终端上都生效可以在<code>~/.bashrc</code>中添加<code>source /etc/profile</code>。<br>注意<code>~/.bashrc</code>和<code>/etc/profile</code>中还包括对终端其他方面的设置，比如显示格式、颜色</p>
 <h4 id="2-etc-environment"><a href="#2-etc-environment" class="headerlink" title="2. /etc/environment"></a>2. <code>/etc/environment</code></h4><p>系统级别，应该是专门用于设置环境变量的，据说优先级高于<code>/etc/profile</code>，没验证过。</p>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="perfperf 安装https:&#x2F;&#x2F;xiaoyanzhuo.github.io&#x2F;2019&#x2F;01&#x2F;18&#x2F;Perf-Tool.html 12$sudo apt-get update$sudo apt-get install linux-tools-common linux-tools-generic linux-tools-&#96;uname -r&#96; orin上安装下载 JP-x.x.x Driver P">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-08-30T09:53:43.000Z">
-<meta property="article:modified_time" content="2023-07-28T17:54:40.369Z">
+<meta property="article:modified_time" content="2023-08-04T02:35:49.595Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="nsight">
 <meta property="article:tag" content="nsys">
@@ -200,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      949 字
+      1.2k 字
     </span>
   
 
@@ -209,7 +209,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      11 分钟
     </span>
   
 
@@ -240,12 +240,6 @@
             <!-- SEO header -->
             <h1 style="display: none">performace-test</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：6 days ago
-                
-              </p>
-            
             <div class="markdown-body">
               <h3 id="perf"><a href="#perf" class="headerlink" title="perf"></a>perf</h3><h4 id="perf-安装"><a href="#perf-安装" class="headerlink" title="perf 安装"></a>perf 安装</h4><p><a target="_blank" rel="noopener" href="https://xiaoyanzhuo.github.io/2019/01/18/Perf-Tool.html">https://xiaoyanzhuo.github.io/2019/01/18/Perf-Tool.html</a></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> update<br><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install linux-tools-common linux-tools-generic linux-tools-`uname -r`<br></code></pre></td></tr></table></figure>
@@ -253,11 +247,13 @@
 <p>执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">复制压缩包到orin<br><span class="hljs-built_in">cd</span>到 kernel/kernel-4.9/tools/perf<br>make<br>./perf --version<br></code></pre></td></tr></table></figure>
 
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>基础教程：<a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/monitoring_and_managing_system_status_and_performance/common-perf-commands_getting-started-with-perf">https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/monitoring_and_managing_system_status_and_performance/common-perf-commands_getting-started-with-perf</a></p>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><p>基础教程：<a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/monitoring_and_managing_system_status_and_performance/common-perf-commands_getting-started-with-perf">https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/monitoring_and_managing_system_status_and_performance/common-perf-commands_getting-started-with-perf</a></p>
 <p>用 perf 监控相关指标，生成报告，然后可以将报告用 <a target="_blank" rel="noopener" href="https://profiler.firefox.com/">https://profiler.firefox.com/</a> 进行查看</p>
 <p>步骤：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-number">1</span>、sudo perf record -e cpu-<span class="hljs-keyword">clock </span>-g -p PID<br><span class="hljs-number">2</span>、perf <span class="hljs-keyword">script </span>-i perf<span class="hljs-meta">.data</span> &amp;&gt; perf.unfold<br></code></pre></td></tr></table></figure>
-<p>然后将 .unfold 文件在 profiler.firefox.com 网站上打开</p>
+<p>然后将 .unfold 文件在 profiler.firefox.com or speedscope.app 网站上打开</p>
+<h5 id="Flame-Graph生成火焰图"><a href="#Flame-Graph生成火焰图" class="headerlink" title="Flame Graph生成火焰图"></a>Flame Graph生成火焰图</h5><p>Flame Graph项目位于GitHub上：<br><a target="_blank" rel="noopener" href="https://github.com/brendangregg/FlameGraph">https://github.com/brendangregg/FlameGraph</a></p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/brendangregg/FlameGraph.git">https://github.com/brendangregg/FlameGraph.git</a><br>.&#x2F;FlameGraph&#x2F;stackcollapse-perf.pl perf.unfold &amp;&gt; perf.folded<br>.&#x2F;FlameGraph&#x2F;flamegraph.pl perf.folded &gt; perf.svg</p>
 <h3 id="nvidia-system"><a href="#nvidia-system" class="headerlink" title="nvidia-system"></a>nvidia-system</h3><p>orin上</p>
 <p>&#x2F;opt&#x2F;nvidia&#x2F;nsight-systems&#x2F;2022.3.3&#x2F;target-linux-tegra-armv8&#x2F;nsys profile -y 60 -d 20 –gpuctxsw&#x3D;true -o out_file mainboard -d .&#x2F;dag&#x2F;test.dag</p>
 <p>程序开始运行60s后,记录20s.然后core dump 生成记录报告out_file</p>
@@ -296,7 +292,7 @@
                     
                       <a href="/2022/09/02/ffmpeg-usage/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ffmpeg-usage</span>
+                        <span class="hidden-mobile">ffmpeg usage</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     

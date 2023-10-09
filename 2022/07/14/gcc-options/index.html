@@ -16,15 +16,15 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="gcc 的编译选项gcc官方手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F; 7.5手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;#toc-GCC-Command-Options 链接选项：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;Link-Options.html#Link-Op">
+    <meta name="description" content="gcc 的编译选项 gcc官方手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F; 7.5手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;#toc-GCC-Command-Options 链接选项：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;Link-Options.html#Link-O">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gcc-options">
 <meta property="og:url" content="http://example.com/2022/07/14/gcc-options/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="gcc 的编译选项gcc官方手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F; 7.5手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;#toc-GCC-Command-Options 链接选项：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;Link-Options.html#Link-Op">
+<meta property="og:description" content="gcc 的编译选项 gcc官方手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F; 7.5手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;#toc-GCC-Command-Options 链接选项：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;Link-Options.html#Link-O">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-14T06:11:09.000Z">
-<meta property="article:modified_time" content="2023-07-28T17:54:40.369Z">
+<meta property="article:modified_time" content="2023-09-26T07:47:24.889Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="gcc">
 <meta name="twitter:card" content="summary_large_image">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      478 字
+      1.1k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4 分钟
+      10 分钟
     </span>
   
 
@@ -238,13 +238,41 @@
             <h1 style="display: none">gcc-options</h1>
             
             <div class="markdown-body">
-              <h3 id="gcc-的编译选项"><a href="#gcc-的编译选项" class="headerlink" title="gcc 的编译选项"></a>gcc 的编译选项</h3><p>gcc官方手册：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/">https://gcc.gnu.org/onlinedocs/</a></p>
-<p>7.5手册：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/#toc-GCC-Command-Options">https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/#toc-GCC-Command-Options</a></p>
-<p>链接选项：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/Link-Options.html#Link-Options">https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/Link-Options.html#Link-Options</a></p>
-<h4 id="fPIC-和-fPIE"><a href="#fPIC-和-fPIE" class="headerlink" title="-fPIC 和-fPIE"></a>-fPIC 和-fPIE</h4><p>-fPIC 用在动态库的编译，产生位置无关的代码</p>
+              <h3 id="gcc-的编译选项">gcc 的编译选项</h3>
+<p>gcc官方手册：https://gcc.gnu.org/onlinedocs/</p>
+<p>7.5手册：https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/#toc-GCC-Command-Options</p>
+<p>链接选项：https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/Link-Options.html#Link-Options</p>
+<h4 id="fpic-和-fpie">-fPIC 和-fPIE</h4>
+<p>-fPIC 用在动态库的编译，产生位置无关的代码</p>
 <p>-fPIE 用在可执行程序的编译</p>
-<p>两者在效果上一样，都是把代码中的逻辑地址转为相对地址，但是作用上不一样。<br>-fPIC一般是动态库编译必须设置的，因为可能在链接时，多个模块之间的重定向可能会出现冲突。而-fPIE在可执行程序的编译中可加可不加，其将绝对地址转为相对地址，在一定程度上提高了安全性，另外相对寻址的方式可能会让程序在启动速度慢一点。</p>
-<p>PIE 详解：<a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/position-independent-executables-pie">https://www.redhat.com/en/blog/position-independent-executables-pie</a></p>
+<p>两者在效果上一样，都是把代码中的逻辑地址转为相对地址，但是作用上不一样。
+-fPIC一般是动态库编译必须设置的，因为可能在链接时，多个模块之间的重定向可能会出现冲突。而-fPIE在可执行程序的编译中可加可不加，其将绝对地址转为相对地址，在一定程度上提高了安全性，另外相对寻址的方式可能会让程序在启动速度慢一点。</p>
+<p>PIE
+详解：https://www.redhat.com/en/blog/position-independent-executables-pie</p>
+<h4 id="l-rpath和-rpath-link的区别">-L、-rpath和-rpath-link的区别</h4>
+<p>-L 选项： -L 选项用于指定链接器在链接程序时查找库文件的路径。
+它告诉链接器在指定的路径中搜索库文件，以解析程序中的库依赖关系。
+通常，您可以使用 -L
+来指定非标准库目录，以便链接器能够找到您自己编译或第三方库的位置。
+示例：-L/path/to/custom/libraries</p>
+<p>-rpath 选项： -rpath
+选项用于在可执行文件中嵌入运行时库的搜索路径。<br />
+它允许您指定在程序运行时查找共享库的路径，而不仅仅是在链接时。<br />
+运行时，程序将在指定的路径中搜索共享库，以满足依赖关系。<br />
+示例：-Wl,-rpath,/path/to/runtime/libs</p>
+<p>-rpath-link 选项：<br />
+-rpath-link 选项类似于
+-rpath，但它用于在链接时将库搜索路径嵌入到可执行文件中，而不是运行时。<br />
+这可以用来解决在链接时将某个库链接到了其他共享库版本而不是预期版本的问题。<br />
+-rpath-link 可以影响到链接过程中的库搜索路径，但不会影响运行时。<br />
+示例：-Wl,-rpath-link,/path/to/runtime/libs</p>
+<p>总结：<br />
+-L 用于链接时，指定库文件的搜索路径。 -rpath
+用于运行时，嵌入可执行文件中，指定共享库的搜索路径。 -rpath-link
+用于链接时，指定库文件的搜索路径，但不会影响运行时。
+这些选项通常用于处理库依赖关系，特别是当您有自定义库的位置或多个版本的库时，可以使用这些选项来确保链接器和运行时都能正确找到所需的库。</p>
+<h4 id="l-和--l-的顺序问题">-L 和 -l 的顺序问题</h4>
+<p>-L 搜索路径时有顺序，按照从前往后；-l 搜索库时没有顺序</p>
 
             </div>
             <hr>

@@ -16,19 +16,17 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="内存模型内存模型：指令执行顺序的模型 现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。 指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。 内存模型详细介绍：  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;24301047  https">
+    <meta name="description" content="内存模型 内存模型：指令执行顺序的模型 现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。 指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。 内存模型详细介绍：  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;24301047 https">
 <meta property="og:type" content="article">
 <meta property="og:title" content="atomic">
 <meta property="og:url" content="http://example.com/2022/06/29/atomic/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="内存模型内存模型：指令执行顺序的模型 现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。 指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。 内存模型详细介绍：  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;24301047  https">
+<meta property="og:description" content="内存模型 内存模型：指令执行顺序的模型 现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。 指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。 内存模型详细介绍：  https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;24301047 https">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/56a139b6a7184bd5af35c4df4610a9aa.png">
 <meta property="article:published_time" content="2022-06-29T02:55:35.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.366Z">
 <meta property="article:author" content="HansanF">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/56a139b6a7184bd5af35c4df4610a9aa.png">
   
   
   <title>atomic - HansanF&#39;s Studio</title>
@@ -239,37 +237,49 @@
             <h1 style="display: none">atomic</h1>
             
             <div class="markdown-body">
-              <h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><p>内存模型：指令执行顺序的模型</p>
-<p>现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue 多条指令。</p>
-<p>指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。</p>
+              <h3 id="内存模型">内存模型</h3>
+<p>内存模型：指令执行顺序的模型</p>
+<p>现代的处理器基本是并发式处理机器指令的,在一个cpu 时钟 issue
+多条指令。</p>
+<p>指令若总是严格按照书写顺序执行的，则称这样的内存模型为强顺序的(strong
+ordered),按照一定规则允许乱序的，称为弱顺序的(weak ordered)。</p>
 <p>内存模型详细介绍：</p>
 <ul>
-<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24301047">https://www.zhihu.com/question/24301047</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24301047">https://zhuanlan.zhihu.com/p/264975254</a></p>
-</li>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/24301047">https://www.zhihu.com/question/24301047</a></p></li>
+<li><p><a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/24301047">https://zhuanlan.zhihu.com/p/264975254</a></p></li>
 </ul>
-<h3 id="C-atomix-内存顺序"><a href="#C-atomix-内存顺序" class="headerlink" title="C++ atomix 内存顺序"></a>C++ atomix 内存顺序</h3><p>根据允许指令的混乱程度，C++为原子操作指定了内存顺序（memory_order），其包含6种：</p>
-<ul>
-<li>momory_order_relaxed,</li>
-<li>memory_order_consume,</li>
-<li>memory_order_acquire,</li>
-<li>memory_order_release,</li>
-<li>memory_order_acq_rel,</li>
-<li>memory_order_seq_cst.</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/56a139b6a7184bd5af35c4df4610a9aa.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<p>虽然共有 6 个选项,但它们表示的是三种内存模型: </p>
+<h3 id="c-atomix-内存顺序">C++ atomix 内存顺序</h3>
+<p>根据允许指令的混乱程度，C++为原子操作指定了内存顺序（memory_order），其包含6种：
+- momory_order_relaxed, - memory_order_consume, - memory_order_acquire,
+- memory_order_release, - memory_order_acq_rel, -
+memory_order_seq_cst.</p>
+<figure>
+<img
+src="https://img-blog.csdnimg.cn/56a139b6a7184bd5af35c4df4610a9aa.png" srcset="/img/loading.gif" lazyload
+alt="在这里插入图片描述" />
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<p>虽然共有 6 个选项,但它们表示的是三种内存模型:</p>
 <p><strong>sequential consistent</strong>: memory_order_seq_cst</p>
 <p>如果对于一个原子变量的操作都是顺序一致的，那么多线程程序的行为就像是这些操作都以一种特定顺序被单线程程序执行。相当于所有的线程都用同一份内存，对同一个变量保持时刻可见</p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24301047">使用示例</a></p>
 <p><strong>relaxed</strong>: memory_order_seq_cst</p>
-<p>在同一线程内对同一变量的操作仍保持happens-before关系，但这与别的线程无关。 在 relaxed ordering 中唯一的要求是在同一线程中，对同一原子变量的访问不可以被重排。</p>
-<p><strong>acquire release</strong>: memory_order_consume, memory_order_acquire,<br>memory_order_release, memory_order_acq_rel</p>
-<p>在这种序列模型下,原子 load 操作是 acquire 操作(memory_order_acquire), 原子 store 操作是release操作(memory_order_release).</p>
-<p>原子read_modify_write操作(如fetch_add(), exchange())可以是 acquire, release 或两者皆是(memory_order_acq_rel). </p>
-<p>同步是成对出现的,它出现在一个进行 release 操作和一个进行 acquire 操作的线程间。</p>
-<h3 id="C-atomic-用法"><a href="#C-atomic-用法" class="headerlink" title="C++ atomic 用法"></a>C++ atomic 用法</h3><h3 id="atomic-和-mutex-区别"><a href="#atomic-和-mutex-区别" class="headerlink" title="atomic 和 mutex 区别"></a>atomic 和 mutex 区别</h3><p>atomic 可以实现数据结构的无锁设计，为什么还要用 mutex 呢？</p>
+<p>在同一线程内对同一变量的操作仍保持happens-before关系，但这与别的线程无关。
+在 relaxed ordering
+中唯一的要求是在同一线程中，对同一原子变量的访问不可以被重排。</p>
+<p><strong>acquire release</strong>: memory_order_consume,
+memory_order_acquire, memory_order_release, memory_order_acq_rel</p>
+<p>在这种序列模型下,原子 load 操作是 acquire 操作(memory_order_acquire),
+原子 store 操作是release操作(memory_order_release).</p>
+<p>原子read_modify_write操作(如fetch_add(), exchange())可以是 acquire,
+release 或两者皆是(memory_order_acq_rel).</p>
+<p>同步是成对出现的,它出现在一个进行 release 操作和一个进行 acquire
+操作的线程间。</p>
+<h3 id="c-atomic-用法">C++ atomic 用法</h3>
+<h3 id="atomic-和-mutex-区别">atomic 和 mutex 区别</h3>
+<p>atomic 可以实现数据结构的无锁设计，为什么还要用 mutex 呢？</p>
 <p>std::atomic原子操作，主要是保护一个变量，互斥量的保护范围更大，可以一段代码或一个变量。</p>
 
             </div>

@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="jetpack sdk 安装确认nvidia apt资源列表cat &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;nvidia-l4t-apt-source.list   确认是否为  deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;common r35.1 main  deb https:&#x2F;&#x2F;repo.downlo">
+    <meta name="description" content="jetpack sdk 安装 确认nvidia apt资源列表 cat &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;nvidia-l4t-apt-source.list 确认是否为 deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;common r35.1 main deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="orin_env">
 <meta property="og:url" content="http://example.com/2023/02/13/orin-env/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="jetpack sdk 安装确认nvidia apt资源列表cat &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;nvidia-l4t-apt-source.list   确认是否为  deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;common r35.1 main  deb https:&#x2F;&#x2F;repo.downlo">
+<meta property="og:description" content="jetpack sdk 安装 确认nvidia apt资源列表 cat &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;nvidia-l4t-apt-source.list 确认是否为 deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;common r35.1 main deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;t">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-13T09:11:15.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.368Z">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      1.6k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15 分钟
+      14 分钟
     </span>
   
 
@@ -238,45 +238,47 @@
             <h1 style="display: none">orin_env</h1>
             
             <div class="markdown-body">
-              <h3 id="jetpack-sdk-安装"><a href="#jetpack-sdk-安装" class="headerlink" title="jetpack sdk 安装"></a>jetpack sdk 安装</h3><h4 id="确认nvidia-apt资源列表"><a href="#确认nvidia-apt资源列表" class="headerlink" title="确认nvidia apt资源列表"></a>确认nvidia apt资源列表</h4><p>cat &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;nvidia-l4t-apt-source.list  </p>
-<p>确认是否为 </p>
-<p>deb <a target="_blank" rel="noopener" href="https://repo.download.nvidia.com/jetson/common">https://repo.download.nvidia.com/jetson/common</a> r35.1 main </p>
-<p>deb <a target="_blank" rel="noopener" href="https://repo.download.nvidia.com/jetson/t234">https://repo.download.nvidia.com/jetson/t234</a> r35.1 main</p>
-<h4 id="校正时间和时区"><a href="#校正时间和时区" class="headerlink" title="校正时间和时区"></a>校正时间和时区</h4><p>修改系统时间和时区 </p>
+              <h3 id="jetpack-sdk-安装">jetpack sdk 安装</h3>
+<h4 id="确认nvidia-apt资源列表">确认nvidia apt资源列表</h4>
+<p>cat /etc/apt/sources.list.d/nvidia-l4t-apt-source.list</p>
+<p>确认是否为</p>
+<p>deb https://repo.download.nvidia.com/jetson/common r35.1 main</p>
+<p>deb https://repo.download.nvidia.com/jetson/t234 r35.1 main</p>
+<h4 id="校正时间和时区">校正时间和时区</h4>
+<p>修改系统时间和时区</p>
 <p>系统时间不准确，可能无法连网、获取nvidia 安装包索引</p>
-<h4 id="安装jetpack5-0-2"><a href="#安装jetpack5-0-2" class="headerlink" title="安装jetpack5.0.2"></a>安装jetpack5.0.2</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs mipsasm">sudo apt update<br>sudo apt <span class="hljs-keyword">dist-upgrade</span><br><span class="hljs-keyword"></span>sudo reboot<br>sudo apt-<span class="hljs-keyword">cache </span><span class="hljs-keyword">show </span>nvidia-<span class="hljs-keyword">jetpack </span>查看<span class="hljs-keyword">jetpack </span>sdk 版本，确认为<span class="hljs-number">5</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span><br>sudo apt <span class="hljs-keyword">install </span>nvidia-<span class="hljs-keyword">jetpack</span><br><span class="hljs-keyword"></span>````<br><br><span class="hljs-comment">#### 查看cuda、cudnn、tensorrt 版本</span><br></code></pre></td></tr></table></figure>
-<p>cat &#x2F;usr&#x2F;loca&#x2F;cuda&#x2F;version.json<br>    cuda 11.4.14<br>cat &#x2F;usr&#x2F;include&#x2F;aarch64-linux-gnu&#x2F;cudnn_version_v8.h<br>    cudnn 8.4.1<br>cat &#x2F;usr&#x2F;include&#x2F;aarch64-linux-gnu&#x2F;NvInferVersion.h<br>    tensorrt 8.4.1.5</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>#### 安装jtop<br></code></pre></td></tr></table></figure>
-<p>sudo apt install python3-pip<br>sudo -H pip3 install -U jetson-stats<br>sudo jtop 验证是否可用</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>#### 开启最大性能<br></code></pre></td></tr></table></figure>
-<p>sudo nvpmodel -m 0 &amp;&amp; sudo jetson_clocks<br>sudo jetson_clocks –fan<br>jtop 查看 NV Power[0] 是否为MAXN<br>重启后失效</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>#### wget 报错<br></code></pre></td></tr></table></figure>
-<p>–2018-10-01 12:11:19–  <a target="_blank" rel="noopener" href="https://url/">https://url</a><br>Connecting to #:443… connected.<br>OpenSSL: error:14082174:SSL routines:ssl3_check_cert_and_algorithm:dh key too small<br>Unable to establish SSL connection.</p>
-<div class="code-wrapper"><pre><code class="hljs">
-Here&#39;s a simple workaround for wget: use wget --cipher &#39;DEFAULT:!DH&#39; in place of wget.
-
-https://stackoverflow.com/questions/52588948/problem-with-wget-command-ssl3-check-cert
-
-#### 终端重复打印 Message xxx
-终端报Message from syslogd kernel:unregister_netdevice: waiting for eth0 to become free
-
-https://blog.51cto.com/xiao987334176/1910715
-没有找到链接里说的     #*.emerg      
-
- 16 # provides UDP syslog reception                                          
- 17 #module(load=&quot;imudp&quot;)      
- 18 #input(type=&quot;imudp&quot; port=&quot;514&quot;)            
- 19                         
- 20 # provides TCP syslog reception                                                                
- 21 #module(load=&quot;imtcp&quot;)                                                                                       
- 22 #input(type=&quot;imtcp&quot; port=&quot;514&quot;)                                                             
- 23                                                 
- 24 # provides kernel logging support and enable non-kernel klog messages                                          
- 25 #module(load=&quot;imklog&quot; permitnonkernelfacility=&quot;on&quot;)   
-
-把25行注释掉  重启rsyslog服务
-/etc/init.d/rsyslog restart
-</code></pre></div>
+<h4 id="安装jetpack5.0.2">安装jetpack5.0.2</h4>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs mipsasm">sudo apt update<br>sudo apt <span class="hljs-keyword">dist-upgrade</span><br><span class="hljs-keyword"></span>sudo reboot<br>sudo apt-<span class="hljs-keyword">cache </span><span class="hljs-keyword">show </span>nvidia-<span class="hljs-keyword">jetpack </span>查看<span class="hljs-keyword">jetpack </span>sdk 版本，确认为<span class="hljs-number">5</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span><br>sudo apt <span class="hljs-keyword">install </span>nvidia-<span class="hljs-keyword">jetpack</span><br><span class="hljs-keyword"></span>````<br><br><span class="hljs-comment">#### 查看cuda、cudnn、tensorrt 版本</span><br></code></pre></td></tr></table></figure>
+<p>cat /usr/loca/cuda/version.json<br />
+cuda 11.4.14 cat /usr/include/aarch64-linux-gnu/cudnn_version_v8.h cudnn
+8.4.1 cat /usr/include/aarch64-linux-gnu/NvInferVersion.h tensorrt
+8.4.1.5 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>#### 安装jtop<br></code></pre></td></tr></table></figure> sudo apt install python3-pip sudo -H pip3 install
+-U jetson-stats sudo jtop 验证是否可用 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>#### 开启最大性能<br></code></pre></td></tr></table></figure> sudo nvpmodel -m 0
+&amp;&amp; sudo jetson_clocks sudo jetson_clocks --fan jtop 查看 NV
+Power[0] 是否为MAXN 重启后失效 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>#### wget 报错<br></code></pre></td></tr></table></figure> --2018-10-01 12:11:19--
+https://url Connecting to #:443... connected. OpenSSL:
+error:14082174:SSL routines:ssl3_check_cert_and_algorithm:dh key too
+small Unable to establish SSL connection. ```</p>
+<p>Here's a simple workaround for wget: use wget --cipher 'DEFAULT:!DH'
+in place of wget.</p>
+<p>https://stackoverflow.com/questions/52588948/problem-with-wget-command-ssl3-check-cert</p>
+<h4 id="终端重复打印-message-xxx">终端重复打印 Message xxx</h4>
+<p>终端报Message from syslogd kernel:unregister_netdevice: waiting for
+eth0 to become free</p>
+<p>https://blog.51cto.com/xiao987334176/1910715 没有找到链接里说的
+#*.emerg</p>
+<p>16 # provides UDP syslog reception<br />
+17 #module(load="imudp")<br />
+18 #input(type="imudp" port="514")<br />
+19<br />
+20 # provides TCP syslog reception<br />
+21 #module(load="imtcp")<br />
+22 #input(type="imtcp" port="514")<br />
+23<br />
+24 # provides kernel logging support and enable non-kernel klog
+messages<br />
+25 #module(load="imklog" permitnonkernelfacility="on")</p>
+<p>把25行注释掉 重启rsyslog服务 /etc/init.d/rsyslog restart</p>
 
             </div>
             <hr>

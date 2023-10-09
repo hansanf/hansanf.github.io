@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ln命令格式和参数语法格式： ln [参数] [源文件或目录] [目标文件或目录]ln a b  a&#x3D;&gt;b    参数 全称 作用    空 hard 对源文件建立硬链接   -s soft 对源文件建立软连接（符号链接）   -f force 强制创建链接，即使目标文件已经存在   -b backup 强制创建链接，即使目标文件已经存在   -i Interactive 交互模式">
+    <meta name="description" content="ln命令 格式和参数 语法格式： ln [参数] **[源**文件或目录] [目标文件或目录] ln a b a&#x3D;&gt;b    参数 全称 作用     空 hard 对源文件建立硬链接   -s soft 对源文件建立软连接（符号链接）   -f force 强制创建链接，即使目标文件已经存在   -b backup 强制创建链接，即使目标文件已经存在   -i Interactive 交互">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ln命令">
 <meta property="og:url" content="http://example.com/2021/11/25/cmd-ln/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="ln命令格式和参数语法格式： ln [参数] [源文件或目录] [目标文件或目录]ln a b  a&#x3D;&gt;b    参数 全称 作用    空 hard 对源文件建立硬链接   -s soft 对源文件建立软连接（符号链接）   -f force 强制创建链接，即使目标文件已经存在   -b backup 强制创建链接，即使目标文件已经存在   -i Interactive 交互模式">
+<meta property="og:description" content="ln命令 格式和参数 语法格式： ln [参数] **[源**文件或目录] [目标文件或目录] ln a b a&#x3D;&gt;b    参数 全称 作用     空 hard 对源文件建立硬链接   -s soft 对源文件建立软连接（符号链接）   -f force 强制创建链接，即使目标文件已经存在   -b backup 强制创建链接，即使目标文件已经存在   -i Interactive 交互">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-25T09:05:04.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.364Z">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      798 字
+      807 字
     </span>
   
 
@@ -238,78 +238,84 @@
             <h1 style="display: none">ln命令</h1>
             
             <div class="markdown-body">
-              <h3 id="ln命令"><a href="#ln命令" class="headerlink" title="ln命令"></a>ln命令</h3><h4 id="格式和参数"><a href="#格式和参数" class="headerlink" title="格式和参数"></a>格式和参数</h4><p>语法格式： ln [参数] <strong>[源</strong>文件或目录] [<strong>目标</strong>文件或目录]<br>ln a b  a&#x3D;&gt;b</p>
+              <h3 id="ln命令">ln命令</h3>
+<h4 id="格式和参数">格式和参数</h4>
+<p>语法格式： ln [参数] **[源**文件或目录]
+[<strong>目标</strong>文件或目录]<br />
+ln a b a=&gt;b</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>参数</th>
 <th>全称</th>
 <th>作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>空</td>
 <td>hard</td>
 <td>对源文件建立硬链接</td>
 </tr>
-<tr>
+<tr class="even">
 <td>-s</td>
 <td>soft</td>
 <td>对源文件建立软连接（符号链接）</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>-f</td>
 <td>force</td>
 <td>强制创建链接，即使目标文件已经存在</td>
 </tr>
-<tr>
+<tr class="even">
 <td>-b</td>
 <td>backup</td>
 <td>强制创建链接，即使目标文件已经存在</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>-i</td>
 <td>Interactive</td>
 <td>交互模式，若目标文件已经存在，则提示用户确认进行覆盖</td>
 </tr>
-<tr>
+<tr class="even">
 <td>-v</td>
 <td>verbose</td>
 <td>详细信息模式，输出指令的详细执行过程</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>-d</td>
 <td>direction</td>
 <td>此选项允许“root”用户建立目录的硬链接</td>
 </tr>
-</tbody></table>
-<h4 id="软连接、硬链接和拷贝的区别"><a href="#软连接、硬链接和拷贝的区别" class="headerlink" title="软连接、硬链接和拷贝的区别"></a>软连接、硬链接和拷贝的区别</h4><p><strong>软连接：</strong></p>
-<ul>
-<li>链接文件内存储的是原文件的inode，也就是说是用来指向原文件文件，这<strong>两个文件的inode是不一样</strong>的</li>
-<li>软链接以路径的形式存在，类似于Windows操作系统中的快捷方式。</li>
-<li>删除软链接的链接文件，被链接文件不会受到任何影响，但是修改软链接文件内容，被链接文件内容也会被修改</li>
-<li>软链接可以跨文件系统 ，硬链接不可以。</li>
-<li>软链接可以对一个不存在的文件名进行链接，硬链接不可以。</li>
-<li>软链接可以对目录进行链接，硬链接不可以。</li>
-<li>删除软链接的被链接文件，链接文件会变成红色，这时打开链接文件会报错，报找不到被链接的文件这种错误</li>
-</ul>
-<p><strong>硬连接：</strong><br>-硬链接实际上是为文件建一个别名，链接文件和原文件实际上是同一个文件，这两个文件的<strong>inode号是同一个</strong>（ls -i）</p>
-<ul>
-<li>硬链接以文件副本的形式存在，但不占用实际空间。</li>
-<li>硬链接不允许普通用户给目录创建硬链接。</li>
-<li>硬链接只有在同一个文件系统中才能创建。</li>
-</ul>
+</tbody>
+</table>
+<h4 id="软连接硬链接和拷贝的区别">软连接、硬链接和拷贝的区别</h4>
+<p><strong>软连接：</strong> -
+链接文件内存储的是原文件的inode，也就是说是用来指向原文件文件，这<strong>两个文件的inode是不一样</strong>的
+- 软链接以路径的形式存在，类似于Windows操作系统中的快捷方式。 -
+删除软链接的链接文件，被链接文件不会受到任何影响，但是修改软链接文件内容，被链接文件内容也会被修改
+- 软链接可以跨文件系统 ，硬链接不可以。 -
+软链接可以对一个不存在的文件名进行链接，硬链接不可以。 -
+软链接可以对目录进行链接，硬链接不可以。 -
+删除软链接的被链接文件，链接文件会变成红色，这时打开链接文件会报错，报找不到被链接的文件这种错误</p>
+<p><strong>硬连接：</strong>
+-硬链接实际上是为文件建一个别名，链接文件和原文件实际上是同一个文件，这两个文件的<strong>inode号是同一个</strong>（ls
+-i） - 硬链接以文件副本的形式存在，但不占用实际空间。 -
+硬链接不允许普通用户给目录创建硬链接。 -
+硬链接只有在同一个文件系统中才能创建。</p>
 <blockquote>
-<p>A硬链B 删除B后A依然存在，且可用。<br>A软链B 删除B后A存在，但不可用了（相当于Windows下快捷方式指向的目标不存在了）</p>
+<p>A硬链B 删除B后A依然存在，且可用。 A软链B
+删除B后A存在，但不可用了（相当于Windows下快捷方式指向的目标不存在了）</p>
 </blockquote>
 <p><strong>拷贝：</strong></p>
 <ul>
 <li>拷贝产生的文件是一个独立的文件，有自己的元信息和inode节点</li>
 </ul>
 <blockquote>
-<p> 软连接和硬链接在使用时用哪一个，主要看是否需要链接目录，是否依赖相对路径，没有限制条件两者应该都可以使用。</p>
+<p>软连接和硬链接在使用时用哪一个，主要看是否需要链接目录，是否依赖相对路径，没有限制条件两者应该都可以使用。</p>
 </blockquote>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.linuxcool.com/ln">linux命令大全</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/geerniya/article/details/79093301">软链接、硬链接与复制的区别</a></p>
+<p>参考： <a target="_blank" rel="noopener" href="https://www.linuxcool.com/ln">linux命令大全</a> <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/geerniya/article/details/79093301">软链接、硬链接与复制的区别</a></p>
 
             </div>
             <hr>

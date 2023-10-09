@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="core 文件设置常规core文件设置core 文件大小 查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效） 修改core文件路径 临时修改（重启后失效）修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern  1echo &amp;#x27;&#x2F;corefile&#x2F;core_%e.%p&amp;#x27; | sudo tee &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;">
+    <meta name="description" content="core 文件设置 常规core文件设置 core 文件大小 查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效） 修改core文件路径  临时修改（重启后失效） 修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 1echo &amp;#x27;&#x2F;corefile&#x2F;core_%e.%p&amp;#x27; | sudo tee &#x2F;proc&#x2F;sys&#x2F;kern">
 <meta property="og:type" content="article">
 <meta property="og:title" content="core文件设置">
 <meta property="og:url" content="http://example.com/2023/07/29/core-file/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="core 文件设置常规core文件设置core 文件大小 查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效） 修改core文件路径 临时修改（重启后失效）修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern  1echo &amp;#x27;&#x2F;corefile&#x2F;core_%e.%p&amp;#x27; | sudo tee &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;">
+<meta property="og:description" content="core 文件设置 常规core文件设置 core 文件大小 查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效） 修改core文件路径  临时修改（重启后失效） 修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 1echo &amp;#x27;&#x2F;corefile&#x2F;core_%e.%p&amp;#x27; | sudo tee &#x2F;proc&#x2F;sys&#x2F;kern">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-07-28T18:42:00.000Z">
 <meta property="article:modified_time" content="2023-08-03T09:31:46.484Z">
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10 分钟
+      9 分钟
     </span>
   
 
@@ -239,37 +239,45 @@
             <h1 style="display: none">core文件设置</h1>
             
             <div class="markdown-body">
-              <h2 id="core-文件设置"><a href="#core-文件设置" class="headerlink" title="core 文件设置"></a>core 文件设置</h2><h3 id="常规core文件设置"><a href="#常规core文件设置" class="headerlink" title="常规core文件设置"></a>常规core文件设置</h3><h4 id="core-文件大小"><a href="#core-文件大小" class="headerlink" title="core 文件大小"></a>core 文件大小</h4><p> 查看：ulimit -c<br> 临时设置： ulimit -c unlimited （当前终端有效）</p>
-<h4 id="修改core文件路径"><a href="#修改core文件路径" class="headerlink" title="修改core文件路径"></a>修改core文件路径</h4><ol>
-<li>临时修改（重启后失效）<br>修改 <code>/proc/sys/kernel/core_pattern</code></li>
+              <h2 id="core-文件设置">core 文件设置</h2>
+<h3 id="常规core文件设置">常规core文件设置</h3>
+<h4 id="core-文件大小">core 文件大小</h4>
+<p>查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效）</p>
+<h4 id="修改core文件路径">修改core文件路径</h4>
+<ol type="1">
+<li><p>临时修改（重启后失效） 修改
+<code>/proc/sys/kernel/core_pattern</code><br />
+<figure class="highlight awk"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs awk">echo <span class="hljs-string">&#x27;/corefile/core_%e.%p&#x27;</span> | sudo tee <span class="hljs-regexp">/proc/</span>sys<span class="hljs-regexp">/kernel/</span>core_pattern<br></code></pre></td></tr></table></figure></p></li>
+<li><p>永久生效 修改 <code>/etc/sysctl.conf</code>, 在其中加入两行
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">kernel.core_pattern</span>=/corefile/core_%e.%p<br><span class="hljs-attr">kernel.core_uses_pid</span>=<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure></p></li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs awk">echo <span class="hljs-string">&#x27;/corefile/core_%e.%p&#x27;</span> | sudo tee <span class="hljs-regexp">/proc/</span>sys<span class="hljs-regexp">/kernel/</span>core_pattern<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>永久生效<br>修改 <code>/etc/sysctl.conf </code>, 在其中加入两行</li>
+<p>kernel.core_uses_pid 表示在core 文件结尾不加
+pid，因为已经有了%p，所以不需要再添加<br />
+执行<code>sudo sysctl -p /etc/sysctl.conf</code>, 使修改生效。</p>
+<h3 id="apport-core-文件">apport core 文件</h3>
+<p>在 /proc/sys/kernel/core_pattern 文件中写入 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">|/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E<br></code></pre></td></tr></table></figure>
+安装好apport 后可以通过apport对core
+进行收集，core文件保存在/var/lib/apport/coredump/ 目录下
+（应该可以设置，没找到在哪设置的）</p>
+<p>注： Apport 并不直接用于分析 core
+文件。它主要用于收集和报告应用程序崩溃信息，并将其提交给开发人员或错误报告系统。
+使用 Apport 收集 core 文件有以下优点：</p>
+<ol type="1">
+<li><p>自动收集和报告：Apport
+可以自动捕获应用程序的崩溃信息，并生成相应的崩溃报告。这样，你无需手动分析
+core 文件，而是可以直接获得一个包含崩溃信息的报告。</p></li>
+<li><p>附带环境信息：Apport
+的崩溃报告通常会包含应用程序崩溃时的环境信息，如操作系统版本、软件包版本、硬件信息等。这些信息对于开发人员来说是非常有用的，可以帮助他们更好地理解和重现崩溃问题。</p></li>
+<li><p>易于提交和跟踪：Apport 默认会将崩溃报告上传到错误报告系统（如
+Launchpad），使开发人员能够轻松地接收和跟踪报告。这样，开发人员可以更快地了解和解决崩溃问题。</p></li>
+<li><p>用户友好：Apport
+的崩溃报告通常以用户友好的方式呈现，包含易于理解的错误消息、堆栈跟踪和其他相关信息。这使得用户能够更好地理解崩溃问题，并提供有用的反馈。</p></li>
 </ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">kernel.core_pattern</span>=/corefile/core_%e.%p<br><span class="hljs-attr">kernel.core_uses_pid</span>=<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
-
-<p>kernel.core_uses_pid 表示在core 文件结尾不加 pid，因为已经有了%p，所以不需要再添加<br>执行<code>sudo sysctl -p /etc/sysctl.conf</code>, 使修改生效。</p>
-<h3 id="apport-core-文件"><a href="#apport-core-文件" class="headerlink" title="apport core 文件"></a>apport core 文件</h3><p>在 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 文件中写入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">|/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E<br></code></pre></td></tr></table></figure>
-<p>安装好apport 后可以通过apport对core 进行收集，core文件保存在&#x2F;var&#x2F;lib&#x2F;apport&#x2F;coredump&#x2F; 目录下 （应该可以设置，没找到在哪设置的）</p>
-<p>注：<br>Apport 并不直接用于分析 core 文件。它主要用于收集和报告应用程序崩溃信息，并将其提交给开发人员或错误报告系统。<br>使用 Apport 收集 core 文件有以下优点：</p>
-<ol>
-<li><p>自动收集和报告：Apport 可以自动捕获应用程序的崩溃信息，并生成相应的崩溃报告。这样，你无需手动分析 core 文件，而是可以直接获得一个包含崩溃信息的报告。</p>
-</li>
-<li><p>附带环境信息：Apport 的崩溃报告通常会包含应用程序崩溃时的环境信息，如操作系统版本、软件包版本、硬件信息等。这些信息对于开发人员来说是非常有用的，可以帮助他们更好地理解和重现崩溃问题。</p>
-</li>
-<li><p>易于提交和跟踪：Apport 默认会将崩溃报告上传到错误报告系统（如 Launchpad），使开发人员能够轻松地接收和跟踪报告。这样，开发人员可以更快地了解和解决崩溃问题。</p>
-</li>
-<li><p>用户友好：Apport 的崩溃报告通常以用户友好的方式呈现，包含易于理解的错误消息、堆栈跟踪和其他相关信息。这使得用户能够更好地理解崩溃问题，并提供有用的反馈。</p>
-</li>
-</ol>
-<h3 id="调试代码"><a href="#调试代码" class="headerlink" title="调试代码"></a>调试代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>  *(<span class="hljs-type">int</span> *)<span class="hljs-number">0</span> = <span class="hljs-number">8</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-<h3 id="gdb加载core文件"><a href="#gdb加载core文件" class="headerlink" title="gdb加载core文件"></a>gdb加载core文件</h3><div class="code-wrapper"><pre><code class="hljs">gdb app corefile
-</code></pre></div>
-<p>不需要加 app 的 args    </p>
+<h3 id="调试代码">调试代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>  *(<span class="hljs-type">int</span> *)<span class="hljs-number">0</span> = <span class="hljs-number">8</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="gdb加载core文件">gdb加载core文件</h3>
+<div class="code-wrapper"><pre><code class="hljs">gdb app corefile</code></pre></div>
+<p>不需要加 app 的 args</p>
 
             </div>
             <hr>

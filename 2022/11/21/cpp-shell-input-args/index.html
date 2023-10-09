@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="C++ 可执行文件输入参数1. getopt_long()函数使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long 2. 设置参数选项参数选项的形式可以分为两种，一是 -n, 二是 –name -n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。 2.1 段选项字符串书写规则：  多个短选项可以连在一起 如果某个要解析的选项需要一个参数，则在">
+    <meta name="description" content="C++ 可执行文件输入参数 1. getopt_long()函数 使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long 2. 设置参数选项 参数选项的形式可以分为两种，一是 -n, 二是 --name -n 这种需要设置短选项字符串；--name 这种需要设置长选项结构体。 2.1 段选项字符串 书写规则： - 多个短选项可以连在一起 - 如果某个要解析的选项">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++和shell脚本的输入参数设置">
 <meta property="og:url" content="http://example.com/2022/11/21/cpp-shell-input-args/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="C++ 可执行文件输入参数1. getopt_long()函数使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long 2. 设置参数选项参数选项的形式可以分为两种，一是 -n, 二是 –name -n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。 2.1 段选项字符串书写规则：  多个短选项可以连在一起 如果某个要解析的选项需要一个参数，则在">
+<meta property="og:description" content="C++ 可执行文件输入参数 1. getopt_long()函数 使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long 2. 设置参数选项 参数选项的形式可以分为两种，一是 -n, 二是 --name -n 这种需要设置短选项字符串；--name 这种需要设置长选项结构体。 2.1 段选项字符串 书写规则： - 多个短选项可以连在一起 - 如果某个要解析的选项">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-21T07:57:06.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.359Z">
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      693 字
+      688 字
     </span>
   
 
@@ -237,24 +237,26 @@
             <h1 style="display: none">C++和shell脚本的输入参数设置</h1>
             
             <div class="markdown-body">
-              <h2 id="C-可执行文件输入参数"><a href="#C-可执行文件输入参数" class="headerlink" title="C++ 可执行文件输入参数"></a>C++ 可执行文件输入参数</h2><h3 id="1-getopt-long-函数"><a href="#1-getopt-long-函数" class="headerlink" title="1. getopt_long()函数"></a>1. getopt_long()函数</h3><p>使用手册： <a target="_blank" rel="noopener" href="https://linux.die.net/man/3/getopt_long">https://linux.die.net/man/3/getopt_long</a></p>
-<h3 id="2-设置参数选项"><a href="#2-设置参数选项" class="headerlink" title="2. 设置参数选项"></a>2. 设置参数选项</h3><p>参数选项的形式可以分为两种，一是 -n, 二是 –name</p>
-<p>-n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。</p>
-<h4 id="2-1-段选项字符串"><a href="#2-1-段选项字符串" class="headerlink" title="2.1 段选项字符串"></a>2.1 段选项字符串</h4><p>书写规则：</p>
-<ul>
-<li>多个短选项可以连在一起</li>
-<li>如果某个要解析的选项需要一个参数，则在选项名后面跟一个冒号</li>
-<li>如果某个要解析的选项的参数可选，则在选项名后面跟两个冒号</li>
-</ul>
-<p>一般如这种形式:<br>    <code>const char* short_options = &quot;hx:t:c:&quot;</code><br>该字符串解释为： </p>
+              <h2 id="c-可执行文件输入参数">C++ 可执行文件输入参数</h2>
+<h3 id="getopt_long函数">1. getopt_long()函数</h3>
+<p>使用手册： https://linux.die.net/man/3/getopt_long</p>
+<h3 id="设置参数选项">2. 设置参数选项</h3>
+<p>参数选项的形式可以分为两种，一是 -n, 二是 --name</p>
+<p>-n 这种需要设置短选项字符串；--name 这种需要设置长选项结构体。</p>
+<h4 id="段选项字符串">2.1 段选项字符串</h4>
+<p>书写规则： - 多个短选项可以连在一起 -
+如果某个要解析的选项需要一个参数，则在选项名后面跟一个冒号 -
+如果某个要解析的选项的参数可选，则在选项名后面跟两个冒号</p>
+<p>一般如这种形式: <code>const char* short_options = "hx:t:c:"</code>
+该字符串解释为：</p>
 <div class="code-wrapper"><pre><code class="hljs">-h 
 
 -t t_arg
 
--c c_arg
-</code></pre></div>
+-c c_arg</code></pre></div>
 <p>细心的话为发现多了h后面还有一个x:没有被说明，因为h(help)后面不需要接参数</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">char</span>* short_options = <span class="hljs-string">&quot;hx:n:h:&quot;</span>;    <span class="hljs-comment">// 带参数的，要使用的命令，需要在这里声明</span><br><span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">option</span> long_options[] = &#123;<br>        &#123;<span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;h&#x27;</span>&#125;,<br>        &#123;<span class="hljs-string">&quot;decode&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;d&#x27;</span>&#125;,<br>        &#123;<span class="hljs-string">&quot;encode&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;e&#x27;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;output&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-string">&#x27;o&#x27;</span>&#125;,<br>        &#123;<span class="hljs-literal">nullptr</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">nullptr</span>, <span class="hljs-number">0</span>&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
             </div>
             <hr>
             <div>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="cmake 变量 预定义变量 cmake -D 变量 cmake -D变量名&#x3D;值 的形式 1. CMAKE_BUILD_TYPE &#x3D;Release 或者 &#x3D;Debug 2. CMAKE_INSTALL_PREFIX &#x3D;path install 安装目录的前缀 环境变量  CPM_SOURCE_CACHE 设置cmp 拉取依赖的保存路径 unset CPM_SOURCE_CACHE set CPM_">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-08-17T11:42:27.000Z">
-<meta property="article:modified_time" content="2023-09-25T07:20:27.549Z">
+<meta property="article:modified_time" content="2024-05-14T10:17:22.958Z">
 <meta property="article:author" content="HansanF">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      2.4k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13 分钟
+      20 分钟
     </span>
   
 
@@ -268,6 +268,29 @@ https://www.cnblogs.com/suiyek/p/14164160.html</p>
 <p>message(STATUS "")</p>
 <h3 id="编译选项">编译选项</h3>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">## nvcc 对 -isystem 和 -I 选项的支持<br># nvcc 支持<br>set(CMAKE_CXX_FLAGS <span class="hljs-string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; \</span><br><span class="hljs-string">  -isystem/l4t/targetfs/usr/include/aarch64-linux-gnu \</span><br><span class="hljs-string">&quot;</span>)<br># nvcc 不支持<br>add<span class="hljs-constructor">_compile_options(-I<span class="hljs-operator">/</span><span class="hljs-params">l4t</span><span class="hljs-operator">/</span><span class="hljs-params">targetfs</span><span class="hljs-operator">/</span><span class="hljs-params">usr</span><span class="hljs-operator">/</span><span class="hljs-params">include</span><span class="hljs-operator">/</span><span class="hljs-params">aarch64</span>-<span class="hljs-params">linux</span>-<span class="hljs-params">gnu</span>)</span><br></code></pre></td></tr></table></figure>
+<h3 id="链接">链接</h3>
+<h4 id="默认链接的是静态库还是动态库">默认链接的是静态库还是动态库</h4>
+<p>CMake在查找库时默认会优先找动态库（如.so文件或.dll文件），如果找不到或者特别指定了静态库，它会链接到静态库（如.a或.lib文件）。你可以通过<code>find_library</code>等命令及其相关参数来控制链接到静态库或动态库，或者添加定义来指定链接库的类型。</p>
+<h4 id="add_library-默认生成的静态库还是动态库">add_library
+默认生成的静态库还是动态库</h4>
+<p><code>cmake</code> 中 <code>add_library</code>
+命令默认生成的是静态库还是动态库取决于项目设置和 CMake 版本。在 CMake
+3.0 及以上版本中，如果未指定库类型，它将根据变量
+<code>BUILD_SHARED_LIBS</code>
+的设置来决定，默认情况下，此变量不设定时<code>add_library</code>生成的是静态库。如果<code>BUILD_SHARED_LIBS</code>被设置为
+ON，那么<code>add_library</code>不带库类型的情况下将生成动态库。</p>
+<p>可以这样设置来决定默认的库类型：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(BUILD_SHARED_LIBS <span class="hljs-keyword">ON</span>) <span class="hljs-comment"># 默认生成动态库</span><br></code></pre></td></tr></table></figure>
+<p>或者，在<code>add_library</code>时直接指定库的类型：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">add_library</span>(mylibrary STATIC mysource.cpp) <span class="hljs-comment"># 生成静态库</span><br><span class="hljs-keyword">add_library</span>(mylibrary SHARED mysource.cpp) <span class="hljs-comment"># 生成动态库</span><br></code></pre></td></tr></table></figure>
+<p>在不指定<code>STATIC</code>或<code>SHARED</code>，并且没有设置<code>BUILD_SHARED_LIBS</code>变量时，<code>add_library()</code>会创建静态库。</p>
+<h3 id="属性">属性</h3>
+<h4 id="二进制依赖库能否传递宏定义">二进制依赖库能否传递宏定义</h4>
+<ul>
+<li><p><code>target_compile_definitions</code>：
+这是传递宏定义的推荐方式。使用它时，可以设置私有（PRIVATE）宏，它们只会影响当前目标；接口（INTERFACE）宏，它们会影响链接了当前库的其他目标，但不会影响当前目标；或者是公共（PUBLIC）宏，它们既影响当前目标又影响链接了当前库的其他目标。</p></li>
+<li><p><code>add_definitions</code>：这个指令会给当前目录下所有目标添加宏定义，但是它不会传递给依赖的目标。且它的作用范围是全局的，会影响到后续所有的目标。</p></li>
+</ul>
 
             </div>
             <hr>
@@ -309,15 +332,6 @@ https://www.cnblogs.com/suiyek/p/14164160.html</p>
               
             </div>
 
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-
-              </article>
             
           </article>
         </div>

@@ -191,6 +191,237 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2024/04/24/vi-usage/" target="_self">
+          vi_usage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/04/24/vi-usage/" target="_self">
+          
+          以普通用户身份打开，以 root 用户身份保存 :w !sudo tee % :w - 这是写入命令。由于没有给出参数，vim 将把整个文件写入标准输出； !sudo - 将 sudo 命令作为 shell 命令而不是 vim 命令运行； tee - tee命令用于读取标准输入并将其写入标准输出或文件； % - vim 将其替换为您正在编辑的当前文件的名称。 :w 命令将整个文件写入 STDOUT
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-04-24 10:25" pubdate>
+              2024-04-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/04/18/disk_io/" target="_self">
+          测试磁盘读写速度
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/04/18/disk_io/" target="_self">
+          
+          dd-测试硬盘写入速度 dd bs&#x3D;1M count&#x3D;128 if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;test conv&#x3D;fdatasync iostat 查看设备IO 参考链接
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-04-18 16:39" pubdate>
+              2024-04-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/01/31/cuda-notes/" target="_self">
+          cuda-notes
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/01/31/cuda-notes/" target="_self">
+          
+          杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp 本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT 单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp 包含数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-31 10:57" pubdate>
+              2024-01-31
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/01/19/tensorrt-tutorial/" target="_self">
+          tensorrt_tutorial
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/01/19/tensorrt-tutorial/" target="_self">
+          
+          sample 编译 https:&#x2F;&#x2F;github.com&#x2F;NVIDIA&#x2F;TensorRT&#x2F;tree&#x2F;release&#x2F;8.0?tab&#x3D;readme-ov-file#prerequisites  github 上下载对应仓库，然后根据对应的 cuda 版本选择对应的tag进行下载。 比如选择 release&#x2F;8.0，如果有 docker 环境，可以利用官方提供的 docker 镜像进行；裸机的话需要安
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-19 16:30" pubdate>
+              2024-01-19
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/01/10/pod-trivial-stardard-layout/" target="_self">
+          pod_trivial_stardard_layout
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/01/10/pod-trivial-stardard-layout/" target="_self">
+          
+          Plain Old Data (POD) pod 包含 trivial(普通)类型和standard layout 概念介绍： https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;cpp&#x2F;cpp&#x2F;trivial-standard-layout-and-pod-types?view&#x3D;msvc-170 trivial 类型的结构体支持用memcpy来操作二进制，并对齐进行序列化和反序列
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-10 19:46" pubdate>
+              2024-01-10
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/12/27/include-what-you-see/" target="_self">
+          include-what-you-see
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/12/27/include-what-you-see/" target="_self">
+          
+          简介 如何安装 根据gitlab 首页的提示：https:&#x2F;&#x2F;github.com&#x2F;include-what-you-use&#x2F;include-what-you-use 找到 How to build standalone，首先要知道IWYS是基于clang 和 llvm 构建，所以如果环境中已经安装好了 如何使用
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-27 22:11" pubdate>
+              2023-12-27
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/12/27/linux-deps/" target="_self">
+          linux_deps
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/12/27/linux-deps/" target="_self">
+          
+          libncurses5-dev 源码编译 https:&#x2F;&#x2F;blog.51cto.com&#x2F;liuzhenlife&#x2F;1892078 下载地址： http:&#x2F;&#x2F;ftp.gnu.org&#x2F;gnu&#x2F;ncurses&#x2F;  http:&#x2F;&#x2F;ftp.gnu.org&#x2F;gnu&#x2F;ncurses&#x2F;ncurses-6.0.tar.gz 12345[root@bogon liuzhen]# tar -zxvf ncurses-6.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-12-27 21:59" pubdate>
+              2023-12-27
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/10/09/camera-params-md/" target="_self">
           camera_params.md
         </a>
@@ -199,7 +430,7 @@
       <p class="index-excerpt">
         <a href="/2023/10/09/camera-params-md/" target="_self">
           
-          \[ E&#x3D;mc^2 \]              文字 或者 markdown 均可
+          \[ E&#x3D;mc^2 \]              文字 或者 markdown 均可            空间转换&#x2F;坐标系转换 图像是由相机采集而来，那么就有一个疑问了，三维物理世界下的物体是怎么映射到一张二维图像上的，是怎么映射到具体的像素点的。这个映射的过程，就涉及到了几个坐标系&#x2F;空间的转换。 相机参数 去畸变 为什么去畸变 怎么去畸变
         </a>
       </p>
 
@@ -213,6 +444,13 @@
           </div>
         
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+            
+          </div>
         
       </div>
     </article>
@@ -286,273 +524,6 @@
               <a href="/tags/%E5%86%85%E5%AD%98%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/">内存检查工具</a>
             
               <a href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">内存泄露</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/08/17/cmake-usgae/" target="_self">
-          cmake_usgae
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/08/17/cmake-usgae/" target="_self">
-          
-          cmake 变量 预定义变量 cmake -D 变量 cmake -D变量名&#x3D;值 的形式 1. CMAKE_BUILD_TYPE &#x3D;Release 或者 &#x3D;Debug 2. CMAKE_INSTALL_PREFIX &#x3D;path install 安装目录的前缀 环境变量  CPM_SOURCE_CACHE 设置cmp 拉取依赖的保存路径 unset CPM_SOURCE_CACHE set CPM_
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-17 19:42" pubdate>
-              2023-08-17
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/08/16/encrypt-introduce/" target="_self">
-          加解密简介
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/08/16/encrypt-introduce/" target="_self">
-          
-          加解密相关算法介绍 base64 作用和目的 Base64是一种将二进制数据转换为字符串表示的格式转换算法，其最初是为了解决电子邮件中无法直接使用非ASCII字符的问题。一段数据先经过Base64编码为ASCII字符串后，可以在接收端，通过Base64解码还原为原数据后，而无需担心二进制兼容问题，避免数据的歧义和失真。 由于base64的易存储性和易传输性，常常将其用到加密数据的存储和传输场景。
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-16 22:53" pubdate>
-              2023-08-16
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/08/04/machine-learning/" target="_self">
-          machine_learning
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/08/04/machine-learning/" target="_self">
-          
-          
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-04 10:50" pubdate>
-              2023-08-04
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/08/04/cuda-usage/" target="_self">
-          cuda_usage
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/08/04/cuda-usage/" target="_self">
-          
-          查看本机所支持的 nvidia 驱动 ubuntu-drivers devices recommend 可以直接用 apt 安装 nvidia 驱动官网下载: https:&#x2F;&#x2F;www.nvidia.cn&#x2F;Download&#x2F;index.aspx?lang&#x3D;cn# 安装cuda 在nvidia官网选择需要的cuda版本下载 https:&#x2F;&#x2F;developer.nvidia.com&#x2F;cuda-10.2-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-04 10:49" pubdate>
-              2023-08-04
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/cuda/">cuda</a>
-            
-              <a href="/tags/tensorrt/">tensorrt</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/08/02/qn-image-host/" target="_self">
-          qiniu 图床配置
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/08/02/qn-image-host/" target="_self">
-          
-          图床 搜素“好用的图床”，搜索结果中随机对比了下，qiniu个人用户可以免费享受每月 10GB的存储和流量，遂用之。  qiniu 的账户申请和配置省略，有很多教程，官方也有详细的引导和教程。 因为已经通过 hexo + github page有自己的播客了，之前简单理解只要把图片传到图床上就可以通过url 访问的图片了，但是qiniu图床不提供域名，没有域名也就没有可以访问图片的外链，因此需要在
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-02 21:11" pubdate>
-              2023-08-02
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
-            
-              <a href="/tags/%E5%9F%9F%E5%90%8D/">域名</a>
-            
-              <a href="/tags/cname/">cname</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/07/29/core-file/" target="_self">
-          core文件设置
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/07/29/core-file/" target="_self">
-          
-          core 文件设置 常规core文件设置 core 文件大小 查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效） 修改core文件路径  临时修改（重启后失效） 修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 1echo &amp;#x27;&#x2F;corefile&#x2F;core_%e.%p&amp;#x27; | sudo tee &#x2F;proc&#x2F;sys&#x2F;kern
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-07-29 02:42" pubdate>
-              2023-07-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/core-dump/">core dump</a>
-            
-              <a href="/tags/core-file/">core file</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/02/14/template-meta-program/" target="_self">
-          template_meta_program
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/02/14/template-meta-program/" target="_self">
-          
-          enable_if https:&#x2F;&#x2F;www.cnblogs.com&#x2F;3d-gis&#x2F;articles&#x2F;14392648.html
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-14 17:44" pubdate>
-              2023-02-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/template/">template</a>
             
           </div>
         

@@ -24,7 +24,7 @@
 <meta property="og:description" content="git在线练习平台 https:&#x2F;&#x2F;learngitbranching.js.org git常用命令和基本概念 代码托管平台push 时需要的 ssh 密钥 ssh 密钥生成  生成ssh密钥 ssh-keygen -t rsa 可以直接一路回车 打印密钥内容 cat ~&#x2F;.ssh&#x2F;id_rsa.pub 复制密钥到托管平台 查看.ssh&#x2F;config文件，是否配置了你的ssh，没有配置不会被使用（">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-11-26T12:35:17.000Z">
-<meta property="article:modified_time" content="2023-09-23T08:06:19.578Z">
+<meta property="article:modified_time" content="2024-05-13T10:09:24.681Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="ssh">
@@ -264,7 +264,7 @@ id="多个用户时指定用户在代码托管平台所用的密钥">多个用�
 连接远程主机时别名登录和免密登录</h6>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">1 Host fgq<br>2     HostName 主机端ip<br>3     User 主机端用户名<br>4     Port 22<br>5     IdentityFile ~/.ssh/id_rsa.remote  <span class="hljs-comment"># 连接主机所用的密钥，需要将公钥放在主机端</span><br></code></pre></td></tr></table></figure>
 <p>将公钥放在主机端 ~/.ssh/ 目录下使用
-<code>ssh-copy-id -i ~/.ssh/id_rsa.pub username@192.168.11.11</code>，或scp
+<code>ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 username@192.168.11.11</code>，或scp
 传输到 .ssh 目录下, 然后就可以通过 <code>ssh fgq</code>
 登录远程主机了</p>
 <h6 id="ssh-通过跳板机登录远程主机">ssh 通过跳板机登录远程主机</h6>
@@ -426,15 +426,6 @@ target="_blank" rel="noopener" href="https://blog.csdn.net/Lakers2015/article/de
               
             </div>
 
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-
-              </article>
             
           </article>
         </div>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="保存图片 12345cv::Mat m(1080, 1920, CV_8UC3);unsigned char* m_ptr &#x3D; m.ptr&lt;uchar&gt;(0);static int fgq_n &#x3D; 0;memcpy((void*)m_ptr, image_blob-&gt;cpu_data(), 1080 * 1920 * 3);cv::imwrite(&quot;&#x2F;home&#x2F;caro">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-14T07:02:59.000Z">
-<meta property="article:modified_time" content="2023-07-28T17:54:40.365Z">
+<meta property="article:modified_time" content="2024-05-23T02:31:49.184Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="opencv">
 <meta name="twitter:card" content="summary_large_image">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      244 字
+      1.2k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      11 分钟
     </span>
   
 
@@ -240,6 +240,29 @@
             <div class="markdown-body">
               <h3 id="保存图片">保存图片</h3>
 <figure class="highlight zephir"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs zephir">cv::Mat m(<span class="hljs-number">1080</span>, <span class="hljs-number">1920</span>, CV_8UC3);<br><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>* m_ptr = m.ptr&lt;<span class="hljs-keyword">uchar</span>&gt;(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> fgq_n = <span class="hljs-number">0</span>;<br>memcpy((void*)m_ptr, image_blob-&gt;cpu_data(), <span class="hljs-number">1080</span> * <span class="hljs-number">1920</span> * <span class="hljs-number">3</span>);<br>cv::imwrite(<span class="hljs-string">&quot;/home/caros/work/tmp/&quot;</span> + std::to_string(fgq_n++) + <span class="hljs-string">&quot;.png&quot;</span>, m);<br></code></pre></td></tr></table></figure>
+<h3 id="cvmat">cv::Mat</h3>
+<h4 id="基础概念">基础概念</h4>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/507103729">OpenCV:Mat中的step、elemSize和任意内存访问</a></p>
+<h4 id="判断是否连续">判断是否连续</h4>
+<p>isContinuous() 方法可以判断一个 cv::Mat
+对象是否在内存中是连续的。</p>
+<p>如果是连续的返回
+true，如果在每一行的结尾跳过一部分内存地址到达下一行，那么就会返回
+false。</p>
+<p>所以很显然，1x1 和 1xN 的对象一定是连续的，因为只有一行数据。</p>
+<p>使用 <code>cv::Mat::create</code>
+创建的对象也是连续的，表示直接开辟了一个连续的内存空间进行对象的创建。</p>
+<p>但是，如果从一个 cv::Mat
+对象中截取了一部分数据，或者构造数据来自外部存储的数据，那么就不一定是连续的了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp">cv::Mat newM = cv::Mat::<span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>, CV_32FC1);<br><br>cout &lt;&lt; newM.<span class="hljs-built_in">isContinuous</span>() &lt;&lt; endl;<br><br>cv::Mat segM = newM.<span class="hljs-built_in">colRange</span>(<span class="hljs-number">10</span>, <span class="hljs-number">15</span>);<br><br>cout &lt;&lt; segM.<span class="hljs-built_in">isContinuous</span>() &lt;&lt; endl;<br><br></code></pre></td></tr></table></figure>
+<h4 id="非连续mat-如何拷贝">非连续Mat 如何拷贝</h4>
+<p>非连续是指行之间的地址是间断的，但是同一行的内存是连续，所以可以按行复制</p>
+<p>下面是把非连续的 Mat 复制给vector.data(),
+把非连续变成了连续，如果不关注连续还是非连续，可以直接
+a_mat.copyTo(b_mat) <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// apollo</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">BEVObstacleDetector::Mat2Vec</span><span class="hljs-params">(<span class="hljs-type">const</span> cv::Mat &amp;im, <span class="hljs-type">float</span> *data)</span> </span>&#123;<br>  <span class="hljs-built_in">ACHECK</span>(<span class="hljs-literal">nullptr</span> != data);<br>  <span class="hljs-type">int</span> rh = im.rows;<br>  <span class="hljs-type">int</span> rw = im.cols;<br>  <span class="hljs-type">int</span> rc = im.<span class="hljs-built_in">channels</span>();<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; rc; ++i) &#123;<br>    cv::<span class="hljs-built_in">extractChannel</span>(im, cv::<span class="hljs-built_in">Mat</span>(rh, rw, CV_32FC1, data + i * rh * rw), i);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h4 id="深拷贝与浅拷贝">深拷贝与浅拷贝</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 申请一块大内存</span><br><span class="hljs-function">Mat <span class="hljs-title">buffer</span><span class="hljs-params">(<span class="hljs-number">1024</span>*<span class="hljs-number">1024</span>*<span class="hljs-number">256</span>, <span class="hljs-number">5</span>, CV_32F)</span></span>;<br><br><span class="hljs-comment">// useful 是将要实际使用的行数</span><br><span class="hljs-comment">// rowRange 只是创建了个 mat 的 head，不会申请新的</span><br>handle = buffer.<span class="hljs-built_in">rowRange</span>(<span class="hljs-number">0</span>, useful)<br><span class="hljs-comment">// handle 相当于是 0 - useful 行的浅拷贝</span><br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -288,15 +311,6 @@
               
             </div>
 
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-
-              </article>
             
           </article>
         </div>

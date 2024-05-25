@@ -191,6 +191,272 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/02/14/GLOG-usage/" target="_self">
+          GLOG_usage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/14/GLOG-usage/" target="_self">
+          
+          cpp code 12345678910头文件包含：#include &quot;glog&#x2F;logging.h&quot;   &#x2F;&#x2F; 添加头文件初始化：FLAGS_log_dir &#x3D; &quot;.&#x2F;&quot;;  &#x2F;&#x2F; 指定地址log文件路径，默认是在&#x2F;tmp&#x2F;google::InitGoogleLogging(argv[0]);   &#x2F;&#x2F; 设置log文件名称，argv[0].INFO记录信息
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-14 14:45" pubdate>
+              2023-02-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/glog/">glog</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/14/GFLAG-usage/" target="_self">
+          GFLAG_usage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/14/GFLAG-usage/" target="_self">
+          
+          GFLAG使用记录 在main()中调用gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true) 解析传入GFLAGS_xxx，在运行bin文件的时候，可以选择用命令传入flags参数，或者将参数放在一个文本文件中 示例： 12345678910&#x2F;&#x2F; main.cpp#include &lt;iostream&gt;#include &amp;qu
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-14 14:42" pubdate>
+              2023-02-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/gflag/">gflag</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/13/bazel-usage/" target="_self">
+          bazel_usage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/13/bazel-usage/" target="_self">
+          
+          bazel安装 官方教程：https:&#x2F;&#x2F;bazel.build&#x2F;install&#x2F;ubuntu?hl&#x3D;zh-cn 基础教程 https:&#x2F;&#x2F;bazel.build&#x2F;start&#x2F;cpp?hl&#x3D;zh-cn
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-13 17:52" pubdate>
+              2023-02-13
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/bazel/">bazel</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/13/orin-env/" target="_self">
+          orin_env
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/13/orin-env/" target="_self">
+          
+          jetpack sdk 安装 确认nvidia apt资源列表 cat &#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;nvidia-l4t-apt-source.list 确认是否为 deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;common r35.1 main deb https:&#x2F;&#x2F;repo.download.nvidia.com&#x2F;jetson&#x2F;t
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-13 17:11" pubdate>
+              2023-02-13
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/orin/">orin</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/13/bug-record/" target="_self">
+          bug_record
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/13/bug-record/" target="_self">
+          
+          编译问题 linux 环境问题 问题描述： 程序有许多printf 时，使用管道符或重定向到文件均比直接打印到标准输出的性能要好 原因: https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lhfcws&#x2F;p&#x2F;3197735.html Console 会给多个进程共享，因此对console操作时会存在进程同步和缓存问题。 ssh远程连接没有该问题，只有在本地运行才有
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-13 14:42" pubdate>
+              2023-02-13
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/21/cpp-shell-input-args/" target="_self">
+          C++和shell脚本的输入参数设置
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/11/21/cpp-shell-input-args/" target="_self">
+          
+          C++ 可执行文件输入参数 1. getopt_long()函数 使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long 2. 设置参数选项 参数选项的形式可以分为两种，一是 -n, 二是 --name -n 这种需要设置短选项字符串；--name 这种需要设置长选项结构体。 2.1 段选项字符串 书写规则： - 多个短选项可以连在一起 - 如果某个要解析的选项
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 15:57" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/02/ffmpeg-usage/" target="_self">
+          ffmpeg usage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/09/02/ffmpeg-usage/" target="_self">
+          
+          ffmpeg 命令行  FFMPEG命令行详细参数  播放rgb格式的视频 1ffplay -f rawvideo -pixel_format bgr24 -video_size 1280x1280 -framerate 10 video_cuda_1.rgb  播放 h264格式的视频 1ffplay -f h264 -width 1920 -height 1080 record_424_sen
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-02 11:11" pubdate>
+              2022-09-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ffmpeg/">ffmpeg</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/08/30/performace-test/" target="_self">
           performace-test
         </a>
@@ -306,285 +572,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/python/">python</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/19/gcc-so-include/" target="_self">
-          gcc 的标准库和头文件
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/19/gcc-so-include/" target="_self">
-          
-          libgcc_s.so.1是什么 The GCC low-level runtime library 会在有需要的时候自动启动的C 运行时库，可以替代某些机器完成整数、浮点运算，还有一些其他的功能。 运行时库 应用程序和操作系统之间的桥梁，对操作系统硬件的抽象，包括对IO 操作、程序启动和程序退出、栈等的实现。不同的操作系统对应不同的运行时库，但提供的接口基本一致，比如windows 和linux
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-19 22:55" pubdate>
-              2022-07-19
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/gcc/">gcc</a>
-            
-              <a href="/tags/so/">so</a>
-            
-              <a href="/tags/include/">include</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/14/docker-usage/" target="_self">
-          docker-usage
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/14/docker-usage/" target="_self">
-          
-          docker 用法 docker教程： https:&#x2F;&#x2F;yeasy.gitbook.io&#x2F;docker_practice&#x2F;image&#x2F;build 运行容器 初次运行 docker run -itd image-id bash &#x2F;&#x2F;i 交互 t 终端 d 运行但不关闭，不进入docker docker exec -it conatainer-id bash &#x2F;&#x2F; 进入docker,退出不关闭 doc
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-14 15:29" pubdate>
-              2022-07-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/14/gcc-options/" target="_self">
-          gcc-options
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/14/gcc-options/" target="_self">
-          
-          gcc 的编译选项 gcc官方手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F; 7.5手册：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;#toc-GCC-Command-Options 链接选项：https:&#x2F;&#x2F;gcc.gnu.org&#x2F;onlinedocs&#x2F;gcc-7.5.0&#x2F;gcc&#x2F;Link-Options.html#Link-O
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-14 14:11" pubdate>
-              2022-07-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/gcc/">gcc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/11/cpp-const-cast/" target="_self">
-          const_cast用法
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/11/cpp-const-cast/" target="_self">
-          
-          const_cast const_cast&lt;&gt; &lt;&gt;必须是指针或引用 const std::shared_ptr去 const 1234567891011121314151617181920212223#include &lt;iostream&gt;#include &lt;memory&gt;struct A&amp;#123;        int x &#x3D; 0;&amp;#125;;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-11 17:55" pubdate>
-              2022-07-11
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/06/cpp-mutable/" target="_self">
-          cpp_mutable
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/06/cpp-mutable/" target="_self">
-          
-          mutable 关键字 mutabel 介绍 为什么std::mutex 前通常用mutable 修饰 在const成员函数中，对mutex的加锁和释放锁操作会违背const的不可变语义，所以，只能将mutex定义为mutable，从而可以在const修饰的函数中加锁，实现线程安全。 123456789101112131415161718192021222324#include &lt;mutex
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-06 20:11" pubdate>
-              2022-07-06
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/CPP/">CPP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/05/debug-tools/" target="_self">
-          cpp_debug_tools
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/07/05/debug-tools/" target="_self">
-          
-          C++ Debug命令和工具 readelf 查看可执行文件或库的符号表 1readelf -s .&#x2F;a.out 查看可执行文件或库的动态库表 1readelf -d .&#x2F;a.out objdump 查看汇编情况 1objdump -d .&#x2F;a.out ldd 查看动态库的链接情况 1ldd .&#x2F;a.out LD_PRELOAD 在执行该文件前预加载库，要加具体的库名，LD_PRELOAD的值只在
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-05 11:20" pubdate>
-              2022-07-05
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/CPP/">CPP</a>
-            
-              <a href="/tags/Debug/">Debug</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/06/29/vscode-tips/" target="_self">
-          vscode tips
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/06/29/vscode-tips/" target="_self">
-          
-          code命令终端直接打开文件 code 命令启动vscode 开启方式的 ctrl+shift+p 输入code，选择 install 不好用的时候，uninstall 再 install 一遍 code [path] https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_42881768&#x2F;article&#x2F;details&#x2F;119635248 vscode 正则表达式 查找 &#x2F;&#x2F; FGQ ***
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-06-29 20:11" pubdate>
-              2022-06-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/vscode/">vscode</a>
             
           </div>
         

@@ -242,79 +242,69 @@
             
             <div class="markdown-body">
               <h3 id="gcc-的编译选项">gcc 的编译选项</h3>
-<p>gcc官方手册：https://gcc.gnu.org/onlinedocs/</p>
-<p>7.5手册：https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/#toc-GCC-Command-Options</p>
-<p>链接选项：https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/Link-Options.html#Link-Options</p>
-<h4 id="fpic-和-fpie">-fPIC 和-fPIE</h4>
+<p>gcc官方手册：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/">https://gcc.gnu.org/onlinedocs/</a></p>
+<p>7.5手册：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/#toc-GCC-Command-Options">https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/#toc-GCC-Command-Options</a></p>
+<p>链接选项：<a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/Link-Options.html#Link-Options">https://gcc.gnu.org/onlinedocs/gcc-7.5.0/gcc/Link-Options.html#Link-Options</a></p>
+<h4 id="fPIC-和-fPIE">-fPIC 和-fPIE</h4>
 <p>-fPIC 用在动态库的编译，产生位置无关的代码</p>
 <p>-fPIE 用在可执行程序的编译</p>
-<p>两者在效果上一样，都是把代码中的逻辑地址转为相对地址，但是作用上不一样。
+<p>两者在效果上一样，都是把代码中的逻辑地址转为相对地址，但是作用上不一样。<br>
 -fPIC一般是动态库编译必须设置的，因为可能在链接时，多个模块之间的重定向可能会出现冲突。而-fPIE在可执行程序的编译中可加可不加，其将绝对地址转为相对地址，在一定程度上提高了安全性，另外相对寻址的方式可能会让程序在启动速度慢一点。</p>
-<p>PIE
-详解：https://www.redhat.com/en/blog/position-independent-executables-pie</p>
-<p>-fPIC 在64 位系统中，动态库在链接编译静态库时也是需要加的，原因在于:
-使用 32 位寄存器的汇编编译器无法访问64位平台地址偏移的范围，为了在使用64
-位寄存器的情况下使用相同的代码，编译器需要借助一种方式进行标记，也就是使用-fPIC
-或-mcmmodel=large 其实和直接编译动态库一样，只要涉及到动态库的编译加上
--fPIC 就行了，不管其底层是否依赖了静态库</p>
+<p>PIE 详解：<a target="_blank" rel="noopener" href="https://www.redhat.com/en/blog/position-independent-executables-pie">https://www.redhat.com/en/blog/position-independent-executables-pie</a></p>
+<p>-fPIC 在64 位系统中，动态库在链接编译静态库时也是需要加的，原因在于: 使用 32 位寄存器的汇编编译器无法访问64位平台地址偏移的范围，为了在使用64 位寄存器的情况下使用相同的代码，编译器需要借助一种方式进行标记，也就是使用-fPIC 或-mcmmodel=large<br>
+其实和直接编译动态库一样，只要涉及到动态库的编译加上 -fPIC 就行了，不管其底层是否依赖了静态库</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// a.cc</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdio&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;func\n&quot;</span>);<br>&#125;<br><span class="hljs-comment">// g++ -c a.cc -o a.o -fPIC</span><br><span class="hljs-comment">// ar rcs liba.a a.o</span><br><br><span class="hljs-comment">// b.cc</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">func2</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-built_in">func</span>();<br>&#125;<br><span class="hljs-comment">// g++ -shared -o libb.so b.cc -L -l a</span><br></code></pre></td></tr></table></figure>
-<p>报错: /usr/bin/ld: /tmp/ccGoVApA.o: relocation R_X86_64_PC32 against
-symbol `_ZSt4cout@<span class="citation"
-data-cites="GLIBCXX_3.4">@GLIBCXX_3.4</span>' can not be used when
-making a shared object; recompile with -fPIC /usr/bin/ld: final link
-failed: bad value collect2: error: ld returned 1 exit status</p>
-<p>其实不引用 func(), 不依赖liba.a，在编译libb.so时也是需要加上 -fPIC
-的</p>
-<h4 id="l-rpath和-rpath-link的区别">-L、-rpath和-rpath-link的区别</h4>
-<p>-L 选项： -L 选项用于指定链接器在链接程序时查找库文件的路径。
-它告诉链接器在指定的路径中搜索库文件，以解析程序中的库依赖关系。
-通常，您可以使用 -L
-来指定非标准库目录，以便链接器能够找到您自己编译或第三方库的位置。
+<p>报错:<br>
+/usr/bin/ld: /tmp/ccGoVApA.o: relocation R_X86_64_PC32 against symbol `_ZSt4cout@@GLIBCXX_3.4’ can not be used when making a shared object; recompile with -fPIC<br>
+/usr/bin/ld: final link failed: bad value<br>
+collect2: error: ld returned 1 exit status</p>
+<p>其实不引用 func(), 不依赖liba.a，在编译libb.so时也是需要加上 -fPIC 的</p>
+<h4 id="L、-rpath和-rpath-link的区别">-L、-rpath和-rpath-link的区别</h4>
+<p>-L 选项：<br>
+-L 选项用于指定链接器在链接程序时查找库文件的路径。<br>
+它告诉链接器在指定的路径中搜索库文件，以解析程序中的库依赖关系。<br>
+通常，您可以使用 -L 来指定非标准库目录，以便链接器能够找到您自己编译或第三方库的位置。<br>
 示例：-L/path/to/custom/libraries</p>
-<p>-rpath 选项： -rpath
-选项用于在可执行文件中嵌入运行时库的搜索路径。<br />
-它允许您指定在程序运行时查找共享库的路径，而不仅仅是在链接时。<br />
-运行时，程序将在指定的路径中搜索共享库，以满足依赖关系。<br />
+<p>-rpath 选项：<br>
+-rpath 选项用于在可执行文件中嵌入运行时库的搜索路径。<br>
+它允许您指定在程序运行时查找共享库的路径，而不仅仅是在链接时。<br>
+运行时，程序将在指定的路径中搜索共享库，以满足依赖关系。<br>
 示例：-Wl,-rpath,/path/to/runtime/libs</p>
-<p>-rpath-link 选项：<br />
--rpath-link 选项类似于
--rpath，但它用于在链接时将库搜索路径嵌入到可执行文件中，而不是运行时。<br />
-这可以用来解决在链接时将某个库链接到了其他共享库版本而不是预期版本的问题。<br />
--rpath-link 可以影响到链接过程中的库搜索路径，但不会影响运行时。<br />
+<p>-rpath-link 选项：<br>
+-rpath-link 选项类似于 -rpath，但它用于在链接时将库搜索路径嵌入到可执行文件中，而不是运行时。<br>
+这可以用来解决在链接时将某个库链接到了其他共享库版本而不是预期版本的问题。<br>
+-rpath-link 可以影响到链接过程中的库搜索路径，但不会影响运行时。<br>
 示例：-Wl,-rpath-link,/path/to/runtime/libs</p>
-<p>总结：<br />
--L 用于链接时，指定库文件的搜索路径。 -rpath
-用于运行时，嵌入可执行文件中，指定共享库的搜索路径。 -rpath-link
-用于链接时，指定库文件的搜索路径，但不会影响运行时。
+<p>总结：<br>
+-L 用于链接时，指定库文件的搜索路径。<br>
+-rpath 用于运行时，嵌入可执行文件中，指定共享库的搜索路径。<br>
+-rpath-link 用于链接时，指定库文件的搜索路径，但不会影响运行时。<br>
 这些选项通常用于处理库依赖关系，特别是当您有自定义库的位置或多个版本的库时，可以使用这些选项来确保链接器和运行时都能正确找到所需的库。</p>
-<h4 id="l-和--l-的顺序问题">-L 和 -l 的顺序问题</h4>
+<h4 id="L-和-l-的顺序问题">-L 和 -l 的顺序问题</h4>
 <p>-L 搜索路径时有顺序，按照从前往后；-l 搜索库时没有顺序</p>
 <h4 id="强制链接没有使用的库">强制链接没有使用的库</h4>
-<p>-Wl,--no-as-needed
-https://sourceware.org/binutils/docs-2.16/ld/Options.html</p>
-<h4 id="只链接使用到的库默认">只链接使用到的库（默认）</h4>
-<p>-Wl,--as-needed</p>
+<p>-Wl,–no-as-needed<br>
+<a target="_blank" rel="noopener" href="https://sourceware.org/binutils/docs-2.16/ld/Options.html">https://sourceware.org/binutils/docs-2.16/ld/Options.html</a></p>
+<h4 id="只链接使用到的库（默认）">只链接使用到的库（默认）</h4>
+<p>-Wl,–as-needed</p>
 <h4 id="fstack-protector-栈溢出保护">-fstack-protector 栈溢出保护</h4>
-<p>编写一个简单的例子，发展栈增长的方向是从地址向高地址增长的，与理论上的增长方向相反：https://blog.csdn.net/qq_48974566/article/details/127076024</p>
-<p>原因就在于开启了栈溢出保护选项。栈溢出保护的选项有好几个:
-https://www.cnblogs.com/arnoldlu/p/11630979.html
+<p>编写一个简单的例子，发展栈增长的方向是从地址向高地址增长的，与理论上的增长方向相反：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_48974566/article/details/127076024">https://blog.csdn.net/qq_48974566/article/details/127076024</a></p>
+<p>原因就在于开启了栈溢出保护选项。栈溢出保护的选项有好几个: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/arnoldlu/p/11630979.html">https://www.cnblogs.com/arnoldlu/p/11630979.html</a><br>
 不同的选项的保护程度不一样，性能影响也不一样。</p>
 <ul>
-<li>栈溢出保护机制的基本实现原理： 通过 -fstack-protector 和
--fno-stack-protector 分别编译一个简单的程序，查看其区别就可以发现：</li>
+<li>栈溢出保护机制的基本实现原理：<br>
+通过 -fstack-protector 和 -fno-stack-protector 分别编译一个简单的程序，查看其区别就可以发现：</li>
 </ul>
-<ol type="1">
+<ol>
 <li>改变栈的使用方向，相当于预分配栈上的一大块空间，如果超过了预分配空间的写，就会改写其他内存数据</li>
 <li>在栈分配空间前先标记一个位置，正常情况下该位置是不会被用户所改变和访问的，然后将该位置保存起来，等到分配和使用完栈空间后，再比较该位置的值是否发生了变化，从而判断栈是否发生了溢出。</li>
 </ol>
-<p>分析示例：https://www.modb.pro/db/217464</p>
+<p>分析示例：<a target="_blank" rel="noopener" href="https://www.modb.pro/db/217464">https://www.modb.pro/db/217464</a></p>
 <p>也可以用 compiler explorer 进行比较</p>
-<p><img src="image-6.png" srcset="/img/loading.gif" lazyload alt="alt text" /> <img src="image-7.png" srcset="/img/loading.gif" lazyload
-alt="alt text" /></p>
+<p><img src="image-6.png" srcset="/img/loading.gif" lazyload alt="alt text"><br>
+<img src="image-7.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
 <p>可以看到变量存储的方向是相反的。</p>
-<p>发现只有分析示例里的 char a[64] 会用到标记位置的保护方式，int
-x[64]不行，可能是因为char*
-的处理方式不太一样，也可能是上述理解的原理太简单，背后的实现更为复杂。</p>
+<p>发现只有分析示例里的 char a[64] 会用到标记位置的保护方式，int x[64]不行，可能是因为char* 的处理方式不太一样，也可能是上述理解的原理太简单，背后的实现更为复杂。</p>
 
             </div>
             <hr>

@@ -241,19 +241,15 @@
               <h2 id="标准">标准</h2>
 <p>string_view 在C++17 才被支持</p>
 <h2 id="性能方面">性能方面</h2>
-<p>https://stackoverflow.com/questions/40127965/how-exactly-is-stdstring-view-faster-than-const-stdstring</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/40127965/how-exactly-is-stdstring-view-faster-than-const-stdstring">https://stackoverflow.com/questions/40127965/how-exactly-is-stdstring-view-faster-than-const-stdstring</a></p>
 <p>string_view 在某些情况下可以避免内存分配，比如这个例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">( std::string_view bob )</span> </span>&#123;<br>  std::cout &lt;&lt; bob &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> <span class="hljs-type">const</span>*<span class="hljs-type">const</span>* argv)</span> </span>&#123;<br>  <span class="hljs-built_in">foo</span>( <span class="hljs-string">&quot;This is a string long enough to avoid the std::string SBO&quot;</span> );<br>  <span class="hljs-keyword">if</span> (argc &gt; <span class="hljs-number">1</span>)<br>    <span class="hljs-built_in">foo</span>( argv[<span class="hljs-number">1</span>] );<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>如果foo 函数接收的参数类型是 const std::string &amp;
-，那么在传递参数的时候需要先构造出一个string，而 string_view不需要</p>
-<p>除此之外，更重要的场景是需要用到子串时，string_view的substr
-是在原字符串的基础上读取，而string 的 substr 是返回一个新的字符串</p>
+<p>如果foo 函数接收的参数类型是 const std::string &amp; ，那么在传递参数的时候需要先构造出一个string，而 string_view不需要</p>
+<p>除此之外，更重要的场景是需要用到子串时，string_view的substr 是在原字符串的基础上读取，而string 的 substr 是返回一个新的字符串</p>
 <h2 id="生存周期方面">生存周期方面</h2>
-<p>string_view 的生存周期是和原 string
-一样的，因此在局部string不要能用在string_view上</p>
+<p>string_view 的生存周期是和原 string 一样的，因此在局部string不要能用在string_view上</p>
 <h2 id="空字符">空字符</h2>
-<p>string_view 尾部不包含空字符，除非是用字符常量构造的；而 string
-尾部是含有空字符的，虽然size 不包含空字符位</p>
+<p>string_view 尾部不包含空字符，除非是用字符常量构造的；而 string 尾部是含有空字符的，虽然size 不包含空字符位</p>
 
             </div>
             <hr>

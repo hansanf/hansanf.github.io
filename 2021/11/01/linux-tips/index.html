@@ -247,54 +247,55 @@
 <h5 id="查看系统启动时间">查看系统启动时间</h5>
 <p><code>ps -p PID -o lstart</code></p>
 <p>top 的 TIME 是占用 cpu 时间</p>
-<p>(加sudo 权限)修改系统时间和时区:
-https://www.cnblogs.com/ljy2013/p/4615149.html</p>
-<h5 id="磁盘u盘-挂载">磁盘/U盘 挂载</h5>
-<p>查看磁盘列表 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo fdisk -l</span><br></code></pre></td></tr></table></figure></p>
+<p>(加sudo 权限)修改系统时间和时区: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ljy2013/p/4615149.html">https://www.cnblogs.com/ljy2013/p/4615149.html</a></p>
+<h5 id="磁盘-U盘-挂载">磁盘/U盘 挂载</h5>
+<p>查看磁盘列表</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo fdisk -l</span><br></code></pre></td></tr></table></figure>
 <p>挂载 mount</p>
-<p>卸载 umount <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo mount 磁盘名称 挂载路径<br>sudo umount 磁盘名称<br>比如: <br>sudo mount <span class="hljs-regexp">/dev/</span>sda1 <span class="hljs-regexp">/home/</span>work/<br>sudo umount <span class="hljs-regexp">/dev/</span>sda1    <br></code></pre></td></tr></table></figure></p>
-<p>不小心拔下在复制数据的移动硬盘出现无法加载的错误 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs applescript">MFTMirrdoesnotmatchMFTMirrdoesnotmatchMFT (<span class="hljs-built_in">record</span> <span class="hljs-number">0</span>).<br>Failed <span class="hljs-keyword">to</span> mount &#x27;/dev/sda1&#x27;: Input/output <span class="hljs-keyword">error</span><br>NTFS <span class="hljs-keyword">is</span> either inconsistent, <span class="hljs-keyword">or</span> there <span class="hljs-keyword">is</span> a hardware fault, <span class="hljs-keyword">or</span> <span class="hljs-keyword">it</span>&#x27;s a<br>SoftRAID/FakeRAID hardware. In <span class="hljs-keyword">the</span> <span class="hljs-keyword">first</span> case <span class="hljs-built_in">run</span> chkdsk /f <span class="hljs-keyword">on</span> Windows<br><span class="hljs-keyword">then</span> reboot <span class="hljs-keyword">into</span> Windows twice. The usage <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> /f parameter <span class="hljs-keyword">is</span> very<br>important! If <span class="hljs-keyword">the</span> device <span class="hljs-keyword">is</span> a SoftRAID/FakeRAID <span class="hljs-keyword">then</span> <span class="hljs-keyword">first</span> <span class="hljs-built_in">activate</span><br><span class="hljs-keyword">it</span> <span class="hljs-keyword">and</span> mount a different device under <span class="hljs-keyword">the</span> /dev/mapper/ directory, (e.g.<br>/dev/mapper/nvidia_eahaabcc1). Please see <span class="hljs-keyword">the</span> &#x27;dmraid&#x27; documentation<br><span class="hljs-keyword">for</span> more details.<br></code></pre></td></tr></table></figure>
-LINUX下<code>sudo ntfsfix /dev/sda1</code></p>
+<p>卸载 umount</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo mount 磁盘名称 挂载路径<br>sudo umount 磁盘名称<br>比如: <br>sudo mount <span class="hljs-regexp">/dev/</span>sda1 <span class="hljs-regexp">/home/</span>work/<br>sudo umount <span class="hljs-regexp">/dev/</span>sda1    <br></code></pre></td></tr></table></figure>
+<p>不小心拔下在复制数据的移动硬盘出现无法加载的错误</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs applescript">MFTMirrdoesnotmatchMFTMirrdoesnotmatchMFT (<span class="hljs-built_in">record</span> <span class="hljs-number">0</span>).<br>Failed <span class="hljs-keyword">to</span> mount &#x27;/dev/sda1&#x27;: Input/output <span class="hljs-keyword">error</span><br>NTFS <span class="hljs-keyword">is</span> either inconsistent, <span class="hljs-keyword">or</span> there <span class="hljs-keyword">is</span> a hardware fault, <span class="hljs-keyword">or</span> <span class="hljs-keyword">it</span>&#x27;s a<br>SoftRAID/FakeRAID hardware. In <span class="hljs-keyword">the</span> <span class="hljs-keyword">first</span> case <span class="hljs-built_in">run</span> chkdsk /f <span class="hljs-keyword">on</span> Windows<br><span class="hljs-keyword">then</span> reboot <span class="hljs-keyword">into</span> Windows twice. The usage <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> /f parameter <span class="hljs-keyword">is</span> very<br>important! If <span class="hljs-keyword">the</span> device <span class="hljs-keyword">is</span> a SoftRAID/FakeRAID <span class="hljs-keyword">then</span> <span class="hljs-keyword">first</span> <span class="hljs-built_in">activate</span><br><span class="hljs-keyword">it</span> <span class="hljs-keyword">and</span> mount a different device under <span class="hljs-keyword">the</span> /dev/mapper/ directory, (e.g.<br>/dev/mapper/nvidia_eahaabcc1). Please see <span class="hljs-keyword">the</span> &#x27;dmraid&#x27; documentation<br><span class="hljs-keyword">for</span> more details.<br></code></pre></td></tr></table></figure>
+<p>LINUX下<code>sudo ntfsfix /dev/sda1</code></p>
 <h5 id="输出重定向">输出重定向</h5>
 <p>标准输入(键盘输入)、标准输出（输出到屏幕）、标准错误（也是输出到屏幕），它们分别对应的文件描述符是0，1，2</p>
-<p>2&gt;&amp;1 意思是把 标准错误输出 重定向到 标准输出.</p>
-<p>&amp;&gt;file 意思是把标准输出 和 标准错误输出
-都重定向到文件file中</p>
+<p>2&gt;&amp;1  意思是把 标准错误输出 重定向到 标准输出.</p>
+<p>&amp;&gt;file  意思是把标准输出 和 标准错误输出 都重定向到文件file中</p>
 <h5 id="磁盘分区和安装文件系统">磁盘分区和安装文件系统</h5>
-<p>https://blog.csdn.net/qq_43527718/article/details/122850052</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43527718/article/details/122850052">https://blog.csdn.net/qq_43527718/article/details/122850052</a></p>
 <p>sudo fdisk /dev/nvme0n1</p>
-<p>n 添加分区</p>
+<p>n  添加分区</p>
 <p>p 打印分区表 查看分区成功否</p>
 <p>w 保存</p>
-<p>mkfs -t ext4 /dev/nvme0n1p1 给第一个分区安装文件系统</p>
-<p>sudo blkid /dev/nvme0n1p1 查看nvme0n1p1属性</p>
+<p>mkfs -t ext4 /dev/nvme0n1p1  给第一个分区安装文件系统</p>
+<p>sudo blkid /dev/nvme0n1p1  查看nvme0n1p1属性</p>
 <h5 id="命令行启动向日葵">命令行启动向日葵</h5>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gradle">ps -ef | <span class="hljs-keyword">grep</span> sun<br>root       <span class="hljs-number">836</span>     <span class="hljs-number">1</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span>:<span class="hljs-number">26</span> ?        <span class="hljs-number">00</span>:<span class="hljs-number">01</span>:<span class="hljs-number">18</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sunlogin/</span>bin/oray_rundaemon -m server<br>root       <span class="hljs-number">856</span>   <span class="hljs-number">836</span>  <span class="hljs-number">1</span> <span class="hljs-number">10</span>:<span class="hljs-number">26</span> ?        <span class="hljs-number">00</span>:<span class="hljs-number">08</span>:<span class="hljs-number">43</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sunlogin/</span>bin/sunloginclient -m service<br><br>杀掉两个进程后执行<br>(开机自启动服务):<br>sudo systemctl start runsunloginclient.service<br>sudo systemctl enable runsunloginclient.service<br></code></pre></td></tr></table></figure>
 <h5 id="apt">apt</h5>
-<p>apt 的目录 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-regexp">/etc/</span>apt/<span class="hljs-keyword">source</span>.list 源列表，apt update 所使用的源<br><span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists index 位置，即 apt update所更新的包的标签<br><span class="hljs-regexp">/var/</span>cache<span class="hljs-regexp">/apt/</span>archive  apt-get install 下载安装包的路径<br></code></pre></td></tr></table></figure></p>
-<p>命令 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">apt-cache show 包名，展示的是<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists 目录下所对应的标签的信息<br>apt list 当前所使用的源所能获取到的软件包(deb)<br>apt install 包<br>apt remove 包<br></code></pre></td></tr></table></figure> 小 tip：当编译提示缺少什么库的时候的，apt
-list|grep 库 试下, 一般是 libxxx-dev，可以试下 apt install
-libxxx-dev</p>
+<p>apt 的目录</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-regexp">/etc/</span>apt/<span class="hljs-keyword">source</span>.list 源列表，apt update 所使用的源<br><span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists index 位置，即 apt update所更新的包的标签<br><span class="hljs-regexp">/var/</span>cache<span class="hljs-regexp">/apt/</span>archive  apt-get install 下载安装包的路径<br></code></pre></td></tr></table></figure>
+<p>命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">apt-cache show 包名，展示的是<span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists 目录下所对应的标签的信息<br>apt list 当前所使用的源所能获取到的软件包(deb)<br>apt install 包<br>apt remove 包<br></code></pre></td></tr></table></figure>
+<p>小 tip：当编译提示缺少什么库的时候的，apt list|grep 库 试下, 一般是 libxxx-dev，可以试下 apt install libxxx-dev</p>
 <h4 id="wget">wget</h4>
-<p>wget 下载目录 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -r -np -nH -R index.html http:<span class="hljs-regexp">//u</span>rl<span class="hljs-regexp">/including/</span>files/you<br></code></pre></td></tr></table></figure>
-https://zhuanlan.zhihu.com/p/380793959</p>
+<p>wget 下载目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -r -np -nH -R index.html http:<span class="hljs-regexp">//u</span>rl<span class="hljs-regexp">/including/</span>files/you<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/380793959">https://zhuanlan.zhihu.com/p/380793959</a></p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">root<span class="hljs-variable">@j5dvb</span><span class="hljs-symbol">:/map/guoqing</span>.feng/multiperception<span class="hljs-comment"># wget  https://www.xxx.io/output.tar</span><br><span class="hljs-symbol">wget:</span> bad address <span class="hljs-string">&#x27;www.xxx.io&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>修改域名解析配置 /etc/resolv.conf，没有则新建，格式如下:
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nameserver</span> <span class="hljs-number">127.0.0.53</span><br></code></pre></td></tr></table></figure></p>
+<p>修改域名解析配置 /etc/resolv.conf，没有则新建，格式如下:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nameserver</span> <span class="hljs-number">127.0.0.53</span><br></code></pre></td></tr></table></figure>
 <h3 id="tar传输文件">tar传输文件</h3>
-<p>tar cf - src_dir | ssh user@ip "tar xf - -C dst_path"<br />
+<p>tar cf - src_dir  | ssh user@ip “tar xf - -C dst_path”<br>
 会节省4次磁盘操作，提升一下开发效率。</p>
-<h3 id="export-当前所有目录下的动态库">export
-当前所有目录下的动态库</h3>
+<h3 id="export-当前所有目录下的动态库">export 当前所有目录下的动态库</h3>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> `<span class="hljs-built_in">find</span> -name <span class="hljs-string">&quot;*.so&quot;</span>|xargs -I &#123;&#125; realpath &#123;&#125; | xargs -I &#123;&#125; dirname &#123;&#125;`; <span class="hljs-keyword">do</span> <span class="hljs-built_in">export</span> <span class="hljs-attribute">LD_LIBRARY_PATH</span>=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:$p; done<br></code></pre></td></tr></table></figure>
 <h3 id="vim">vim</h3>
 <h4 id="块模式">块模式</h4>
-<p>windows 快捷键 ctrl+v<br />
-mac 快捷键 shift+control+v<br />
-进入visual block 后，上下选择行的范围 -&gt; 输入内容 -&gt; 按 I -&gt; 按
-ESC -&gt; 完成多行的一起修改</p>
-<h4 id="section"></h4>
-<p>行首输入 I<br />
+<p>windows 快捷键 ctrl+v<br>
+mac  快捷键 shift+control+v<br>
+进入visual block 后，上下选择行的范围 -&gt; 输入内容 -&gt; 按 I -&gt; 按 ESC -&gt; 完成多行的一起修改</p>
+<h4 id=""></h4>
+<p>行首输入 I<br>
 行尾输入</p>
 
             </div>

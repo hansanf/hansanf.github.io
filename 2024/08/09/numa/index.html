@@ -240,42 +240,19 @@
             
             <div class="markdown-body">
               <h2 id="jetson-是否支持-numa">jetson 是否支持 numa</h2>
-<p>NUMA 技术的主要思想是将 CPU 进行分组，Node 即是分组的抽象，一个 Node
-表示一个分组，一个分组可以由多个 CPU 组成。每个 Node
-都有自己的本地资源，包括内存、IO 等。每个 Node
-之间通过互联模块（QPI）进行通信，因此每个 Node
-除了可以访问自己的本地内存之外，还可以访问远端 Node
-的内存，只不过性能会差一些，一般用 distance 这个抽象的概念来表示各个
-Node 之间互访资源的开销。</p>
-<p>NUMA 是将 CPU 分组，也是将 内存 分组，而 jetson
-平台是上的硬件设计上，内存控制器只有一个，因此 jetson 是无法支持NUMA 的:
-https://forums.developer.nvidia.com/t/numa-support-in-jetson-nano/184604</p>
+<p>NUMA 技术的主要思想是将 CPU 进行分组，Node 即是分组的抽象，一个 Node 表示一个分组，一个分组可以由多个 CPU 组成。每个 Node 都有自己的本地资源，包括内存、IO 等。每个 Node 之间通过互联模块（QPI）进行通信，因此每个 Node 除了可以访问自己的本地内存之外，还可以访问远端 Node 的内存，只不过性能会差一些，一般用 distance 这个抽象的概念来表示各个 Node 之间互访资源的开销。</p>
+<p>NUMA 是将 CPU 分组，也是将 内存 分组，而 jetson 平台是上的硬件设计上，内存控制器只有一个，因此 jetson 是无法支持NUMA 的: <a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/numa-support-in-jetson-nano/184604">https://forums.developer.nvidia.com/t/numa-support-in-jetson-nano/184604</a></p>
 <p>numa 主要是为支持服务器上有几十个、上百个cpu 的场景而设计的</p>
 <h2 id="numa-的硬件设计">numa 的硬件设计</h2>
-<p>https://www.cnblogs.com/aozhejin/p/15955554.html</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aozhejin/p/15955554.html">https://www.cnblogs.com/aozhejin/p/15955554.html</a></p>
 <h2 id="numa-的作用">numa 的作用</h2>
-<h3 id="smp">SMP</h3>
-<p>SMP 服务器的主要特征是共享，系统中所有资源 (CPU 、内存、 I/O 等 )
-都是共享的。也正是由于这种特征，导致了 SMP
-服务器的主要问题，那就是它的扩展能力非常有限。对于 SMP
-服务器而言，每一个共享的环节都可能造成 SMP
-服务器扩展时的瓶颈，而最受限制的则是内存。由于每个 CPU
-必须通过相同的内存总线访问相同的内存资源，因此随着 CPU
-数量的增加，内存访问冲突将迅速增加，最终会造成 CPU 资源的浪费，使 CPU
-性能的有效性大大降低。实验证明， SMP 服务器 CPU 利用率最好的情况是 2 至
-4 个 CPU</p>
+<h3 id="SMP">SMP</h3>
+<p>SMP 服务器的主要特征是共享，系统中所有资源 (CPU 、内存、 I/O 等 ) 都是共享的。也正是由于这种特征，导致了 SMP 服务器的主要问题，那就是它的扩展能力非常有限。对于 SMP 服务器而言，每一个共享的环节都可能造成 SMP 服务器扩展时的瓶颈，而最受限制的则是内存。由于每个 CPU 必须通过相同的内存总线访问相同的内存资源，因此随着 CPU 数量的增加，内存访问冲突将迅速增加，最终会造成 CPU 资源的浪费，使 CPU 性能的有效性大大降低。实验证明， SMP 服务器 CPU 利用率最好的情况是 2 至 4 个 CPU</p>
 <h3 id="numa">numa</h3>
-<p>由于 SMP
-在扩展能力上的限制，人们开始探究如何进行有效地扩展从而构建大型系统的技术，
-NUMA 就是这种努力下的结果之一。利用 NUMA 技术，可以把几十个 CPU(
-甚至上百个 CPU) 组合在一个服务器内。 NUMA 服务器的基本特征是具有多个 CPU
-模块，每个 CPU 模块由多个 CPU( 如 4 个 ) 组成，并且具有独立的本地内存、
-I/O 槽口等。由于其节点之间可以通过互联模块 ( 如称为 Crossbar Switch)
-进行连接和信息交互，问本地内存的速度将远远高于访问远地内存 (
-系统内其它节点的内存 ) 的速度，这也是非一致存储访问 NUMA
-的由来。由于这个特点，为了更好地发挥系统性能，开发应用程序时需要尽量减少不同
-CPU 模块之间的信息交互。 <img src="image-5.png" srcset="/img/loading.gif" lazyload alt="alt text" /></p>
-<p>https://draveness.me/whys-the-design-numa-performance/</p>
+<p>由于 SMP 在扩展能力上的限制，人们开始探究如何进行有效地扩展从而构建大型系统的技术， NUMA 就是这种努力下的结果之一。利用 NUMA 技术，可以把几十个 CPU( 甚至上百个 CPU) 组合在一个服务器内。<br>
+NUMA 服务器的基本特征是具有多个 CPU 模块，每个 CPU 模块由多个 CPU( 如 4 个 ) 组成，并且具有独立的本地内存、 I/O 槽口等。由于其节点之间可以通过互联模块 ( 如称为 Crossbar Switch) 进行连接和信息交互，问本地内存的速度将远远高于访问远地内存 ( 系统内其它节点的内存 ) 的速度，这也是非一致存储访问 NUMA 的由来。由于这个特点，为了更好地发挥系统性能，开发应用程序时需要尽量减少不同 CPU 模块之间的信息交互。<br>
+<img src="image-5.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<p><a target="_blank" rel="noopener" href="https://draveness.me/whys-the-design-numa-performance/">https://draveness.me/whys-the-design-numa-performance/</a></p>
 
             </div>
             <hr>

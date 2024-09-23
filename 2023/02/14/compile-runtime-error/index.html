@@ -242,51 +242,40 @@
             <div class="markdown-body">
               <h3 id="编译时报错">编译时报错</h3>
 <h4 id="找不到依赖库的头文件">找不到依赖库的头文件</h4>
-<p>找不到依赖库的头文件，找不到依赖库中头文件所包含的头文件 bcloud
-引用依赖库时，头文件需要 HEADER 标签发布到output 中。</p>
-<p>发布到output
-的头文件，如果包含了库中的其他头文件，也需要一起发布到output 中</p>
-<p>为什么之前没有注意这个问题呢？因为一般头文件不会引用自己所不需要的头文件，只有其需要被引用时，才进行
-include。而如果将库中的头文件引用操作放在 .cc 文件，其所include
-的头文件的内容直接就编译到库中，在其他库所引用该库时，也就不会存头文件找不到另外一个头文件的问题了。</p>
-<h4 id="undefined-reference-to-__atan2_finite">undefined reference to
-`__atan2_finite'</h4>
+<p>找不到依赖库的头文件，找不到依赖库中头文件所包含的头文件<br>
+bcloud 引用依赖库时，头文件需要 HEADER 标签发布到output 中。</p>
+<p>发布到output 的头文件，如果包含了库中的其他头文件，也需要一起发布到output 中</p>
+<p>为什么之前没有注意这个问题呢？因为一般头文件不会引用自己所不需要的头文件，只有其需要被引用时，才进行 include。而如果将库中的头文件引用操作放在 .cc 文件，其所include 的头文件的内容直接就编译到库中，在其他库所引用该库时，也就不会存头文件找不到另外一个头文件的问题了。</p>
+<h4 id="undefined-reference-to-atan2-finite’">undefined reference to `__atan2_finite’</h4>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-literal">[ERROR]</span> fail <span class="hljs-keyword">to</span> compile baidu/adu-lab/framework/output/bin/radar_fusion_app ip:<span class="hljs-number">10.61</span>.<span class="hljs-number">192.37</span><br> err:bc_out/baidu/adu-lab/framework/app/radar_fusion/baidu_adu-lab_framework_radar_fusion_app_app_radar_fusion.cpp.o: In <span class="hljs-keyword">function</span> `v2x::sensor::radar::radar_fusion::radar<span class="hljs-constructor">_msg_proc(<span class="hljs-params">int</span>, <span class="hljs-params">std</span>::<span class="hljs-params">shared_ptr</span>&lt;<span class="hljs-params">os</span>::<span class="hljs-params">v2x</span>::<span class="hljs-params">device</span>::RadarObstacles <span class="hljs-params">const</span>&gt; <span class="hljs-params">const</span>&amp;)</span>&#x27;:<br>/home/bcloud/bcloud_data/EE/BCLOUD_PROTOBUF/CompileServer/Task/bb84d71b78676b10f34e635275115abf/baidu/adu-lab/framework/app/radar_fusion/radar_fusion.cpp:<span class="hljs-number">118</span>: undefined reference <span class="hljs-keyword">to</span> `__atan2_finite&#x27;<br></code></pre></td></tr></table></figure>
-<p>https://github.com/google/filament/issues/2875
-https://stackoverflow.com/questions/62334452/fast-math-cause-undefined-reference-to-pow-finite
-https://github.com/google/filament/issues/2146</p>
-<p>1、去掉 fast-math<br />
+<p><a target="_blank" rel="noopener" href="https://github.com/google/filament/issues/2875">https://github.com/google/filament/issues/2875</a><br>
+<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/62334452/fast-math-cause-undefined-reference-to-pow-finite">https://stackoverflow.com/questions/62334452/fast-math-cause-undefined-reference-to-pow-finite</a><br>
+<a target="_blank" rel="noopener" href="https://github.com/google/filament/issues/2146">https://github.com/google/filament/issues/2146</a></p>
+<p>1、去掉 fast-math<br>
 2、或加上 -fno-builtin +#include&lt;tgmath.h&gt;</p>
 <h3 id="运行时报错">运行时报错</h3>
 <h4 id="undefined-symbol">undefined symbol</h4>
-<p>1、运行时报 undefined symbol，可能是编译该so
-时没有实际链接依赖库，只是使用了头文件，比如编libmsf_Ucommon_Umath.so时没有链接libopencv_core.so，但还是能编译通过，因为其在系统目录下找到了头文件，有些情况仅使用头文件就编译通过了。。</p>
+<p>1、运行时报 undefined symbol，可能是编译该so 时没有实际链接依赖库，只是使用了头文件，比如编libmsf_Ucommon_Umath.so时没有链接libopencv_core.so，但还是能编译通过，因为其在系统目录下找到了头文件，有些情况仅使用头文件就编译通过了。。</p>
 <p>TODO：具体什么情况只需要头文件</p>
-<p>2、 E1219 23:24:25.009349 7549 class_loader_utility.cc:218]
-[mainboard]LibraryLoadException:
-/home/caros/work/airos_fusion/baidu/adu-lab/airos/output/3rd/libmodules_Sperception-fusion_Salgorithm_Sfusion_Utracker_Stracker_Sprocess_Slibmsf_Utracker_Uprocess.so:
-undefined symbol: _ZN9algorithm2ft5track14StateContainer9frequent_E</p>
-<p>也是运行期间报 undefined symbol 问题，但
-<em>ZN9algorithm2ft5track14StateContainer9frequent_E
-这个符号在libmsf_Utracker_Uprocess.so 这个动态库里的，是作为其中一个类的
-静态成员变量， 其使用形式为这种： StateContainer() :
-vx_mean_filter</em>(frequent_), vy_mean_filter_(frequent_){};
+<p>2、<br>
+E1219 23:24:25.009349  7549 class_loader_utility.cc:218] [mainboard]LibraryLoadException: /home/caros/work/airos_fusion/baidu/adu-lab/airos/output/3rd/libmodules_Sperception-fusion_Salgorithm_Sfusion_Utracker_Stracker_Sprocess_Slibmsf_Utracker_Uprocess.so: undefined symbol: _ZN9algorithm2ft5track14StateContainer9frequent_E</p>
+<p>也是运行期间报 undefined symbol 问题，但 <em>ZN9algorithm2ft5track14StateContainer9frequent_E 这个符号在libmsf_Utracker_Uprocess.so 这个动态库里的，是作为其中一个类的    静态成员变量， 其使用形式为这种：<br>
+StateContainer() : vx_mean_filter</em>(frequent_), vy_mean_filter_(frequent_){};<br>
 其使用静态成员变量在初始化列表中对成员变量进行初始化，因此报错，这种形式应该在一些编译参数的设置下是允许的。</p>
-<p>3、undefined symbol
-也可能是因为编译链接的库和运行时链接的库版本不一致</p>
-<h3 id="undefined-reference-googleisgooglelogginginited">undefined
-reference google::isGoogleLoggingInited()</h3>
-<p>从baidu/adu-3rd/glog 引用了glog库 但是本地也有glog库，</p>
-<p>笨方法： 删掉本地库后就ok了</p>
-<p>卸载glog的方法： <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs q"><span class="hljs-comment">//安装</span><br>sudo apt-<span class="hljs-built_in">get</span> install libgoogle-glog-<span class="hljs-built_in">dev</span><br><span class="hljs-comment">//卸载</span><br>sudo apt-<span class="hljs-built_in">get</span> remove libgoogle-glog-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure> 聪明方法：</p>
-<p>使用 ldd命令
-查看当前所链接的库是哪一个，是否是想要链接的库，使用export命令把想要链接的库放在前面</p>
+<p>3、undefined symbol 也可能是因为编译链接的库和运行时链接的库版本不一致</p>
+<h3 id="undefined-reference-google-isGoogleLoggingInited">undefined reference google::isGoogleLoggingInited()</h3>
+<p>从baidu/adu-3rd/glog 引用了glog库<br>
+但是本地也有glog库，</p>
+<p>笨方法：<br>
+删掉本地库后就ok了</p>
+<p>卸载glog的方法：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs q"><span class="hljs-comment">//安装</span><br>sudo apt-<span class="hljs-built_in">get</span> install libgoogle-glog-<span class="hljs-built_in">dev</span><br><span class="hljs-comment">//卸载</span><br>sudo apt-<span class="hljs-built_in">get</span> remove libgoogle-glog-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
+<p>聪明方法：</p>
+<p>使用 ldd命令 查看当前所链接的库是哪一个，是否是想要链接的库，使用export命令把想要链接的库放在前面</p>
 <h3 id="cpplint-报错">cpplint 报错</h3>
-<h4 id="static-extern-typedef等要放在声明前">static extern
-typedef等要放在声明前</h4>
+<h4 id="static-extern-typedef等要放在声明前">static extern typedef等要放在声明前</h4>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">select_npy_type</span> &#123;<br>  <span class="hljs-type">const</span> <span class="hljs-type">static</span> NPY_TYPES type = NPY_NOTYPE;<br>&#125;;  <span class="hljs-comment">// Default</span><br></code></pre></td></tr></table></figure>
-<p>3行 : Storage-class specifier (static, extern, typedef, etc) should
-be at the beginning of the declaration</p>
+<p>3行 : Storage-class specifier (static, extern, typedef, etc) should be at the beginning of the declaration</p>
 <p>static 放在 const 前面即可</p>
 
             </div>

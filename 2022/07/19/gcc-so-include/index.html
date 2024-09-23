@@ -240,56 +240,39 @@
             <h1 style="display: none">gcc 的标准库和头文件</h1>
             
             <div class="markdown-body">
-              <h3 id="libgcc_s.so.1是什么">libgcc_s.so.1是什么</h3>
-<p><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html">The GCC
-low-level runtime library</a></p>
-<p>会在有需要的时候自动启动的C
-运行时库，可以替代某些机器完成整数、浮点运算，还有一些其他的功能。</p>
+              <h3 id="libgcc-s-so-1是什么">libgcc_s.so.1是什么</h3>
+<p><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html">The GCC low-level runtime library</a></p>
+<p>会在有需要的时候自动启动的C 运行时库，可以替代某些机器完成整数、浮点运算，还有一些其他的功能。</p>
 <h3 id="运行时库">运行时库</h3>
-<p>应用程序和操作系统之间的桥梁，对操作系统硬件的抽象，包括对IO
-操作、程序启动和程序退出、栈等的实现。不同的操作系统对应不同的运行时库，但提供的接口基本一致，比如windows
-和linux 的运行时库，都提供fread 功能，但是其实现应该是不一样的，fread
-就包括在运行时库中。</p>
+<p>应用程序和操作系统之间的桥梁，对操作系统硬件的抽象，包括对IO 操作、程序启动和程序退出、栈等的实现。不同的操作系统对应不同的运行时库，但提供的接口基本一致，比如windows 和linux 的运行时库，都提供fread 功能，但是其实现应该是不一样的，fread 就包括在运行时库中。</p>
 <h3 id="编译参数顺序">编译参数顺序</h3>
-<p>LINKFLAGS_AFTER_LIBS(False)决定cxxflags、ldflags（编译参数和链接参数）是放在库前还是库后，对cmake
-和bcloud 而言有用，对gcc
-而言没有所谓这些参数之分，都是编译参数，链接的库名也都是编译参数，但是编译参数之间的顺序可能会影响能否编译成功</p>
-<h3 id="libc.so">libc.so</h3>
-<p>/usr/lib/aarch64-linux-gnu/libc.so
-是个链接脚本，表示在链接时去链哪个库，可以根据需要选择动态库还是静态库</p>
+<p>LINKFLAGS_AFTER_LIBS(False)决定cxxflags、ldflags（编译参数和链接参数）是放在库前还是库后，对cmake 和bcloud 而言有用，对gcc 而言没有所谓这些参数之分，都是编译参数，链接的库名也都是编译参数，但是编译参数之间的顺序可能会影响能否编译成功</p>
+<h3 id="libc-so"><a target="_blank" rel="noopener" href="http://libc.so">libc.so</a></h3>
+<p>/usr/lib/aarch64-linux-gnu/libc.so 是个链接脚本，表示在链接时去链哪个库，可以根据需要选择动态库还是静态库</p>
 <h3 id="符号集版本">符号集版本</h3>
 <p>func@GLIBC_2.31</p>
 <p>GLIBC_2.31表示符号集版本，向下兼容，即如果需要func@GLIBC_2.29时也没问题</p>
 <h3 id="强符号和若符号">强符号和若符号</h3>
 <p>符号表中的 STRONG 和 WEAK</p>
-<p>强符号：全局且初始化的参数和默认的函数，都属于强符号，强符号全局只能唯一，找不到直接报
-undefined reference</p>
-<p>弱符号：全局且未初始化的参数，也可以在代码中来指定。弱符号在链接时候找不到可以暂时用0地址代替，链接时不会报
-undefined，作为插件接口或用户自定义接口使用更加方便。</p>
+<p>强符号：全局且初始化的参数和默认的函数，都属于强符号，强符号全局只能唯一，找不到直接报 undefined  reference</p>
+<p>弱符号：全局且未初始化的参数，也可以在代码中来指定。弱符号在链接时候找不到可以暂时用0地址代替，链接时不会报 undefined，作为插件接口或用户自定义接口使用更加方便。</p>
 <h3 id="gcc-安装">gcc 安装</h3>
-<p>https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?<em>wkts</em>=1676342805235</p>
-<p>wget https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0</p>
+<p><a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?_wkts_=1676342805235">https://wenku.baidu.com/view/b73c43055a0102020740be1e650e52ea5418ce77.html?_wkts_=1676342805235</a></p>
+<p>wget <a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0">https://mirrors.ustc.edu.cn/gnu/gcc/gcc-7.5.0</a></p>
 <p>Note: gcc 安装后 c 和 c++ 的标准库还是原来的版本</p>
 <h3 id="添加系统头文件搜索路径">添加系统头文件搜索路径</h3>
-<p>https://blog.csdn.net/yjk13703623757/article/details/83154578</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yjk13703623757/article/details/83154578">https://blog.csdn.net/yjk13703623757/article/details/83154578</a></p>
 <p>gcc的环境变量CPLUS_INCLUDE_PATH（C程序使用的是C_INCLUDE_PATH）</p>
 <h3 id="gcc-低版本问题">gcc 低版本问题</h3>
-<p>gcc4 gcc5 不支持直接使用enum 作为map 的键指，需要自己指定hash
-方法。</p>
-<h3 id="libld-linux-aarch64.so.1-作用">/lib/ld-linux-aarch64.so.1
-作用</h3>
-<p>其是 aarch64平台上的动态链接器，ld-linux-aarch64.so.1 是ld-2.31.so
-的软链接</p>
-<p>linux man
-手册介绍：https://man7.org/linux/man-pages/man8/ld.so.8.html</p>
-<p>可执行的 ELF 程序中，将使用的动态链接器路径存储在 .interp section
-中，或者也可以手动执行命令</p>
+<p>gcc4 gcc5 不支持直接使用enum 作为map 的键指，需要自己指定hash 方法。</p>
+<h3 id="lib-ld-linux-aarch64-so-1-作用">/lib/ld-linux-aarch64.so.1 作用</h3>
+<p>其是 aarch64平台上的动态链接器，ld-linux-aarch64.so.1 <a target="_blank" rel="noopener" href="http://xn--ld-2-zi0i.31.so">是ld-2.31.so</a> 的软链接</p>
+<p>linux man 手册介绍：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/ld.so.8.html">https://man7.org/linux/man-pages/man8/ld.so.8.html</a></p>
+<p>可执行的 ELF 程序中，将使用的动态链接器路径存储在 .interp section 中，或者也可以手动执行命令</p>
 <p><code>/lib/ld-linux.so.*  [OPTIONS] [PROGRAM [ARGUMENTS]]</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">readelf -l /bin/ls</span><br><br>Elf file type is DYN (Shared object file)<br>Entry point 0x67d0<br>There are 13 program headers, starting at offset 64<br><br>Program Headers:<br>  Type           Offset             VirtAddr           PhysAddr<br>                 FileSiz            MemSiz              Flags  Align<br>  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040<br>                 0x00000000000002d8 0x00000000000002d8  R      0x8<br>  INTERP         0x0000000000000318 0x0000000000000318 0x0000000000000318<br>                 0x000000000000001c 0x000000000000001c  R      0x1<br>      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]<br>  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000<br>                 0x00000000000036a8 0x00000000000036a8  R      0x1000<br>  LOAD           0x0000000000004000 0x0000000000004000 0x0000000000004000<br>                 0x0000000000013581 0x0000000000013581  R E    0x1000<br>  LOAD           0x0000000000018000 0x0000000000018000 0x0000000000018000<br>                 0x0000000000008b50 0x0000000000008b50  R      0x1000<br>  LOAD           0x0000000000021010 0x0000000000022010 0x0000000000022010<br>                 0x0000000000001258 0x0000000000002548  RW     0x1000<br>  DYNAMIC        0x0000000000021a58 0x0000000000022a58 0x0000000000022a58<br>                 0x0000000000000200 0x0000000000000200  RW     0x8<br>  NOTE           0x0000000000000338 0x0000000000000338 0x0000000000000338<br>                 0x0000000000000020 0x0000000000000020  R      0x8<br>  NOTE           0x0000000000000358 0x0000000000000358 0x0000000000000358<br>                 0x0000000000000044 0x0000000000000044  R      0x4<br>  GNU_PROPERTY   0x0000000000000338 0x0000000000000338 0x0000000000000338<br>                 0x0000000000000020 0x0000000000000020  R      0x8<br>  GNU_EH_FRAME   0x000000000001d24c 0x000000000001d24c 0x000000000001d24c<br>                 0x000000000000092c 0x000000000000092c  R      0x4<br>  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000<br>                 0x0000000000000000 0x0000000000000000  RW     0x10<br>  GNU_RELRO      0x0000000000021010 0x0000000000022010 0x0000000000022010<br>                 0x0000000000000ff0 0x0000000000000ff0  R      0x1<br></code></pre></td></tr></table></figure>
-<p>当误删掉 ld-linux-aarch64.so.1, 可执行程序凭借 .interp section
-找不到正确的动态链接器，因此什么命令也无法执行，但是还可以通过
-/lib/ld-2.31.so /bin/ln 命令对原本的软链接做还原。</p>
-<p>参考: https://www.zhihu.com/question/385135873/answer/1139858267</p>
+<p>当误删掉 ld-linux-aarch64.so.1, 可执行程序凭借 .interp section 找不到正确的动态链接器，因此什么命令也无法执行，但是还可以通过 /lib/ld-2.31.so /bin/ln 命令对原本的软链接做还原。</p>
+<p>参考: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/385135873/answer/1139858267">https://www.zhihu.com/question/385135873/answer/1139858267</a></p>
 
             </div>
             <hr>

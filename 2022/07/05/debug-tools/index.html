@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      935 字
+      933 字
     </span>
   
 
@@ -239,40 +239,47 @@
             <h1 style="display: none">cpp_debug_tools</h1>
             
             <div class="markdown-body">
-              <h2 id="c-debug命令和工具">C++ Debug命令和工具</h2>
+              <h2 id="C-Debug命令和工具">C++ Debug命令和工具</h2>
 <h3 id="readelf">readelf</h3>
-<p>查看可执行文件或库的符号表 <figure class="highlight ada"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs ada">readelf -s ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure> 查看可执行文件或库的动态库表
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">readelf -d ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure></p>
+<p>查看可执行文件或库的符号表</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs ada">readelf -s ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
+<p>查看可执行文件或库的动态库表</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">readelf -d ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
 <h3 id="objdump">objdump</h3>
-<p>查看汇编情况 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">objdump -d ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure> 查看是否带有调试符号 objdump --debugging
-libvoidincr.a</p>
+<p>查看汇编情况</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">objdump -d ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
+<p>查看是否带有调试符号<br>
+objdump --debugging libvoidincr.a</p>
 <h3 id="nm">nm</h3>
-<p>查看符号类型 nm -a xxx 查看所有符号 nm -D xxx 查看动态库符号
-https://linux.die.net/man/1/nm</p>
+<p>查看符号类型<br>
+nm -a xxx 查看所有符号<br>
+nm -D xxx 查看动态库符号<br>
+<a target="_blank" rel="noopener" href="https://linux.die.net/man/1/nm">https://linux.die.net/man/1/nm</a></p>
 <h3 id="ldd">ldd</h3>
-<p>查看动态库的链接情况 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">ldd ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure></p>
-<h3 id="ld_preload">LD_PRELOAD</h3>
-<p>在执行该文件前预加载库，要加具体的库名，LD_PRELOAD的值只在当前语句生效
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">env LD_PRELOAD=<span class="hljs-regexp">/home/</span>fenggq<span class="hljs-regexp">/libutil.so ./</span>a.out<br></code></pre></td></tr></table></figure></p>
+<p>查看动态库的链接情况</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">ldd ./a.<span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
+<h3 id="LD-PRELOAD">LD_PRELOAD</h3>
+<p>在执行该文件前预加载库，要加具体的库名，LD_PRELOAD的值只在当前语句生效</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">env LD_PRELOAD=<span class="hljs-regexp">/home/</span>fenggq<span class="hljs-regexp">/libutil.so ./</span>a.out<br></code></pre></td></tr></table></figure>
 <h3 id="查看系统默认链接的库路径">查看系统默认链接的库路径</h3>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cat</span> /etc/ld.<span class="hljs-keyword">so</span>.<span class="hljs-keyword">conf</span><br>    # output: include /etc/ld.<span class="hljs-keyword">so</span>.<span class="hljs-keyword">conf</span>.d/*.<span class="hljs-keyword">conf</span><br><span class="hljs-keyword">cat</span> /etc/ld.<span class="hljs-keyword">so</span>.<span class="hljs-keyword">conf</span>.d/*.<span class="hljs-keyword">conf</span><br>    # output: 所有的默认库路径<br></code></pre></td></tr></table></figure>
 <h3 id="gdb">gdb</h3>
-<p>使用gdb调试带输入参数的程序 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">gdb --<span class="hljs-keyword">args</span> ./a.<span class="hljs-keyword">out</span> <span class="hljs-keyword">args</span><br></code></pre></td></tr></table></figure></p>
+<p>使用gdb调试带输入参数的程序</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">gdb --<span class="hljs-keyword">args</span> ./a.<span class="hljs-keyword">out</span> <span class="hljs-keyword">args</span><br></code></pre></td></tr></table></figure>
 <h3 id="file查看文件属性">file查看文件属性</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ file msf<br>msf: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, stripped<br></code></pre></td></tr></table></figure>
 <p>该文件被stripped ，去除掉了符号表信息</p>
 <h3 id="strip-命令">strip 命令</h3>
-<p>去掉符号表和调试等信息 <a
-target="_blank" rel="noopener" href="https://blog.51cto.com/u_15614325/5272498">https://blog.51cto.com/u_15614325/5272498</a></p>
-<p>符号表和strip
-https://xuanxuanblingbling.github.io/ctf/tools/2019/09/06/symbol/</p>
-<p>tmp_LD_PRELOAD=<span class="math inline">\({LD_PRELOAD} unset
-LD_PRELOAD nohup cyber_launch start fusion_tracker.launch &amp; export
-LD_PRELOAD=\)</span>{tmp_LD_PRELOAD}</p>
+<p>去掉符号表和调试等信息<br>
+<a target="_blank" rel="noopener" href="https://blog.51cto.com/u_15614325/5272498">https://blog.51cto.com/u_15614325/5272498</a></p>
+<p>符号表和strip <a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/ctf/tools/2019/09/06/symbol/">https://xuanxuanblingbling.github.io/ctf/tools/2019/09/06/symbol/</a></p>
+<p>tmp_LD_PRELOAD=${LD_PRELOAD}<br>
+unset LD_PRELOAD<br>
+nohup cyber_launch start fusion_tracker.launch &amp;<br>
+export LD_PRELOAD=${tmp_LD_PRELOAD}</p>
 <h3 id="core文件去哪了">core文件去哪了</h3>
-<p><a target="_blank" rel="noopener" href="http://www.hansanf.space/2023/07/29/core-file/">core
-文件设置</a> <a
-target="_blank" rel="noopener" href="https://www.jianshu.com/p/7317910210a4">core文件去哪了</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.hansanf.space/2023/07/29/core-file/">core 文件设置</a><br>
+<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7317910210a4">core文件去哪了</a></p>
 
             </div>
             <hr>

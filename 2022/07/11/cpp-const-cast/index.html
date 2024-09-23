@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="const_cast const_cast&lt;&gt; &lt;&gt;必须是指针或引用 const std::shared_ptr去 const 1234567891011121314151617181920212223#include &lt;iostream&gt;#include &lt;memory&gt;struct A&amp;#123;        int x &#x3D; 0;&amp;#125;;">
+    <meta name="description" content="const_cast const_cast&lt;&gt;  &lt;&gt;必须是指针或引用 const std::shared_ptr去 const 1234567891011121314151617181920212223#include &lt;iostream&gt;#include &lt;memory&gt;struct A&amp;#123;        int x &#x3D; 0;&amp;#125;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="const_cast用法">
 <meta property="og:url" content="http://example.com/2022/07/11/cpp-const-cast/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="const_cast const_cast&lt;&gt; &lt;&gt;必须是指针或引用 const std::shared_ptr去 const 1234567891011121314151617181920212223#include &lt;iostream&gt;#include &lt;memory&gt;struct A&amp;#123;        int x &#x3D; 0;&amp;#125;;">
+<meta property="og:description" content="const_cast const_cast&lt;&gt;  &lt;&gt;必须是指针或引用 const std::shared_ptr去 const 1234567891011121314151617181920212223#include &lt;iostream&gt;#include &lt;memory&gt;struct A&amp;#123;        int x &#x3D; 0;&amp;#125;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-11T09:55:38.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.367Z">
@@ -237,12 +237,10 @@
             <h1 style="display: none">const_cast用法</h1>
             
             <div class="markdown-body">
-              <h2 id="const_cast">const_cast</h2>
-<p>const_cast&lt;&gt; &lt;&gt;必须是指针或引用</p>
-<h2 id="const-stdshared_ptr去-const">const
-std::shared_ptr<const class_nam>去 const</h2>
+              <h2 id="const-cast">const_cast</h2>
+<p>const_cast&lt;&gt;  &lt;&gt;必须是指针或引用</p>
+<h2 id="const-std-shared-ptr-const-class-nam-去-const">const std::shared_ptr<const class_nam>去 const</h2>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">A</span>&#123;<br>        <span class="hljs-type">int</span> x = <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-function"><span class="hljs-type">const</span> std::shared_ptr&lt;<span class="hljs-type">const</span> A&gt; <span class="hljs-title">const_ptr</span><span class="hljs-params">(<span class="hljs-keyword">new</span> A())</span></span>;<br>        std::cout &lt;&lt; <span class="hljs-built_in">typeid</span>(const_ptr).<span class="hljs-built_in">name</span>() &lt;&lt; std::endl;<br><br>        <span class="hljs-comment">//ptr-&gt;x = 100; //error</span><br>        <span class="hljs-comment">//std::shared_ptr&lt;A&gt; ptr = const_cast&lt;std::shared_ptr&lt;A&gt;&gt;(const_ptr);  //error</span><br>        std::shared_ptr&lt;<span class="hljs-type">const</span> A&gt; ptr = <span class="hljs-keyword">const_cast</span>&lt;std::shared_ptr&lt;<span class="hljs-type">const</span> A&gt; &amp;&gt;(const_ptr); <span class="hljs-comment">//必须是const_cast&lt;&amp;&gt; 必须加引用</span><br><br>        A &amp;a = <span class="hljs-built_in">const_cast</span>&lt;A &amp;&gt;(*const_ptr); <span class="hljs-comment">// const_cast&lt;&amp;&gt; 必须加引用</span><br>        a.x = <span class="hljs-number">100</span>;<br><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;a.x = &quot;</span> &lt;&lt; a.x &lt;&lt; std::endl;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;const_ptr-&gt;x = &quot;</span> &lt;&lt; const_ptr-&gt;x &lt;&lt; std::endl;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
             </div>
             <hr>
             <div>

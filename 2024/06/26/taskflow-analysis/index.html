@@ -240,72 +240,40 @@
             
             <div class="markdown-body">
               <h2 id="taskflow主要的类">taskflow主要的类</h2>
-<h3 id="executor">Executor</h3>
-<p>An executor manages a set of worker threads to run one or multiple
-taskflows using an efficient work-stealing scheduling algorithm.</p>
-<p>顾名思义，taskflows 的执行实体，包括线程的创建和调度，默认创建cpu
-核数量的线程。</p>
-<p>Executor 构造的时候通过调用 _spawn(size_t N)
-创建N个线程和Worker，每个线程中调用 _exploit_task 执行任务，调用
-_wait_for_task等待任务到来</p>
-<p>主要接口： run* 系列，最终的实现都落到 run_until 里面，将
-list<Taskflow> 中的 Taskflow 构造到 Topology
-中，进行实际任务的执行。</p>
-<p>主要成员变量：Worker, std::thread, Taskflow, Node,
-ObserverInterface</p>
-<h3 id="task">Task</h3>
+<h3 id="Executor">Executor</h3>
+<p>An executor manages a set of worker threads to run one or multiple taskflows<br>
+using an efficient work-stealing scheduling algorithm.</p>
+<p>顾名思义，taskflows 的执行实体，包括线程的创建和调度，默认创建cpu 核数量的线程。</p>
+<p>Executor 构造的时候通过调用 _spawn(size_t N) 创建N个线程和Worker，每个线程中调用 _exploit_task 执行任务，调用 _wait_for_task等待任务到来</p>
+<p>主要接口：<br>
+run* 系列，最终的实现都落到 run_until 里面，将 list<Taskflow> 中的 Taskflow 构造到 Topology 中，进行实际任务的执行。</p>
+<p>主要成员变量：Worker, std::thread, Taskflow, Node, ObserverInterface</p>
+<h3 id="Task">Task</h3>
 <p>对Node 的封装，只有一个 Node* 成员变量</p>
-<h3 id="node">Node</h3>
-<p>用于执行实际操作的实体，其中最重要的部分是把回调函数封装到 _handle
-中，其次就是通过 _dependents 和 _successors 建立各个 Node 之间的关系</p>
-<h3 id="graph">Graph</h3>
-<p>管理 Node，负责 Node 的创建和销毁，只有一个 std::vector&lt;Node*&gt;
-_nodes 成员变量，通过 _emplace_back 成员函数创建 Node，_emplace_back
-是在 Taskflow 中创建 Task 的时候进行调用的</p>
-<h3 id="taskflow">Taskflow</h3>
-<p>Graph 管理的是 Node，而 Taskflow 管理的是 Task，因此也可以把 Taskflow
-看作是对 Graph 的封装。Taskflow 与 Excutor 进行直接的交互，Taskflow
-是任务执行流的表示，而 Graph 只是对任务的载体，即 Graph
-没有任务间的逻辑交互。</p>
-<p>Taskflow 继承自 FlowBuilder，两者有意义的成员变量只有 _graph 、
-_mutex 和 _topologies，可以看出 Graph 是维护在 Taskflow 里的</p>
-<h3 id="smallvector">SmallVector</h3>
-<p>其作用和std::vector 一样，都是动态数组，区别在于 SmallVector
-针对数据量小的情况和 POD 的情况做了特别的优化。</p>
-<p>如 SmallVector&lt;int, 2&gt;() 形式的构造，其表示当元素数量小于等于 2
-个元素时，其内存分配在栈上，而当元素数量大于 2
-个时，其仍会在堆上分配内存，并且如果是中途扩充的容量，其会把栈上元素拷贝到堆上。</p>
-<p>taskflow 中的 SmallVector 实现是从llvm 中搞过去的，类似的实现folly 和
-boost中也有，参考：https://github.com/zhangyachen/zhangyachen.github.io/issues/167</p>
-<p>继承关系: SmallVector -&gt; SmallVectorImpl -&gt;
-SmallVectorTemplateBase -&gt; SmallVectorTemplateCommon -&gt;
-SmallVectorBase</p>
-<p>基本实现: 其中关于vector 的操作方法都是在 SmallVectorImpl 和
-SmallVectorTemplateBase 两个类中实现的。</p>
-<p>只有 SmallVectorTemplateCommon 和 SmallVectorBase
-有实际的成员变量，其中 SmallVectorTemplateCommon::FirstEl
-用来标识栈上首元素，SmallVector::SmallVectorStorage&lt;T, N&gt;
-用来表示栈上存储的元素，但是实际上其内部只有一个
-SmallVectorTemplateCommon<T>::U InlineElts[N - 1], 其用来实例化 N-1
-个栈上元素的空间。SmallVectorTemplateCommon<T>::U InlineElts[N - 1] 和
-SmallVectorTemplateCommon::FirstEl 加一起是栈上N
-个元素，从类对象的内存布局上看，两个成员变量是挨着的。为什么不直接初始化N
-个元素，还要分成两部分去实现呢，好处没看出来，可能是 FirstEl
-有什么特别的作用，必须要其保证栈上有一个元素吧。</p>
-<p>除了 InlineElts[N - 1] 和 FirstEl
-这两个成员变量外，还有三个指针变量，分别是 BeginX EndX 和
-CapacityX，其和常规vector 就一致了，分别表示数组的头、尾和容量的地址</p>
-<figure>
-<img src="image-2.png" srcset="/img/loading.gif" lazyload alt="继承关系" />
-<figcaption aria-hidden="true">继承关系</figcaption>
-</figure>
-<h3 id="datapipeline">DataPipeline</h3>
-<p>当多个节点之间存在数据依赖关系时使用 构造函数中调用 reset() 和
-_build()</p>
+<h3 id="Node">Node</h3>
+<p>用于执行实际操作的实体，其中最重要的部分是把回调函数封装到 _handle 中，其次就是通过 _dependents 和 _successors 建立各个 Node 之间的关系</p>
+<h3 id="Graph">Graph</h3>
+<p>管理 Node，负责 Node 的创建和销毁，只有一个 std::vector&lt;Node*&gt; _nodes 成员变量，通过 _emplace_back 成员函数创建 Node，_emplace_back 是在 Taskflow 中创建 Task 的时候进行调用的</p>
+<h3 id="Taskflow">Taskflow</h3>
+<p>Graph 管理的是 Node，而 Taskflow 管理的是 Task，因此也可以把 Taskflow 看作是对 Graph 的封装。Taskflow 与 Excutor 进行直接的交互，Taskflow 是任务执行流的表示，而 Graph 只是对任务的载体，即 Graph 没有任务间的逻辑交互。</p>
+<p>Taskflow 继承自 FlowBuilder，两者有意义的成员变量只有 _graph 、 _mutex 和 _topologies，可以看出 Graph 是维护在 Taskflow 里的</p>
+<h3 id="SmallVector">SmallVector</h3>
+<p>其作用和std::vector 一样，都是动态数组，区别在于 SmallVector 针对数据量小的情况和 POD 的情况做了特别的优化。</p>
+<p>如 SmallVector&lt;int, 2&gt;() 形式的构造，其表示当元素数量小于等于 2 个元素时，其内存分配在栈上，而当元素数量大于 2 个时，其仍会在堆上分配内存，并且如果是中途扩充的容量，其会把栈上元素拷贝到堆上。</p>
+<p>taskflow 中的 SmallVector 实现是从llvm 中搞过去的，类似的实现folly 和 boost中也有，参考：<a target="_blank" rel="noopener" href="https://github.com/zhangyachen/zhangyachen.github.io/issues/167">https://github.com/zhangyachen/zhangyachen.github.io/issues/167</a></p>
+<p>继承关系:<br>
+SmallVector -&gt; SmallVectorImpl -&gt; SmallVectorTemplateBase -&gt; SmallVectorTemplateCommon -&gt; SmallVectorBase</p>
+<p>基本实现:<br>
+其中关于vector 的操作方法都是在 SmallVectorImpl 和 SmallVectorTemplateBase 两个类中实现的。</p>
+<p>只有 SmallVectorTemplateCommon 和 SmallVectorBase 有实际的成员变量，其中 SmallVectorTemplateCommon::FirstEl 用来标识栈上首元素，SmallVector::SmallVectorStorage&lt;T, N&gt; 用来表示栈上存储的元素，但是实际上其内部只有一个 SmallVectorTemplateCommon<T>::U InlineElts[N - 1], 其用来实例化 N-1 个栈上元素的空间。SmallVectorTemplateCommon<T>::U InlineElts[N - 1] 和 SmallVectorTemplateCommon::FirstEl 加一起是栈上N 个元素，从类对象的内存布局上看，两个成员变量是挨着的。为什么不直接初始化N 个元素，还要分成两部分去实现呢，好处没看出来，可能是 FirstEl 有什么特别的作用，必须要其保证栈上有一个元素吧。</p>
+<p>除了 InlineElts[N - 1] 和 FirstEl 这两个成员变量外，还有三个指针变量，分别是 BeginX EndX 和 CapacityX，其和常规vector 就一致了，分别表示数组的头、尾和容量的地址</p>
+<p><img src="image-2.png" srcset="/img/loading.gif" lazyload alt="继承关系"></p>
+<h3 id="DataPipeline">DataPipeline</h3>
+<p>当多个节点之间存在数据依赖关系时使用<br>
+构造函数中调用 reset() 和 _build()</p>
 <p>line 和 pipe 的关系是？乱七八糟</p>
-<h3 id="pipeflow">Pipeflow</h3>
-<p>只有几个简单的成员变量: _line, _pipe, _token, _num_deferrals,
-_dependents</p>
+<h3 id="Pipeflow">Pipeflow</h3>
+<p>只有几个简单的成员变量: _line, _pipe, _token, _num_deferrals, _dependents</p>
 
             </div>
             <hr>

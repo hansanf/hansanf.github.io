@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      659 字
+      655 字
     </span>
   
 
@@ -240,22 +240,23 @@
             <div class="markdown-body">
               <h2 id="环境变量">环境变量</h2>
 <h3 id="三个文件">三个文件</h3>
-<h4 id="etcprofile">1. <code>/etc/profile</code></h4>
-<p>系统级别，可以所有用户起作用，网上有说是在用户登录时读取的。但在我电脑上使用<code>source /etc/profile</code>后只在当前终端起作用，新建终端仍不生效，为了以后在每个终端上都生效可以在<code>~/.bashrc</code>中添加<code>source /etc/profile</code>。
+<h4 id="1-etc-profile">1. <code>/etc/profile</code></h4>
+<p>系统级别，可以所有用户起作用，网上有说是在用户登录时读取的。但在我电脑上使用<code>source /etc/profile</code>后只在当前终端起作用，新建终端仍不生效，为了以后在每个终端上都生效可以在<code>~/.bashrc</code>中添加<code>source /etc/profile</code>。<br>
 注意<code>~/.bashrc</code>和<code>/etc/profile</code>中还包括对终端其他方面的设置，比如显示格式、颜色</p>
-<h4 id="etcenvironment">2. <code>/etc/environment</code></h4>
-<p>系统级别，应该是专门用于设置环境变量的，据说优先级高于<code>/etc/profile</code>，没验证过。
-#### 3. <code>~/.bashrc</code>
-只对当前用户生效，在个人电脑上直接修改这个文件即可，简单省事。</p>
+<h4 id="2-etc-environment">2. <code>/etc/environment</code></h4>
+<p>系统级别，应该是专门用于设置环境变量的，据说优先级高于<code>/etc/profile</code>，没验证过。</p>
+<h4 id="3-bashrc">3. <code>~/.bashrc</code></h4>
+<p>只对当前用户生效，在个人电脑上直接修改这个文件即可，简单省事。</p>
 <h3 id="环境变量书写格式">环境变量书写格式</h3>
-<p>最好在文件末尾添加 <figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 其他内容</span><br>PATH=<span class="hljs-variable">$PATH</span>:/usr/local/bin:/usr/bin<br></code></pre></td></tr></table></figure></p>
-<p><code>PATH</code>表示环境变量，等号两边不要有空格（shell语法，赋值时等号两边不能有空格）
-<code>$PATH</code>表示取变量值，即如果上面定义了<code>PATH</code>，可以直接引用上面定义好的环境变量，所以这也是为什么要加在文件末尾
+<p>最好在文件末尾添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 其他内容</span><br>PATH=<span class="hljs-variable">$PATH</span>:/usr/local/bin:/usr/bin<br></code></pre></td></tr></table></figure>
+<p><code>PATH</code>表示环境变量，等号两边不要有空格（shell语法，赋值时等号两边不能有空格）<br>
+<code>$PATH</code>表示取变量值，即如果上面定义了<code>PATH</code>，可以直接引用上面定义好的环境变量，所以这也是为什么要加在文件末尾<br>
 <code>:</code>为分隔符，每一个环境变量的路径都要用<code>:</code>分开</p>
 <p>上面这段代码等价于</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#其他内容</span><br>PATH=<span class="hljs-variable">$PATH</span>:/usr/local/bin<br>PATH=<span class="hljs-variable">$PATH</span>:/usr/bin<br></code></pre></td></tr></table></figure>
 <p>修改好后，使用source使其生效</p>
-<h3 id="export命令">3.export命令</h3>
+<h3 id="3-export命令">3.export命令</h3>
 <p>export命令使环境变量在当前终端生效，关闭终端后失效。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:环境变量路径<br></code></pre></td></tr></table></figure>
 <p>注意，一定要加上<code>$PATH</code>,否则会使已有的环境变量全都失效，只剩下新添加的</p>

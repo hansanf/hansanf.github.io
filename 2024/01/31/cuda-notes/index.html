@@ -239,75 +239,50 @@
             <h1 style="display: none">cuda-notes</h1>
             
             <div class="markdown-body">
-              <h1 id="杂记">杂记</h1>
-<p>1.可以在kernel
-里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信
-2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每
+              <h1>杂记</h1>
+<p>1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信<br>
+2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每<br>
 个时钟需要多少的共享内存</p>
 <p>3.warp是硬件层面中SM对应执行线程的单位。</p>
 <p>线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。</p>
-<p>同在一个warp的线程执行同一指令。warp
-本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT
-单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp
-包含数量相同的线程；warp周期性切换执行；关键要理解<strong>相同指令的执行</strong>，也就意味着如果出现不同的执行分支，同一
-warp 中的一部分线程会阻塞等待一另部分执行完才能执行后面的相同指令</p>
-<p>4.线程块是一个逻辑上的概念，其大小可以设置，其中的线程被分配一块<strong>共享内存</strong>，其线程数往往大于warp
-大小（常规cuda 设计下，warp
-size为32），也就意味着一个块中的会划分出多个warp。线程块中的线程数量曾经受架构限制，每个线程块最多只有512个线程，但从2019年7月开始，线程块可以最多包含1024个线程。</p>
-<p><a
-target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%9D%97">wiki
-线程块</a></p>
-<p>与线程块对应的硬件是SM（stream multiprocessor）, 不同的 SM
-之间无法进行同步，因此一个block 只能分配到一个SM 中，相反的，一个 SM
-却可以承载多个block <a
-target="_blank" rel="noopener" href="https://www.cvmart.net/community/detail/6020">设置block size 和
-grid size</a></p>
-<ol start="5" type="1">
-<li>一个块内的 warp
-次序是未定义的，但可以通过协调全局或共享内存的读取进行同步；在一个栅格块内的块次序是未定义的，并且不存在同步机制</li>
+<p>同在一个warp的线程执行同一指令。warp 本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT 单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp 包含数量相同的线程；warp周期性切换执行；关键要理解<strong>相同指令的执行</strong>，也就意味着如果出现不同的执行分支，同一 warp 中的一部分线程会阻塞等待一另部分执行完才能执行后面的相同指令</p>
+<p>4.线程块是一个逻辑上的概念，其大小可以设置，其中的线程被分配一块<strong>共享内存</strong>，其线程数往往大于warp 大小（常规cuda 设计下，warp size为32），也就意味着一个块中的会划分出多个warp。线程块中的线程数量曾经受架构限制，每个线程块最多只有512个线程，但从2019年7月开始，线程块可以最多包含1024个线程。</p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%9D%97">wiki 线程块</a></p>
+<p>与线程块对应的硬件是SM（stream multiprocessor）, 不同的 SM 之间无法进行同步，因此一个block 只能分配到一个SM 中，相反的，一个 SM 却可以承载多个block<br>
+<a target="_blank" rel="noopener" href="https://www.cvmart.net/community/detail/6020">设置block size 和 grid size</a></p>
+<ol start="5">
+<li>一个块内的 warp 次序是未定义的，但可以通过协调全局或共享内存的读取进行同步；在一个栅格块内的块次序是未定义的，并且不存在同步机制</li>
 </ol>
-<p>6.内存模型
-一条执行在设备上的线程，只允许通过如下的内存空间使用设备的DRAM 和On-Chip
-内存，如图2-2 所 示：  读写每条线程的寄存器，  读写每条线程的本地内存， 
-读写每个块的共享内存，  读写每个栅格的全局内存， 
-只读每个栅格的常量内存，  只读每个栅格的纹理内存。</p>
-<p><img src="image.png" srcset="/img/loading.gif" lazyload alt="Alt text" /> 全局内存在设备的 DRAM
-上；常量内存和纹理内存都是只读内存
-全局内存不会被缓存；常量内存和纹理内存中的数据会被缓存；缓存是无法被直接访问的，cuda
-中的缓存数据来源是常量内存和纹理内存</p>
-<p>7.循环展开的： #pragma unroll
-默认下，编译器为已知的行程计数展开小型循环。 #pragma unroll 5 For (int i
-= 0; i &lt; n; ++i) 循环将展开5 次。 如果#pragma unroll
-后面没有附值，当行程计数（n）为常数时，循环完全展开，否则不会展 开。</p>
-<p>8.-use_fast_math编译选项，将替换math
-库中的标准标本为低准确性而更快速的版本</p>
-<p>9.page-locked memory： 在cpu 内存中分配的内存，不会被换出，gpu
-使用时通过PCIE 进行通信 10.unified memory(managed memory)：
-可以翻译为托管内存，将分配的驻留位置移动到需要它的处理器，当gpu
-需要访问时就会把该块内存数据移动到gpu 内存上，当 cpu
-需要访问时就把这块内存数据移动到cpu 内存上。</p>
-<p>11.以下操作在不同的流中也不能进行并发：page-locked
-主机内存分配，设备内存的分配，设备内存的
-设置，设备到设备的内存拷贝，或它们之间的事件纪录。
-12.数据拷贝和数值计算、两个方向的拷贝（gpu-&gt;cpu 和
-cpu-&gt;gpu，两个gpu-&gt;cpu 或者一个
-gpu-&gt;cpu、一个cpu-&gt;gpu这种）可以同时进行。
+<p>6.内存模型<br>
+一条执行在设备上的线程，只允许通过如下的内存空间使用设备的DRAM 和On-Chip 内存，如图2-2 所<br>
+示：<br>
+ 读写每条线程的寄存器，<br>
+ 读写每条线程的本地内存，<br>
+ 读写每个块的共享内存，<br>
+ 读写每个栅格的全局内存，<br>
+ 只读每个栅格的常量内存，<br>
+ 只读每个栅格的纹理内存。</p>
+<p><img src="image.png" srcset="/img/loading.gif" lazyload alt="Alt text"><br>
+全局内存在设备的 DRAM 上；常量内存和纹理内存都是只读内存<br>
+全局内存不会被缓存；常量内存和纹理内存中的数据会被缓存；缓存是无法被直接访问的，cuda 中的缓存数据来源是常量内存和纹理内存</p>
+<p>7.循环展开的： #pragma unroll 默认下，编译器为已知的行程计数展开小型循环。<br>
+#pragma unroll 5<br>
+For (int i = 0; i &lt; n; ++i)<br>
+循环将展开5 次。<br>
+如果#pragma unroll 后面没有附值，当行程计数（n）为常数时，循环完全展开，否则不会展<br>
+开。</p>
+<p>8.-use_fast_math编译选项，将替换math 库中的标准标本为低准确性而更快速的版本</p>
+<p>9.page-locked memory： 在cpu 内存中分配的内存，不会被换出，gpu 使用时通过PCIE 进行通信<br>
+10.unified memory(managed memory)： 可以翻译为托管内存，将分配的驻留位置移动到需要它的处理器，当gpu 需要访问时就会把该块内存数据移动到gpu 内存上，当 cpu 需要访问时就把这块内存数据移动到cpu 内存上。</p>
+<p>11.以下操作在不同的流中也不能进行并发：page-locked 主机内存分配，设备内存的分配，设备内存的<br>
+设置，设备到设备的内存拷贝，或它们之间的事件纪录。<br>
+12.数据拷贝和数值计算、两个方向的拷贝（gpu-&gt;cpu 和 cpu-&gt;gpu，两个gpu-&gt;cpu 或者一个 gpu-&gt;cpu、一个cpu-&gt;gpu这种）可以同时进行。<br>
 13.cudaThreadSynchronize调用后可以确保前面所有的流都已完成。</p>
 <p>12.设置CUDA_LAUNCH_BLOCKING 环境变量为1，强制cuda同步运行</p>
-<p>13.为保证编译器生成最低数量的指令，对于结构体大于16
-字节的，应该用__align__ (16)定义,例如: <figure class="highlight arduino"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">__align</span>(<span class="hljs-number">16</span>)__ &#123;<br>  <span class="hljs-type">float</span> a;<br>  <span class="hljs-type">float</span> b;<br>  <span class="hljs-type">float</span> c<br>  <span class="hljs-type">float</span> d<br>  <span class="hljs-type">float</span> e;<br>&#125;;<br>被编译成为二个<span class="hljs-number">128</span>-bit 加载指令而不是五个<span class="hljs-number">32</span>-bit 加载指令。 <br></code></pre></td></tr></table></figure></p>
-<p>14.bank 冲突分两种，一种是共享内存bank 冲突，共享内存在物理上被分为
-32 个（刚好等于一个线程束中的线程数目，即内建变量 warpSize
-的值）同样宽度的、能被同时访问的内存 bank，当同一个 warp
-中的不同线程访问同一个 bank
-中的不同的地址时（访问同一个地址则会发生广播），就会发生 bank
-冲突；另一种是寄存器 bank 冲突，每个 SM 有独立的 register
-file，每个reigister file 被分为多个 bank，寄存器编号 id%4
-即为该寄存器所属的 bank，如 R0 属于 Bank 0，R5 属于 Bank
-1），当一条指令所需的源寄存器有两个以上来自于同一 bank则会产生
-conflict，比如FFMA R1, R0, R4, R1 这样的指令就回产生寄存器 Bank
-conflict（同同访问了 R0 和 R4，同属于 bank 0 的寄存器）</p>
-<p>http://www.zh0ngtian.tech/posts/96744e8c.html</p>
+<p>13.为保证编译器生成最低数量的指令，对于结构体大于16 字节的，应该用__align__ (16)定义,例如:</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">__align</span>(<span class="hljs-number">16</span>)__ &#123;<br>  <span class="hljs-type">float</span> a;<br>  <span class="hljs-type">float</span> b;<br>  <span class="hljs-type">float</span> c<br>  <span class="hljs-type">float</span> d<br>  <span class="hljs-type">float</span> e;<br>&#125;;<br>被编译成为二个<span class="hljs-number">128</span>-bit 加载指令而不是五个<span class="hljs-number">32</span>-bit 加载指令。 <br></code></pre></td></tr></table></figure>
+<p>14.bank 冲突分两种，一种是共享内存bank 冲突，共享内存在物理上被分为 32 个（刚好等于一个线程束中的线程数目，即内建变量 warpSize 的值）同样宽度的、能被同时访问的内存 bank，当同一个 warp 中的不同线程访问同一个 bank 中的不同的地址时（访问同一个地址则会发生广播），就会发生 bank 冲突；另一种是寄存器 bank 冲突，每个 SM 有独立的 register file，每个reigister file 被分为多个 bank，寄存器编号 id%4 即为该寄存器所属的 bank，如 R0 属于 Bank 0，R5 属于 Bank 1），当一条指令所需的源寄存器有两个以上来自于同一 bank则会产生 conflict，比如FFMA R1, R0, R4, R1 这样的指令就回产生寄存器 Bank conflict（同同访问了 R0 和 R4，同属于 bank 0 的寄存器）</p>
+<p><a target="_blank" rel="noopener" href="http://www.zh0ngtian.tech/posts/96744e8c.html">http://www.zh0ngtian.tech/posts/96744e8c.html</a></p>
 
             </div>
             <hr>

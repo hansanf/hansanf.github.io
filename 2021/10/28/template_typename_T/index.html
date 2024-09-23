@@ -16,18 +16,20 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在这里插入图片描述  12345678910111213141516171819202122232425#include &lt;iostream&gt;template &lt;typename T&gt;class  vector&amp;#123;private:    &#x2F;* data *&#x2F;public:     vector(&#x2F;* args *&#x2F;);    ~ vector();    voi">
+    <meta name="description" content="12345678910111213141516171819202122232425#include &lt;iostream&gt;template &lt;typename T&gt;class  vector&amp;#123;private:    &#x2F;* data *&#x2F;public:     vector(&#x2F;* args *&#x2F;);    ~ vector();    void push_back(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="缺少模板参数列表">
 <meta property="og:url" content="http://example.com/2021/10/28/template_typename_T/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="在这里插入图片描述  12345678910111213141516171819202122232425#include &lt;iostream&gt;template &lt;typename T&gt;class  vector&amp;#123;private:    &#x2F;* data *&#x2F;public:     vector(&#x2F;* args *&#x2F;);    ~ vector();    voi">
+<meta property="og:description" content="12345678910111213141516171819202122232425#include &lt;iostream&gt;template &lt;typename T&gt;class  vector&amp;#123;private:    &#x2F;* data *&#x2F;public:     vector(&#x2F;* args *&#x2F;);    ~ vector();    void push_back(">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/da1fd3f3cf3244ecac3814f3e1ed0f0f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAcXFx55av5ZWm55av5ZWm,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2021-10-27T23:02:03.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.367Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/da1fd3f3cf3244ecac3814f3e1ed0f0f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAcXFx55av5ZWm55av5ZWm,size_20,color_FFFFFF,t_70,g_se,x_16">
   
   
   <title>缺少模板参数列表 - HansanF&#39;s Studio</title>
@@ -197,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      406 字
+      397 字
     </span>
   
 
@@ -238,16 +240,10 @@
             <h1 style="display: none">缺少模板参数列表</h1>
             
             <div class="markdown-body">
-              <figure>
-<img
-src="https://img-blog.csdnimg.cn/da1fd3f3cf3244ecac3814f3e1ed0f0f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAcXFx55av5ZWm55av5ZWm,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" />
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
-</figure>
+              <p><img src="https://img-blog.csdnimg.cn/da1fd3f3cf3244ecac3814f3e1ed0f0f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAcXFx55av5ZWm55av5ZWm,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span>  <span class="hljs-title class_">vector</span><br>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">/* data */</span><br><span class="hljs-keyword">public</span>:<br>     <span class="hljs-built_in">vector</span>(<span class="hljs-comment">/* args */</span>);<br>    ~ <span class="hljs-built_in">vector</span>();<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">push_back</span><span class="hljs-params">( T <span class="hljs-type">const</span>&amp; )</span></span>;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">clear</span><span class="hljs-params">()</span></span>;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;  <span class="hljs-comment">// 不加这一行 会报错：“缺少模板参数列表”</span><br><span class="hljs-type">void</span> vector&lt;T&gt;::<span class="hljs-built_in">clear</span>()&#123;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <ul>
-<li>参考 <a
-target="_blank" rel="noopener" href="https://blog.csdn.net/u013891092/article/details/51583666/">https://blog.csdn.net/u013891092/article/details/51583666/</a></li>
+<li>参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013891092/article/details/51583666/">https://blog.csdn.net/u013891092/article/details/51583666/</a></li>
 </ul>
 
             </div>

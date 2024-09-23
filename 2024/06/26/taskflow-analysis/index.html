@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HansanF">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="taskflow主要的类 Executor An executor manages a set of worker threads to run one or multiple taskflows using an efficient work-stealing scheduling algorithm. 顾名思义，taskflows 的执行实体，包括线程的创建和调度，默认创建cpu 核数量的线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="taskflow-analysis">
+<meta property="og:url" content="http://example.com/2024/06/26/taskflow-analysis/index.html">
+<meta property="og:site_name" content="HansanF&#39;s Studio">
+<meta property="og:description" content="taskflow主要的类 Executor An executor manages a set of worker threads to run one or multiple taskflows using an efficient work-stealing scheduling algorithm. 顾名思义，taskflows 的执行实体，包括线程的创建和调度，默认创建cpu 核数量的线程">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/06/26/taskflow-analysis/image-2.png">
+<meta property="article:published_time" content="2024-06-26T02:41:00.000Z">
+<meta property="article:modified_time" content="2024-07-02T09:00:43.655Z">
+<meta property="article:author" content="HansanF">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/06/26/taskflow-analysis/image-2.png">
+  
+  
+  <title>taskflow-analysis - HansanF&#39;s Studio</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HansanF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="taskflow-analysis">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-06-26 10:41" pubdate>
+        June 26, 2024 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">taskflow-analysis</h1>
+            
+            <div class="markdown-body">
+              <h2 id="taskflow主要的类">taskflow主要的类</h2>
+<h3 id="executor">Executor</h3>
+<p>An executor manages a set of worker threads to run one or multiple
+taskflows using an efficient work-stealing scheduling algorithm.</p>
+<p>顾名思义，taskflows 的执行实体，包括线程的创建和调度，默认创建cpu
+核数量的线程。</p>
+<p>Executor 构造的时候通过调用 _spawn(size_t N)
+创建N个线程和Worker，每个线程中调用 _exploit_task 执行任务，调用
+_wait_for_task等待任务到来</p>
+<p>主要接口： run* 系列，最终的实现都落到 run_until 里面，将
+list<Taskflow> 中的 Taskflow 构造到 Topology
+中，进行实际任务的执行。</p>
+<p>主要成员变量：Worker, std::thread, Taskflow, Node,
+ObserverInterface</p>
+<h3 id="task">Task</h3>
+<p>对Node 的封装，只有一个 Node* 成员变量</p>
+<h3 id="node">Node</h3>
+<p>用于执行实际操作的实体，其中最重要的部分是把回调函数封装到 _handle
+中，其次就是通过 _dependents 和 _successors 建立各个 Node 之间的关系</p>
+<h3 id="graph">Graph</h3>
+<p>管理 Node，负责 Node 的创建和销毁，只有一个 std::vector&lt;Node*&gt;
+_nodes 成员变量，通过 _emplace_back 成员函数创建 Node，_emplace_back
+是在 Taskflow 中创建 Task 的时候进行调用的</p>
+<h3 id="taskflow">Taskflow</h3>
+<p>Graph 管理的是 Node，而 Taskflow 管理的是 Task，因此也可以把 Taskflow
+看作是对 Graph 的封装。Taskflow 与 Excutor 进行直接的交互，Taskflow
+是任务执行流的表示，而 Graph 只是对任务的载体，即 Graph
+没有任务间的逻辑交互。</p>
+<p>Taskflow 继承自 FlowBuilder，两者有意义的成员变量只有 _graph 、
+_mutex 和 _topologies，可以看出 Graph 是维护在 Taskflow 里的</p>
+<h3 id="smallvector">SmallVector</h3>
+<p>其作用和std::vector 一样，都是动态数组，区别在于 SmallVector
+针对数据量小的情况和 POD 的情况做了特别的优化。</p>
+<p>如 SmallVector&lt;int, 2&gt;() 形式的构造，其表示当元素数量小于等于 2
+个元素时，其内存分配在栈上，而当元素数量大于 2
+个时，其仍会在堆上分配内存，并且如果是中途扩充的容量，其会把栈上元素拷贝到堆上。</p>
+<p>taskflow 中的 SmallVector 实现是从llvm 中搞过去的，类似的实现folly 和
+boost中也有，参考：https://github.com/zhangyachen/zhangyachen.github.io/issues/167</p>
+<p>继承关系: SmallVector -&gt; SmallVectorImpl -&gt;
+SmallVectorTemplateBase -&gt; SmallVectorTemplateCommon -&gt;
+SmallVectorBase</p>
+<p>基本实现: 其中关于vector 的操作方法都是在 SmallVectorImpl 和
+SmallVectorTemplateBase 两个类中实现的。</p>
+<p>只有 SmallVectorTemplateCommon 和 SmallVectorBase
+有实际的成员变量，其中 SmallVectorTemplateCommon::FirstEl
+用来标识栈上首元素，SmallVector::SmallVectorStorage&lt;T, N&gt;
+用来表示栈上存储的元素，但是实际上其内部只有一个
+SmallVectorTemplateCommon<T>::U InlineElts[N - 1], 其用来实例化 N-1
+个栈上元素的空间。SmallVectorTemplateCommon<T>::U InlineElts[N - 1] 和
+SmallVectorTemplateCommon::FirstEl 加一起是栈上N
+个元素，从类对象的内存布局上看，两个成员变量是挨着的。为什么不直接初始化N
+个元素，还要分成两部分去实现呢，好处没看出来，可能是 FirstEl
+有什么特别的作用，必须要其保证栈上有一个元素吧。</p>
+<p>除了 InlineElts[N - 1] 和 FirstEl
+这两个成员变量外，还有三个指针变量，分别是 BeginX EndX 和
+CapacityX，其和常规vector 就一致了，分别表示数组的头、尾和容量的地址</p>
+<figure>
+<img src="image-2.png" srcset="/img/loading.gif" lazyload alt="继承关系" />
+<figcaption aria-hidden="true">继承关系</figcaption>
+</figure>
+<h3 id="datapipeline">DataPipeline</h3>
+<p>当多个节点之间存在数据依赖关系时使用 构造函数中调用 reset() 和
+_build()</p>
+<p>line 和 pipe 的关系是？乱七八糟</p>
+<h3 id="pipeflow">Pipeflow</h3>
+<p>只有几个简单的成员变量: _line, _pipe, _token, _num_deferrals,
+_dependents</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/08/network-communication/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">network_communication</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/24/vi-usage/">
+                        <span class="hidden-mobile">vi_usage</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

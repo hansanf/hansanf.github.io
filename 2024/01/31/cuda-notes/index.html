@@ -16,16 +16,16 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp 本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT 单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp 包含数">
+    <meta name="description" content="杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp是硬件层面中SM对应执行线程的单位。 线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。 同在一个warp的线程执">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cuda-notes">
 <meta property="og:url" content="http://example.com/2024/01/31/cuda-notes/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp 本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT 单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp 包含数">
+<meta property="og:description" content="杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp是硬件层面中SM对应执行线程的单位。 线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。 同在一个warp的线程执">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2024/01/31/cuda-notes/image.png">
 <meta property="article:published_time" content="2024-01-31T02:57:07.000Z">
-<meta property="article:modified_time" content="2024-02-21T07:26:58.212Z">
+<meta property="article:modified_time" content="2024-07-18T09:59:26.424Z">
 <meta property="article:author" content="HansanF">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2024/01/31/cuda-notes/image.png">
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.1k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16 分钟
+      18 分钟
     </span>
   
 
@@ -243,16 +243,29 @@
 <p>1.可以在kernel
 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信
 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每
-个时钟需要多少的共享内存 3.warp
+个时钟需要多少的共享内存</p>
+<p>3.warp是硬件层面中SM对应执行线程的单位。</p>
+<p>线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。</p>
+<p>同在一个warp的线程执行同一指令。warp
 本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT
 单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp
 包含数量相同的线程；warp周期性切换执行；关键要理解<strong>相同指令的执行</strong>，也就意味着如果出现不同的执行分支，同一
-warp 中的一部分线程会阻塞等待一另部分执行完才能执行后面的相同指令
-4.线程块更像是一个逻辑上的概念，其大小可以设置，其中的线程被分配一块<strong>共享内存</strong>，其线程数往往大于warp
-大小（常规cuda
-设计下，线程块大小为32），也就意味着一个块中的会划分出多个warp、 5.
-一个块内的 warp
-次序是未定义的，但可以通过协调全局或共享内存的读取进行同步；在一个栅格块内的块次序是未定义的，并且不存在同步机制</p>
+warp 中的一部分线程会阻塞等待一另部分执行完才能执行后面的相同指令</p>
+<p>4.线程块是一个逻辑上的概念，其大小可以设置，其中的线程被分配一块<strong>共享内存</strong>，其线程数往往大于warp
+大小（常规cuda 设计下，warp
+size为32），也就意味着一个块中的会划分出多个warp。线程块中的线程数量曾经受架构限制，每个线程块最多只有512个线程，但从2019年7月开始，线程块可以最多包含1024个线程。</p>
+<p><a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%9D%97">wiki
+线程块</a></p>
+<p>与线程块对应的硬件是SM（stream multiprocessor）, 不同的 SM
+之间无法进行同步，因此一个block 只能分配到一个SM 中，相反的，一个 SM
+却可以承载多个block <a
+target="_blank" rel="noopener" href="https://www.cvmart.net/community/detail/6020">设置block size 和
+grid size</a></p>
+<ol start="5" type="1">
+<li>一个块内的 warp
+次序是未定义的，但可以通过协调全局或共享内存的读取进行同步；在一个栅格块内的块次序是未定义的，并且不存在同步机制</li>
+</ol>
 <p>6.内存模型
 一条执行在设备上的线程，只允许通过如下的内存空间使用设备的DRAM 和On-Chip
 内存，如图2-2 所 示：  读写每条线程的寄存器，  读写每条线程的本地内存， 

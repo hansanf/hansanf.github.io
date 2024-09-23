@@ -191,15 +191,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2024/04/24/vi-usage/" target="_self">
-          vi_usage
+        <a href="/2024/09/21/cpp/py_cpp_interaction/" target="_self">
+          python_cpp_interaction
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2024/04/24/vi-usage/" target="_self">
+        <a href="/2024/09/21/cpp/py_cpp_interaction/" target="_self">
           
-          以普通用户身份打开，以 root 用户身份保存 :w !sudo tee % :w - 这是写入命令。由于没有给出参数，vim 将把整个文件写入标准输出； !sudo - 将 sudo 命令作为 shell 命令而不是 vim 命令运行； tee - tee命令用于读取标准输入并将其写入标准输出或文件； % - vim 将其替换为您正在编辑的当前文件的名称。 :w 命令将整个文件写入 STDOUT
+          1. Python调用C++ python调用C++需要编译出 python 的 module so，是一种区别于普通依赖库的动态库，可以通过pybind11 中的cmake 函数进行生成。 - step 1 首先要配置好pybind11 的依赖，其是纯头文件库，在CMakeLists.txt 中可以通过CPM 拉取，除此之外还需要依赖的 eigen, pybind11中有一些矩阵计算需要用到的。
         </a>
       </p>
 
@@ -207,239 +207,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-24 10:25" pubdate>
-              2024-04-24
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/04/18/disk_io/" target="_self">
-          测试磁盘读写速度
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/04/18/disk_io/" target="_self">
-          
-          dd-测试硬盘写入速度 dd bs&#x3D;1M count&#x3D;128 if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;test conv&#x3D;fdatasync iostat 查看设备IO 参考链接
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-04-18 16:39" pubdate>
-              2024-04-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/01/31/cuda-notes/" target="_self">
-          cuda-notes
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/01/31/cuda-notes/" target="_self">
-          
-          杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp 本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT 单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp 包含数
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-31 10:57" pubdate>
-              2024-01-31
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/01/19/tensorrt-tutorial/" target="_self">
-          tensorrt_tutorial
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/01/19/tensorrt-tutorial/" target="_self">
-          
-          sample 编译 https:&#x2F;&#x2F;github.com&#x2F;NVIDIA&#x2F;TensorRT&#x2F;tree&#x2F;release&#x2F;8.0?tab&#x3D;readme-ov-file#prerequisites  github 上下载对应仓库，然后根据对应的 cuda 版本选择对应的tag进行下载。 比如选择 release&#x2F;8.0，如果有 docker 环境，可以利用官方提供的 docker 镜像进行；裸机的话需要安
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-19 16:30" pubdate>
-              2024-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/01/10/pod-trivial-stardard-layout/" target="_self">
-          pod_trivial_stardard_layout
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/01/10/pod-trivial-stardard-layout/" target="_self">
-          
-          Plain Old Data (POD) pod 包含 trivial(普通)类型和standard layout 概念介绍： https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;cpp&#x2F;cpp&#x2F;trivial-standard-layout-and-pod-types?view&#x3D;msvc-170 trivial 类型的结构体支持用memcpy来操作二进制，并对齐进行序列化和反序列
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-10 19:46" pubdate>
-              2024-01-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/27/include-what-you-see/" target="_self">
-          include-what-you-see
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/12/27/include-what-you-see/" target="_self">
-          
-          简介 如何安装 根据gitlab 首页的提示：https:&#x2F;&#x2F;github.com&#x2F;include-what-you-use&#x2F;include-what-you-use 找到 How to build standalone，首先要知道IWYS是基于clang 和 llvm 构建，所以如果环境中已经安装好了 如何使用
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-27 22:11" pubdate>
-              2023-12-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/27/linux-deps/" target="_self">
-          linux_deps
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/12/27/linux-deps/" target="_self">
-          
-          libncurses5-dev 源码编译 https:&#x2F;&#x2F;blog.51cto.com&#x2F;liuzhenlife&#x2F;1892078 下载地址： http:&#x2F;&#x2F;ftp.gnu.org&#x2F;gnu&#x2F;ncurses&#x2F;  http:&#x2F;&#x2F;ftp.gnu.org&#x2F;gnu&#x2F;ncurses&#x2F;ncurses-6.0.tar.gz 12345[root@bogon liuzhen]# tar -zxvf ncurses-6.
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-27 21:59" pubdate>
-              2023-12-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/10/09/camera-params-md/" target="_self">
-          camera_params.md
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/10/09/camera-params-md/" target="_self">
-          
-          \[ E&#x3D;mc^2 \]              文字 或者 markdown 均可            空间转换&#x2F;坐标系转换 图像是由相机采集而来，那么就有一个疑问了，三维物理世界下的物体是怎么映射到一张二维图像上的，是怎么映射到具体的像素点的。这个映射的过程，就涉及到了几个坐标系&#x2F;空间的转换。 相机参数 去畸变 为什么去畸变 怎么去畸变
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-10-09 20:12" pubdate>
-              2023-10-09
+            <time datetime="2024-09-21 19:05" pubdate>
+              2024-09-21
             </time>
           </div>
         
@@ -448,7 +217,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a>
+              <a href="/tags/cpp-python/">cpp python</a>
             
           </div>
         
@@ -462,15 +231,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/09/18/doxygen-usage/" target="_self">
-          doxygen-usage
+        <a href="/2024/09/13/cpp/lambda_function/" target="_self">
+          lambda_call_once
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2023/09/18/doxygen-usage/" target="_self">
+        <a href="/2024/09/13/cpp/lambda_function/" target="_self">
           
-          vscode生成doxygen注释 doxygen 生成类图 1234brew install doxygenbrew install graphvizdoxygen -g ConfigName
+          作为局部静态变量只初始化一次 lambda函数可以作为局部静态变量，而局部静态变量只会初始化一次，因此该lammbda函数只会执行一次，因而具有 call_once 的语义。 123456789101112131415161718#include &lt;iostream&gt;void func() &amp;#123;  static auto init &#x3D; []() &amp;#123;    std::c
         </a>
       </p>
 
@@ -478,41 +247,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-18 00:33" pubdate>
-              2023-09-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/09/06/memory-check-tools/" target="_self">
-          memory_check_tools
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/09/06/memory-check-tools/" target="_self">
-          
-          ASan AddressSanitizer 的缩写。  官方资料：https:&#x2F;&#x2F;github.com&#x2F;google&#x2F;sanitizers&#x2F;wiki&#x2F;AddressSanitizer  常规用法 分为三步: 1. 添加编译选项，配合-g使用效果更价 12# set(CMAKE_CXX_FLAGS &quot;$&amp;#123;CMAKE_CXX_FLAGS&amp;#125; -fno-omit-frame-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-06 18:40" pubdate>
-              2023-09-06
+            <time datetime="2024-09-13 16:13" pubdate>
+              2024-09-13
             </time>
           </div>
         
@@ -521,9 +257,320 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%86%85%E5%AD%98%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/">内存检查工具</a>
+              <a href="/tags/cpp/">cpp</a>
             
-              <a href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/">内存泄露</a>
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/09/13/cpp/aligned_storage/" target="_self">
+          aligned_storage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/09/13/cpp/aligned_storage/" target="_self">
+          
+          aligned_storage 通过union 将存储和访问分开，并将存储数据的内存作为整体进行对齐 123456789101112131415161718192021222324252627282930#include &lt;vector&gt;#include &lt;iostream&gt;#include &lt;type_traits&gt;template &lt;typename
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-13 16:09" pubdate>
+              2024-09-13
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cpp/">cpp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/09/03/cpp/string_view/" target="_self">
+          string_view vs string &amp;
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/09/03/cpp/string_view/" target="_self">
+          
+          标准 string_view 在C++17 才被支持 性能方面 https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;40127965&#x2F;how-exactly-is-stdstring-view-faster-than-const-stdstring string_view 在某些情况下可以避免内存分配，比如这个例子： 12345678void foo( std::string_
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-03 09:51" pubdate>
+              2024-09-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cpp/">cpp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/08/12/cpp/byte_alignment/" target="_self">
+          字节对齐
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/08/12/cpp/byte_alignment/" target="_self">
+          
+          为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm 1. 不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 2. 避免内存需要两次访问才能把一个数据完整的读写 alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-08-12 12:12" pubdate>
+              2024-08-12
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cpp/">cpp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/08/09/numa/" target="_self">
+          numa
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/08/09/numa/" target="_self">
+          
+          jetson 是否支持 numa NUMA 技术的主要思想是将 CPU 进行分组，Node 即是分组的抽象，一个 Node 表示一个分组，一个分组可以由多个 CPU 组成。每个 Node 都有自己的本地资源，包括内存、IO 等。每个 Node 之间通过互联模块（QPI）进行通信，因此每个 Node 除了可以访问自己的本地内存之外，还可以访问远端 Node 的内存，只不过性能会差一些，一般用 dis
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-08-09 17:44" pubdate>
+              2024-08-09
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/08/08/cpp/member_pointer/" target="_self">
+          成员指针
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/08/08/cpp/member_pointer/" target="_self">
+          
+          参考 https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;cpp&#x2F;cpp&#x2F;pointers-to-members?view&#x3D;msvc-170 总结 成员指针与普通指针的区别在于，其能够标志该类所有实例的成员变量或成员函数，而常规指针只能标识内存中的一个对象或只具有其地址 示例 1234567891011121314151617181920212223242526#include &amp;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-08-08 09:40" pubdate>
+              2024-08-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cpp/">cpp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/07/31/pytorch_notes/" target="_self">
+          pytorch-notes
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/31/pytorch_notes/" target="_self">
+          
+          pytorch-notes channles_last 内存格式 https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;7155302838636118047 一般是NCHW 格式内存排列，当数据为 (10x3x16x16) 时，对应的 stride 为 (768, 256, 16, 1)，不同颜色的通道是分开的，一个颜色对应着一张图  而 channels_last 是 NHWC 格式内存排列，对应的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-31 16:01" pubdate>
+              2024-07-31
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pytorch/">pytorch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/07/31/cpp/rvalue_ref_qualifier/" target="_self">
+          ref-qualifier
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/31/cpp/rvalue_ref_qualifier/" target="_self">
+          
+          ref-qualifier https:&#x2F;&#x2F;en.cppreference.com&#x2F;w&#x2F;cpp&#x2F;language&#x2F;member_functions Member functions with ref-qualifier An implicit object member function can be declared with no ref-qualifier, with an lvalue r
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-31 14:20" pubdate>
+              2024-07-31
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cpp/">cpp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/07/26/smart-ptr/" target="_self">
+          smart_ptr
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/26/smart-ptr/" target="_self">
+          
+          std::shared_ptr 引用计数是原子的， 大多数解释是 shared_ptr 本身是线程安全的，但是对指向对象的读写不是线程安全的。 本身是线程安全的是什么意思呢，理解为在多线程中对shared_ptr 的读、复制和当引用计数大于 1 时的写是线程安全的。特别注意的引用计数大于 1 时的写，可以是该shared_ptr 本身的析构，也可以是赋值为其他的 shared_ptr，因为引用计数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-26 16:55" pubdate>
+              2024-07-26
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
             
           </div>
         
@@ -535,7 +582,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

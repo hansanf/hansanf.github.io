@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm  不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 避免内存需要两次访问才能把一个数据完整的读写  alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量的实际大">
+    <meta name="description" content="为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm 1. 不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 2. 避免内存需要两次访问才能把一个数据完整的读写 alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字节对齐">
 <meta property="og:url" content="http://example.com/2024/08/12/cpp/byte_alignment/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm  不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 避免内存需要两次访问才能把一个数据完整的读写  alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量的实际大">
+<meta property="og:description" content="为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm 1. 不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 2. 避免内存需要两次访问才能把一个数据完整的读写 alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-08-12T04:12:06.000Z">
 <meta property="article:modified_time" content="2024-08-12T06:37:46.687Z">
@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      699 字
+      703 字
     </span>
   
 
@@ -239,22 +239,23 @@
             
             <div class="markdown-body">
               <h2 id="为什么要字节对齐">为什么要字节对齐</h2>
-<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/84553.htm">https://www.jb51.net/article/84553.htm</a></p>
-<ol>
-<li>不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取</li>
-<li>避免内存需要两次访问才能把一个数据完整的读写</li>
-</ol>
-<h2 id="alignas-关键字-实现结构体字节对齐">alignas 关键字 实现结构体字节对齐</h2>
+<p>https://www.jb51.net/article/84553.htm 1.
+不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取
+2. 避免内存需要两次访问才能把一个数据完整的读写</p>
+<h2 id="alignas-关键字-实现结构体字节对齐">alignas 关键字
+实现结构体字节对齐</h2>
 <ul>
-<li>直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量的实际大小, 那么 alignas 将被忽略</li>
+<li>直接用在struct 关键字的后面加上 alignas(N), N
+表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量的实际大小, 那么
+alignas 将被忽略 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">alignas</span>(<span class="hljs-number">8</span>) Base &#123;<br>  <span class="hljs-type">int</span> a;<br>  <span class="hljs-type">char</span> b;<br>  <span class="hljs-type">int</span> c;<br>&#125;;<br><span class="hljs-comment">// size = 16</span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">alignas</span>(<span class="hljs-number">2</span>) Base &#123;<br>  <span class="hljs-type">int</span> a;<br>  <span class="hljs-type">char</span> b;<br>  <span class="hljs-type">int</span> c;<br>&#125;;<br><span class="hljs-comment">// size = 12</span><br></code></pre></td></tr></table></figure></li>
+<li>用在结构体中的单个变量上, 表示该变量的对齐值。如果前面的变量使用了
+alignas, 后面的变量没使用或者使用对齐值更小，那么都以前面的对齐值为准,
+并且在对齐范围内包含后面的变量；如果后面对齐值比前面大，那么则从新开始计算对齐地址
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BaseSep</span> &#123;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> a;<br>  <span class="hljs-type">char</span> b;<br>&#125;;<br><span class="hljs-comment">// size = 64</span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BaseSep</span> &#123;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> a;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">32</span>) <span class="hljs-type">char</span> b;<br>&#125;;<br><span class="hljs-comment">// size = 64</span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BaseSep</span> &#123;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> a;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">char</span> b;<br>&#125;;<br><span class="hljs-comment">// size = 128</span><br></code></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">alignas</span>(<span class="hljs-number">8</span>) Base &#123;<br>  <span class="hljs-type">int</span> a;<br>  <span class="hljs-type">char</span> b;<br>  <span class="hljs-type">int</span> c;<br>&#125;;<br><span class="hljs-comment">// size = 16</span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">alignas</span>(<span class="hljs-number">2</span>) Base &#123;<br>  <span class="hljs-type">int</span> a;<br>  <span class="hljs-type">char</span> b;<br>  <span class="hljs-type">int</span> c;<br>&#125;;<br><span class="hljs-comment">// size = 12</span><br></code></pre></td></tr></table></figure>
-<ul>
-<li>用在结构体中的单个变量上, 表示该变量的对齐值。如果前面的变量使用了 alignas, 后面的变量没使用或者使用对齐值更小，那么都以前面的对齐值为准, 并且在对齐范围内包含后面的变量；如果后面对齐值比前面大，那么则从新开始计算对齐地址</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BaseSep</span> &#123;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> a;<br>  <span class="hljs-type">char</span> b;<br>&#125;;<br><span class="hljs-comment">// size = 64</span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BaseSep</span> &#123;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> a;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">32</span>) <span class="hljs-type">char</span> b;<br>&#125;;<br><span class="hljs-comment">// size = 64</span><br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BaseSep</span> &#123;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> a;<br>  <span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">char</span> b;<br>&#125;;<br><span class="hljs-comment">// size = 128</span><br></code></pre></td></tr></table></figure>
-<h2 id="attribute-aligned-n-方式的"><strong>attribute</strong>((aligned (n))) 方式的</h2>
-<h2 id="pack-N-方式">pack(N) 方式</h2>
+<h2 id="attributealigned-n-方式的"><strong>attribute</strong>((aligned
+(n))) 方式的</h2>
+<h2 id="packn-方式">pack(N) 方式</h2>
 
             </div>
             <hr>

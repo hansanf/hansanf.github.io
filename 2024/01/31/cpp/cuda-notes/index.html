@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="HansanF">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp是硬件层面中SM对应执行线程的单位。 线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。 同在一个warp的线程执">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cuda-notes">
+<meta property="og:url" content="http://example.com/2024/01/31/cpp/cuda-notes/index.html">
+<meta property="og:site_name" content="HansanF&#39;s Studio">
+<meta property="og:description" content="杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp是硬件层面中SM对应执行线程的单位。 线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。 同在一个warp的线程执">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/01/31/cpp/cuda-notes/image.png">
+<meta property="article:published_time" content="2024-01-31T02:57:07.000Z">
+<meta property="article:modified_time" content="2024-10-29T10:10:47.087Z">
+<meta property="article:author" content="HansanF">
+<meta property="article:tag" content="cuda">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/01/31/cpp/cuda-notes/image.png">
+  
+  
+  <title>cuda-notes - HansanF&#39;s Studio</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>HansanF</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="cuda-notes">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-01-31 10:57" pubdate>
+        January 31, 2024 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">cuda-notes</h1>
+            
+            <div class="markdown-body">
+              <h1 id="杂记">杂记</h1>
+<p>1.可以在kernel
+里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信
+2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每
+个时钟需要多少的共享内存</p>
+<p>3.warp是硬件层面中SM对应执行线程的单位。</p>
+<p>线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。</p>
+<p>同在一个warp的线程执行同一指令。warp
+本质上是一组被同时调用的线程组，符合SIMD（或叫 SIMT
+单执行多线程）并行模型，所有线程中都执行相同的指令，每一条warp
+包含数量相同的线程；warp周期性切换执行；关键要理解<strong>相同指令的执行</strong>，也就意味着如果出现不同的执行分支，同一
+warp 中的一部分线程会阻塞等待一另部分执行完才能执行后面的相同指令</p>
+<p>4.线程块是一个逻辑上的概念，其大小可以设置，其中的线程被分配一块<strong>共享内存</strong>，其线程数往往大于warp
+大小（常规cuda 设计下，warp
+size为32），也就意味着一个块中的会划分出多个warp。线程块中的线程数量曾经受架构限制，每个线程块最多只有512个线程，但从2019年7月开始，线程块可以最多包含1024个线程。</p>
+<p><a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%9D%97">wiki
+线程块</a></p>
+<p>与线程块对应的硬件是SM（stream multiprocessor）, 不同的 SM
+之间无法进行同步，因此一个block 只能分配到一个SM 中，相反的，一个 SM
+却可以承载多个block <a
+target="_blank" rel="noopener" href="https://www.cvmart.net/community/detail/6020">设置block size 和
+grid size</a></p>
+<ol start="5" type="1">
+<li>一个块内的 warp
+次序是未定义的，但可以通过协调全局或共享内存的读取进行同步；在一个栅格块内的块次序是未定义的，并且不存在同步机制</li>
+</ol>
+<p>6.内存模型
+一条执行在设备上的线程，只允许通过如下的内存空间使用设备的DRAM 和On-Chip
+内存，如图2-2 所 示：  读写每条线程的寄存器，  读写每条线程的本地内存， 
+读写每个块的共享内存，  读写每个栅格的全局内存， 
+只读每个栅格的常量内存，  只读每个栅格的纹理内存。</p>
+<p><img src="image.png" srcset="/img/loading.gif" lazyload alt="Alt text" /> 全局内存在设备的 DRAM
+上；常量内存和纹理内存都是只读内存
+全局内存不会被缓存；常量内存和纹理内存中的数据会被缓存；缓存是无法被直接访问的，cuda
+中的缓存数据来源是常量内存和纹理内存</p>
+<p>7.循环展开的： #pragma unroll
+默认下，编译器为已知的行程计数展开小型循环。 #pragma unroll 5 For (int i
+= 0; i &lt; n; ++i) 循环将展开5 次。 如果#pragma unroll
+后面没有附值，当行程计数（n）为常数时，循环完全展开，否则不会展 开。</p>
+<p>8.-use_fast_math编译选项，将替换math
+库中的标准标本为低准确性而更快速的版本</p>
+<p>9.page-locked memory： 在cpu 内存中分配的内存，不会被换出，gpu
+使用时通过PCIE 进行通信 10.unified memory(managed memory)：
+可以翻译为托管内存，将分配的驻留位置移动到需要它的处理器，当gpu
+需要访问时就会把该块内存数据移动到gpu 内存上，当 cpu
+需要访问时就把这块内存数据移动到cpu 内存上。</p>
+<p>11.以下操作在不同的流中也不能进行并发：page-locked
+主机内存分配，设备内存的分配，设备内存的
+设置，设备到设备的内存拷贝，或它们之间的事件纪录。
+12.数据拷贝和数值计算、两个方向的拷贝（gpu-&gt;cpu 和
+cpu-&gt;gpu，两个gpu-&gt;cpu 或者一个
+gpu-&gt;cpu、一个cpu-&gt;gpu这种）可以同时进行。
+13.cudaThreadSynchronize调用后可以确保前面所有的流都已完成。</p>
+<p>12.设置CUDA_LAUNCH_BLOCKING 环境变量为1，强制cuda同步运行</p>
+<p>13.为保证编译器生成最低数量的指令，对于结构体大于16
+字节的，应该用__align__ (16)定义,例如: <figure class="highlight arduino"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">__align</span>(<span class="hljs-number">16</span>)__ &#123;<br>  <span class="hljs-type">float</span> a;<br>  <span class="hljs-type">float</span> b;<br>  <span class="hljs-type">float</span> c<br>  <span class="hljs-type">float</span> d<br>  <span class="hljs-type">float</span> e;<br>&#125;;<br>被编译成为二个<span class="hljs-number">128</span>-bit 加载指令而不是五个<span class="hljs-number">32</span>-bit 加载指令。 <br></code></pre></td></tr></table></figure></p>
+<p>14.bank 冲突分两种，一种是共享内存bank 冲突，共享内存在物理上被分为
+32 个（刚好等于一个线程束中的线程数目，即内建变量 warpSize
+的值）同样宽度的、能被同时访问的内存 bank，当同一个 warp
+中的不同线程访问同一个 bank
+中的不同的地址时（访问同一个地址则会发生广播），就会发生 bank
+冲突；另一种是寄存器 bank 冲突，每个 SM 有独立的 register
+file，每个reigister file 被分为多个 bank，寄存器编号 id%4
+即为该寄存器所属的 bank，如 R0 属于 Bank 0，R5 属于 Bank
+1），当一条指令所需的源寄存器有两个以上来自于同一 bank则会产生
+conflict，比如FFMA R1, R0, R4, R1 这样的指令就回产生寄存器 Bank
+conflict（同同访问了 R0 和 R4，同属于 bank 0 的寄存器）</p>
+<p>http://www.zh0ngtian.tech/posts/96744e8c.html</p>
+<ol start="15" type="1">
+<li>pitch内存和linear 内存的区别
+什么情况下使用cuMemAllocPitch，cuMemAllocPitch分配的内存可以和cudaMalloc分配的内存进行互相替代吗
+：</li>
+</ol>
+<p>cuMemAllocPitch 主要在以下情况下使用： 处理2D数组/图像数据：
+当需要处理2D数据（如图像）时，cuMemAllocPitch会自动处理内存对齐问题
+它会在每行末尾添加额外的填充字节，以确保每行的起始地址都能够正确对齐，这有助于提高内存访问性能</p>
+<p>优化内存访问：
+通过确保每行数据都按照适当的边界对齐，可以实现更高效的内存访问
+对于某些硬件架构，这种对齐可以显著提升性能</p>
+<p>关于是否可以与cudaMalloc互相替代： 不能直接替代，原因如下：
+cuMemAllocPitch分配的内存包含额外的填充字节，实际占用的内存空间大于原始数据大小
+访问cuMemAllocPitch分配的内存需要使用返回的pitch值来计算正确的内存偏移
+数据布局不同，cudaMalloc分配的是连续的内存空间，而cuMemAllocPitch包含了行间填充</p>
+<p>示例代码 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 使用cudaMalloc</span><br><span class="hljs-type">float</span>* data;<br><span class="hljs-type">int</span> width = <span class="hljs-number">1024</span>;<br><span class="hljs-type">int</span> height = <span class="hljs-number">768</span>;<br><span class="hljs-built_in">cudaMalloc</span>((<span class="hljs-type">void</span>**)&amp;data, width * height * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>));<br><br><span class="hljs-comment">// 使用cuMemAllocPitch</span><br><span class="hljs-type">float</span>* data;<br><span class="hljs-type">size_t</span> pitch;<br><span class="hljs-type">int</span> width = <span class="hljs-number">1024</span>;<br><span class="hljs-type">int</span> height = <span class="hljs-number">768</span>;<br><span class="hljs-built_in">cuMemAllocPitch</span>((CUdeviceptr*)&amp;data, &amp;pitch, width * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>), height, <span class="hljs-number">16</span>);<br><br><span class="hljs-comment">// cudaMalloc方式访问</span><br><span class="hljs-function">__global__ <span class="hljs-type">void</span> <span class="hljs-title">kernel1</span><span class="hljs-params">(<span class="hljs-type">float</span>* data, <span class="hljs-type">int</span> width)</span> </span>&#123;<br>    <span class="hljs-type">int</span> x = threadIdx.x + blockIdx.x * blockDim.x;<br>    <span class="hljs-type">int</span> y = threadIdx.y + blockIdx.y * blockDim.y;<br>    <span class="hljs-type">int</span> idx = y * width + x;<br>    <span class="hljs-type">float</span> value = data[idx];<br>&#125;<br><br><span class="hljs-comment">// cuMemAllocPitch方式访问</span><br><span class="hljs-function">__global__ <span class="hljs-type">void</span> <span class="hljs-title">kernel2</span><span class="hljs-params">(<span class="hljs-type">float</span>* data, <span class="hljs-type">size_t</span> pitch, <span class="hljs-type">int</span> width)</span> </span>&#123;<br>    <span class="hljs-type">int</span> x = threadIdx.x + blockIdx.x * blockDim.x;<br>    <span class="hljs-type">int</span> y = threadIdx.y + blockIdx.y * blockDim.y;<br>    <span class="hljs-type">float</span>* row = (<span class="hljs-type">float</span>*)((<span class="hljs-type">char</span>*)data + y * pitch);<br>    <span class="hljs-type">float</span> value = row[x];<br>&#125;<br><br></code></pre></td></tr></table></figure></p>
+<p>总结：
+如果您主要处理2D数据（特别是图像处理），并且关注内存访问性能，建议使用cuMemAllocPitch
+如果是处理一维数组或者不需要特别考虑内存对齐，使用cudaMalloc会更简单直接
+两者不能直接互相替代，因为内存布局和访问方式都不同</p>
+<p>什么情况下进行互相替代使用呢</p>
+<p>cuMemAllocPitch 和 cudaMalloc 在以下情况下可以考虑互相替代使用：
+一维数组场景： pitch 恰好等于宽度的情况： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 如果通过 cuMemAllocPitch 得到的 pitch 值恰好等于 width * sizeof(float)</span><br><span class="hljs-type">float</span>* data;<br><span class="hljs-type">size_t</span> pitch;<br><span class="hljs-type">int</span> width = <span class="hljs-number">128</span>;  <span class="hljs-comment">// 假设这个宽度正好满足对齐要求, 宽度为1920 时，pitch 为2048，此时和 malloc 分配的内存不一样</span><br><span class="hljs-type">int</span> height = <span class="hljs-number">768</span>;<br><span class="hljs-built_in">cuMemAllocPitch</span>((CUdeviceptr*)&amp;data, &amp;pitch, width * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>), height, <span class="hljs-number">16</span>);<br><br><span class="hljs-comment">// 如果 pitch == width * sizeof(float)，则可以用 cudaMalloc 替代</span><br><span class="hljs-type">float</span>* data;<br><span class="hljs-built_in">cudaMalloc</span>((<span class="hljs-type">void</span>**)&amp;data, width * height * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>));<br></code></pre></td></tr></table></figure>
+数据拷贝后重新组织的场景： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 原始数据使用 cuMemAllocPitch 分配</span><br><span class="hljs-type">float</span>* src_data;<br><span class="hljs-type">size_t</span> src_pitch;<br><span class="hljs-built_in">cuMemAllocPitch</span>((CUdeviceptr*)&amp;src_data, &amp;src_pitch, width * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>), height, <span class="hljs-number">16</span>);<br><br><span class="hljs-comment">// 可以将数据拷贝到 cudaMalloc 分配的连续内存中</span><br><span class="hljs-type">float</span>* dst_data;<br><span class="hljs-built_in">cudaMalloc</span>((<span class="hljs-type">void</span>**)&amp;dst_data, width * height * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>));<br><br><span class="hljs-comment">// 拷贝时重新组织数据</span><br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> y = <span class="hljs-number">0</span>; y &lt; height; y++) &#123;<br>    <span class="hljs-built_in">cudaMemcpy</span>(dst_data + y * width, <br>               (<span class="hljs-type">char</span>*)src_data + y * src_pitch, <br>               width * <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">float</span>), <br>               cudaMemcpyDeviceToDevice);<br>&#125;<br></code></pre></td></tr></table></figure></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/cuda/">cuda</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/18/disk_io/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">测试磁盘读写速度</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/19/tensorrt-tutorial/">
+                        <span class="hidden-mobile">tensorrt_tutorial</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

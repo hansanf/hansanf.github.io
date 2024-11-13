@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10 分钟
+      11 分钟
     </span>
   
 
@@ -244,35 +244,40 @@
 <p>由于base64的易存储性和易传输性，常常将其用到加密数据的存储和传输场景。</p>
 <p>使用Base64编码后的字符串通过索引表可以直接还原为明文，因此严格意义上讲base64并不是一种加密方法。</p>
 <h4 id="实现方式">实现方式</h4>
-<p>base64 编码是<strong>基于64个可打印的字符来表示二进制的数据</strong>的一种方法，具体来讲是下面这 64 个字符。</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-meta">[</span><span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-params">...</span> <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-params">...</span> <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-params">...</span> <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span><span class="hljs-meta">]</span> （26 + 26 + 10 + 2 = 64）<br></code></pre></td></tr></table></figure>
-<p>编码过程中，将待编码二进制数据按照 3 个字节进行分组（6 和 8 的最小公倍数是24），24bit 的原始数据对应着 4 个base64 编码（2 的 6 次方=64，即每 6bit 对应一个base64字符），即将3 字节的原始数据映射为4 个base64 字符。</p>
+<p>base64
+编码是<strong>基于64个可打印的字符来表示二进制的数据</strong>的一种方法，具体来讲是下面这
+64 个字符。 <figure class="highlight lasso"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-meta">[</span><span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-params">...</span> <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-params">...</span> <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-params">...</span> <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span><span class="hljs-meta">]</span> （26 + 26 + 10 + 2 = 64）<br></code></pre></td></tr></table></figure> 编码过程中，将待编码二进制数据按照 3
+个字节进行分组（6 和 8 的最小公倍数是24），24bit 的原始数据对应着 4
+个base64 编码（2 的 6 次方=64，即每 6bit 对应一个base64字符），即将3
+字节的原始数据映射为4 个base64 字符。</p>
 <blockquote>
-<p>参考：<br>
-<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/268594663">密码学 | Base64是加密算法吗？</a><br>
-<a target="_blank" rel="noopener" href="https://juejin.cn/post/7013621623454433317">今天学到了什么｜终于搞明白base64编码了</a></p>
+<p>参考：<br />
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/268594663">密码学 |
+Base64是加密算法吗？</a><br />
+<a
+target="_blank" rel="noopener" href="https://juejin.cn/post/7013621623454433317">今天学到了什么｜终于搞明白base64编码了</a></p>
 </blockquote>
 <h3 id="sha-2">sha-2</h3>
 <h4 id="作用">作用</h4>
 <p>SHA-2 (Secure Hash Algorithm 2), 安全散列算法2</p>
-<p>sha算法的作用就提现在名字上，其是一种hash 算法。sha-2具有不可逆行，即无法通过哈希序列获得原始编码明文。</p>
+<p>sha算法的作用就提现在名字上，其是一种hash
+算法。sha-2具有不可逆行，即无法通过哈希序列获得原始编码明文。</p>
 <h3 id="对称加密和非对称加密">对称加密和非对称加密</h3>
 <p>对称加密是指加解密双方要用同样的密钥；而非对称加密就是指加解密双方所用密钥不同，在非对称加密中，一个密钥对分为公钥和私钥，<strong>公钥用来加密，私钥用来解密。</strong></p>
-<p>假设通信双方为小明和小红，小明要发数据给小红，通过非对称加密的通信过程大体如下：</p>
-<ol>
-<li>数据<strong>接收方</strong>小红生成密钥对</li>
-<li>数据接收方小红将<strong>公钥</strong>发送给小明</li>
-<li>小明通过公钥对数据加密后将数据发送给小红</li>
-<li>小红通过<strong>本地私钥</strong>对加密数据进行解密</li>
-</ol>
+<p>假设通信双方为小明和小红，小明要发数据给小红，通过非对称加密的通信过程大体如下：
+1. 数据<strong>接收方</strong>小红生成密钥对 2.
+数据接收方小红将<strong>公钥</strong>发送给小明 3.
+小明通过公钥对数据加密后将数据发送给小红 4.
+小红通过<strong>本地私钥</strong>对加密数据进行解密</p>
 <p>因为公钥只能用来加密，因此公钥即使在网络传输过程中被劫持盗用，也无法将实际发送的数据的进行破解。</p>
 <p>计算量上非对称加密要远高于对称加密，因此常常将对称加密的密钥，通过非对称加密方式进行传输，以保证密钥的安全性。</p>
-<h3 id="RSA">RSA</h3>
+<h3 id="rsa">RSA</h3>
 <p>RSA 三个发明人的名字缩写，一种非对称加密算法</p>
-<h3 id="AES">AES</h3>
+<h3 id="aes">AES</h3>
 <p>AES(Advanced Encryption Standard), 一种对称加密算法</p>
 <h3 id="硬件加解密">硬件加解密</h3>
-<p>加解密都需要很大的计算量，很多处理器上都有专用的硬件用来进行加解密，可以通过使用<code>cat /proc/cpuinfo</code>命令查看打印页中Features项是否包含aes sha1 sha2来判断平台是否支持硬解。</p>
+<p>加解密都需要很大的计算量，很多处理器上都有专用的硬件用来进行加解密，可以通过使用<code>cat /proc/cpuinfo</code>命令查看打印页中Features项是否包含aes
+sha1 sha2来判断平台是否支持硬解。</p>
 
             </div>
             <hr>

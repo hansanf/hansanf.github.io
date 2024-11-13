@@ -16,21 +16,22 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="mutable 关键字 mutabel 介绍 为什么std::mutex 前通常用mutable 修饰 在const成员函数中，对mutex的加锁和释放锁操作会违背const的不可变语义，所以，只能将mutex定义为mutable，从而可以在const修饰的函数中加锁，实现线程安全。 123456789101112131415161718192021222324#include &lt;mutex">
+    <meta name="description" content="查看本机所支持的 nvidia 驱动 ubuntu-drivers devices recommend 可以直接用 apt 安装 nvidia 驱动官网下载: https:&#x2F;&#x2F;www.nvidia.cn&#x2F;Download&#x2F;index.aspx?lang&#x3D;cn# 安装cuda 在nvidia官网选择需要的cuda版本下载 https:&#x2F;&#x2F;developer.nvidia.com&#x2F;cuda-10.2-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cpp_mutable">
-<meta property="og:url" content="http://example.com/2022/07/06/cpp-mutable/index.html">
+<meta property="og:title" content="cuda_usage">
+<meta property="og:url" content="http://example.com/2023/08/04/cpp/cuda-usage/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="mutable 关键字 mutabel 介绍 为什么std::mutex 前通常用mutable 修饰 在const成员函数中，对mutex的加锁和释放锁操作会违背const的不可变语义，所以，只能将mutex定义为mutable，从而可以在const修饰的函数中加锁，实现线程安全。 123456789101112131415161718192021222324#include &lt;mutex">
+<meta property="og:description" content="查看本机所支持的 nvidia 驱动 ubuntu-drivers devices recommend 可以直接用 apt 安装 nvidia 驱动官网下载: https:&#x2F;&#x2F;www.nvidia.cn&#x2F;Download&#x2F;index.aspx?lang&#x3D;cn# 安装cuda 在nvidia官网选择需要的cuda版本下载 https:&#x2F;&#x2F;developer.nvidia.com&#x2F;cuda-10.2-">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-07-06T12:11:59.000Z">
-<meta property="article:modified_time" content="2023-07-28T17:54:40.369Z">
+<meta property="article:published_time" content="2023-08-04T02:49:50.000Z">
+<meta property="article:modified_time" content="2024-10-24T09:48:54.377Z">
 <meta property="article:author" content="HansanF">
-<meta property="article:tag" content="CPP">
+<meta property="article:tag" content="cuda">
+<meta property="article:tag" content="tensorrt">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>cpp_mutable - HansanF&#39;s Studio</title>
+  <title>cuda_usage - HansanF&#39;s Studio</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -176,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="cpp_mutable">
+            <span class="h2" id="subtitle" title="cuda_usage">
               
             </span>
 
@@ -186,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-07-06 20:11" pubdate>
-        July 6, 2022 pm
+      <time datetime="2023-08-04 10:49" pubdate>
+        August 4, 2023 am
       </time>
     </span>
   
@@ -197,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      570 字
+      629 字
     </span>
   
 
@@ -206,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5 分钟
+      6 分钟
     </span>
   
 
@@ -235,14 +236,26 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">cpp_mutable</h1>
+            <h1 style="display: none">cuda_usage</h1>
             
             <div class="markdown-body">
-              <h3 id="mutable-关键字">mutable 关键字</h3>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b2883dbf3854">mutabel 介绍</a></p>
-<h4 id="为什么std-mutex-前通常用mutable-修饰">为什么std::mutex 前通常用mutable 修饰</h4>
-<p>在const成员函数中，对mutex的加锁和释放锁操作会违背const的不可变语义，所以，只能将mutex定义为mutable，从而可以在const修饰的函数中加锁，实现线程安全。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;mutex&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cal</span> &#123;<br><span class="hljs-keyword">public</span>: <br>    <span class="hljs-built_in">Cal</span>(<span class="hljs-type">int</span> n) &#123;num = n;&#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">inc_num</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-function">std::lock_guard&lt;std::mutex&gt; <span class="hljs-title">lg</span><span class="hljs-params">(m)</span></span>;<br>        ++num;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get_num</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;  <span class="hljs-comment">//const m 状态的改变会修改const 语义，但不报错？</span><br>        <span class="hljs-function">std::lock_guard&lt;std::mutex&gt; <span class="hljs-title">lg</span><span class="hljs-params">(m)</span></span>;<br>        <span class="hljs-keyword">return</span> num;<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> num;<br>    <span class="hljs-keyword">mutable</span> std::mutex m;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    Cal c&#123;<span class="hljs-number">0</span>&#125;;<br>    std::cout &lt;&lt; c.<span class="hljs-built_in">get_num</span>() &lt;&lt; std::endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h3 id="查看本机所支持的-nvidia-驱动">查看本机所支持的 nvidia 驱动</h3>
+<p>ubuntu-drivers devices</p>
+<p>recommend 可以直接用 apt 安装</p>
+<div class="code-wrapper"><pre><code class="hljs">nvidia 驱动官网下载:
+https://www.nvidia.cn/Download/index.aspx?lang=cn#</code></pre></div>
+<h3 id="安装cuda">安装cuda</h3>
+<p>在nvidia官网选择需要的cuda版本下载
+https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1604&amp;target_type=runfilelocal</p>
+<p>安装方式选择runfile</p>
+<p>安装后 cuda路径为/usr/local/cuda-XXXX</p>
+<h3 id="安装cudnn">安装cudnn</h3>
+<p>在nvidia官网选择需要的cudnn版本下载
+https://developer.nvidia.com/rdp/cudnn-archive</p>
+<p>下载解压后，将文件夹内cuda/include/里的所有文件拷贝到/usr/local/cuda-10.2/include/文件夹内，将cuda/lib64/里的所有文件拷贝到/usr/local/cuda-10.2/lib64/文件夹内</p>
+<h3 id="查看gpu-硬件架构信息">查看gpu 硬件架构信息</h3>
+<p>https://blog.csdn.net/2301_77554343/article/details/134697452</p>
+
             </div>
             <hr>
             <div>
@@ -252,7 +265,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/CPP/">CPP</a>
+                      <a class="hover-with-bg" href="/tags/cuda/">cuda</a>
+                    
+                      <a class="hover-with-bg" href="/tags/tensorrt/">tensorrt</a>
                     
                   </div>
                 
@@ -269,9 +284,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/11/cpp-const-cast/">
+                      <a href="/2023/08/04/machine-learning/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">const_cast用法</span>
+                        <span class="hidden-mobile">machine_learning</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -279,8 +294,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/05/debug-tools/">
-                        <span class="hidden-mobile">cpp_debug_tools</span>
+                      <a href="/2023/08/02/qn-image-host/">
+                        <span class="hidden-mobile">qiniu 图床配置</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

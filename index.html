@@ -191,6 +191,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2024/11/05/cpp/dsp_notes/" target="_self">
+          dsp_notes
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/11/05/cpp/dsp_notes/" target="_self">
+          
+          地平线SoC 中如何使用dsp https:&#x2F;&#x2F;developer.d-robotics.cc&#x2F;forumDetail&#x2F;118364000835765794 参考地平线开发者论坛中的帖子，如何拿到了他们的开发包，找到对应的sample code，是比较容易移植和开发的。需要注意的是编译 dsp 程序需要 xtensa 的license。 dsp 和 soc 之间是server 和 client 的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-11-05 19:31" pubdate>
+              2024-11-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/dsp/">dsp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/10/24/cpp/tensorrt_usage/" target="_self">
+          tensorrt_usage
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/10/24/cpp/tensorrt_usage/" target="_self">
+          
+          官方文档 onnx2trt trtexec 123export LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;TensorRT-8.6.1.6&#x2F;lib:$LD_LIBRARY_PATHexport LD_LIBRARY_PATH&#x3D;&#x2F;home&#x2F;docker&#x2F;tmp&#x2F;TensorRT&#x2F;out:&#x2F;usr&#x2F;local&#x2F;TensorRT-8.6.1.6&#x2F;lib:&#x2F;usr&#x2F;local&#x2F;lib:&#x2F;usr
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-10-24 17:45" pubdate>
+              2024-10-24
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cuda/">cuda</a>
+            
+              <a href="/tags/tensorrt/">tensorrt</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/09/26/cpp/cuda_debug/" target="_self">
+          cuda_debug
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/09/26/cpp/cuda_debug/" target="_self">
+          
+          cuda 调试方法 程序串行 https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;55020514&#x2F;cudagetlasterror-which-kernel-execution-raised-it 环境变量CUDA_LAUNCH_BLOCKING 设为1 env CUDA_LAUNCH_BLOCKING&#x3D;1 .&#x2F;app cuda-gdb 调试 https:&#x2F;&#x2F;develope
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-26 00:18" pubdate>
+              2024-09-26
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cuda/">cuda</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2024/09/21/cpp/py_cpp_interaction/" target="_self">
           python_cpp_interaction
         </a>
@@ -199,7 +321,7 @@
       <p class="index-excerpt">
         <a href="/2024/09/21/cpp/py_cpp_interaction/" target="_self">
           
-          1. Python调用C++ python调用C++需要编译出 python 的 module so，是一种区别于普通依赖库的动态库，可以通过pybind11 中的cmake 函数进行生成。  step 1 首先要配置好pybind11 的依赖，其是纯头文件库，在CMakeLists.txt 中可以通过CPM 拉取，除此之外还需要依赖的 eigen, pybind11中有一些矩阵计算需要用到的。
+          1. Python调用C++ python调用C++需要编译出 python 的 module so，是一种区别于普通依赖库的动态库，可以通过pybind11 中的cmake 函数进行生成。 - step 1 首先要配置好pybind11 的依赖，其是纯头文件库，在CMakeLists.txt 中可以通过CPM 拉取，除此之外还需要依赖的 eigen, pybind11中有一些矩阵计算需要用到的。
         </a>
       </p>
 
@@ -359,7 +481,7 @@
       <p class="index-excerpt">
         <a href="/2024/08/12/cpp/byte_alignment/" target="_self">
           
-          为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm  不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 避免内存需要两次访问才能把一个数据完整的读写  alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量的实际大
+          为什么要字节对齐 https:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;84553.htm 1. 不同硬件兼容性。一些平台对某些特定类型的数据只能从某些特定地址开始存取 2. 避免内存需要两次访问才能把一个数据完整的读写 alignas 关键字 实现结构体字节对齐  直接用在struct 关键字的后面加上 alignas(N), N 表示整个结构体中所有变量的最大对齐值, 如果N 小于各个变量
         </a>
       </p>
 
@@ -451,126 +573,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/cpp/">cpp</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/07/31/pytorch_notes/" target="_self">
-          pytorch-notes
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/07/31/pytorch_notes/" target="_self">
-          
-          pytorch-notes channles_last 内存格式 https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;7155302838636118047 一般是NCHW 格式内存排列，当数据为 (10x3x16x16) 时，对应的 stride 为 (768, 256, 16, 1)，不同颜色的通道是分开的，一个颜色对应着一张图  而 channels_last 是 NHWC 格式内存排列，对应的
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-31 16:01" pubdate>
-              2024-07-31
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pytorch/">pytorch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/07/31/cpp/rvalue_ref_qualifier/" target="_self">
-          ref-qualifier
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/07/31/cpp/rvalue_ref_qualifier/" target="_self">
-          
-          ref-qualifier https:&#x2F;&#x2F;en.cppreference.com&#x2F;w&#x2F;cpp&#x2F;language&#x2F;member_functions Member functions with ref-qualifier An implicit object member function can be declared with no ref-qualifier, with an lvalue r
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-31 14:20" pubdate>
-              2024-07-31
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/cpp/">cpp</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/07/26/smart-ptr/" target="_self">
-          smart_ptr
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/07/26/smart-ptr/" target="_self">
-          
-          std::shared_ptr 引用计数是原子的， 大多数解释是 shared_ptr 本身是线程安全的，但是对指向对象的读写不是线程安全的。 本身是线程安全的是什么意思呢，理解为在多线程中对shared_ptr 的读、复制和当引用计数大于 1 时的写是线程安全的。特别注意的引用计数大于 1 时的写，可以是该shared_ptr 本身的析构，也可以是赋值为其他的 shared_ptr，因为引用计数
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-26 16:55" pubdate>
-              2024-07-26
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
             
           </div>
         

@@ -16,15 +16,15 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="cmake 变量 预定义变量 cmake -D 变量 cmake -D变量名&#x3D;值 的形式  CMAKE_BUILD_TYPE &#x3D;Release 或者 &#x3D;Debug CMAKE_INSTALL_PREFIX &#x3D;path install 安装目录的前缀  环境变量  CPM_SOURCE_CACHE 设置cmp 拉取依赖的保存路径 unset CPM_SOURCE_CACHE set CPM_SOUR">
+    <meta name="description" content="cmake 变量 预定义变量 cmake 命令行使用预定义变量 cmake -D变量名&#x3D;值 的形式 常用的预定义变量  CMAKE_BUILD_TYPE 取值为Release、Debug 和 RelWithDebInfo 其中 RelWithDebInfo 是在Rlease 的基础上加上 -g CMAKE_INSTALL_PREFIX&#x3D;install 安装目录的前缀 CMAKE_SKIP_RPAT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cmake_usgae">
 <meta property="og:url" content="http://example.com/2023/08/17/cmake-usgae/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="cmake 变量 预定义变量 cmake -D 变量 cmake -D变量名&#x3D;值 的形式  CMAKE_BUILD_TYPE &#x3D;Release 或者 &#x3D;Debug CMAKE_INSTALL_PREFIX &#x3D;path install 安装目录的前缀  环境变量  CPM_SOURCE_CACHE 设置cmp 拉取依赖的保存路径 unset CPM_SOURCE_CACHE set CPM_SOUR">
+<meta property="og:description" content="cmake 变量 预定义变量 cmake 命令行使用预定义变量 cmake -D变量名&#x3D;值 的形式 常用的预定义变量  CMAKE_BUILD_TYPE 取值为Release、Debug 和 RelWithDebInfo 其中 RelWithDebInfo 是在Rlease 的基础上加上 -g CMAKE_INSTALL_PREFIX&#x3D;install 安装目录的前缀 CMAKE_SKIP_RPAT">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-08-17T11:42:27.000Z">
-<meta property="article:modified_time" content="2024-08-08T09:38:56.462Z">
+<meta property="article:modified_time" content="2024-10-23T10:22:14.498Z">
 <meta property="article:author" content="HansanF">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.9k 字
+      3.7k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25 分钟
+      32 分钟
     </span>
   
 
@@ -239,61 +239,78 @@
             <div class="markdown-body">
               <h2 id="cmake-变量">cmake 变量</h2>
 <h3 id="预定义变量">预定义变量</h3>
-<h4 id="cmake-D-变量">cmake -D 变量</h4>
+<h4 id="cmake-命令行使用预定义变量">cmake 命令行使用预定义变量</h4>
 <p>cmake -D变量名=值 的形式</p>
-<ol>
-<li>CMAKE_BUILD_TYPE<br>
-=Release 或者 =Debug</li>
-<li>CMAKE_INSTALL_PREFIX<br>
-=path<br>
-install 安装目录的前缀</li>
+<h4 id="常用的预定义变量">常用的预定义变量</h4>
+<ol type="1">
+<li><p>CMAKE_BUILD_TYPE<br />
+取值为Release、Debug 和 RelWithDebInfo 其中 RelWithDebInfo 是在Rlease
+的基础上加上 -g</p></li>
+<li><p>CMAKE_INSTALL_PREFIX=install 安装目录的前缀</p></li>
+<li><p>CMAKE_SKIP_RPATH=ON/OFF
+补充说明一下rpath：https://www.cnblogs.com/rickyk/p/3875084.html
+就是把运行时的链接依赖写到rpath
+中，如果编译和运行时的目录结构一致且系统环境一致，则 rpath
+是比较有用的，因为不需要设置LD_LIBRARY_PATH；rpath
+的优先级在LD_LIBRARY_PATH之前，因此如果编译和运行时的系统环境不一致，即便设置了LD_LIBRARY_PATH，也可能链接到错误的库上。
+除了rpath 和 LD_LIBRARY_PATH，还有 runpath，设置了runpath 后会导致rpath
+失效，但是runpath 的优先级排在LD_LIBRARAY_PATH 之后</p></li>
+<li></li>
 </ol>
 <h4 id="环境变量">环境变量</h4>
-<ol>
-<li>CPM_SOURCE_CACHE<br>
-设置cmp 拉取依赖的保存路径<br>
-unset CPM_SOURCE_CACHE<br>
+<ol type="1">
+<li>CPM_SOURCE_CACHE<br />
+设置cmp 拉取依赖的保存路径<br />
+unset CPM_SOURCE_CACHE<br />
 set CPM_SOURCE_CACHE=/home/hans/_deps/</li>
 <li></li>
 </ol>
 <h3 id="自定义变量">自定义变量</h3>
 <h4 id="外部定义">外部定义</h4>
-<p>变量类型有两种，bool类型和string 类型，在外部定义时，即通过命令行<code>cmake -DXXX -DYYY</code>的形式传递变量时，其并不区分变量类型，可在CMakeList.txt 和 .cmake文件进行使用，帮助进行<strong>条件编译和宏定义传递</strong>。</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 判断 XXX 变量是否定义</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">DEFINED</span> XXX)  <br>  <span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;XXX is defined, val=$&#123;XXX&#125;.&quot;</span>)<br><span class="hljs-keyword">endif</span>()<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">NOT</span> (<span class="hljs-keyword">DEFINED</span> XXX))<br>  <span class="hljs-keyword">message</span>(FATAL_ERROR <span class="hljs-string">&quot;XXX is not defined.&quot;</span>)<br><span class="hljs-keyword">endif</span>()<br><br><span class="hljs-comment"># 判断 YYY 变量是否定义，一般 YYY 为字符串时判断是否DEFINED</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">DEFINED</span> YYY)<br>  <span class="hljs-keyword">add_definitions</span>(-DXXX=<span class="hljs-number">100</span>) <span class="hljs-comment"># cpp带值宏定义</span><br><span class="hljs-keyword">endif</span>()<br><br><span class="hljs-comment"># 判断 YYY 变量是否为OFF，一般 YYY 为布尔类型时判断是否为 ON/OFF</span><br><span class="hljs-keyword">if</span> (YYY) <span class="hljs-comment"># if (NOT YYY)</span><br>  <span class="hljs-keyword">add_definitions</span>(-DUSE_XXX) <span class="hljs-comment"># cpp不带值宏定义</span><br><span class="hljs-keyword">endif</span>()<br></code></pre></td></tr></table></figure>
+<p>变量类型有两种，bool类型和string
+类型，在外部定义时，即通过命令行<code>cmake -DXXX -DYYY</code>的形式传递变量时，其并不区分变量类型，可在CMakeList.txt
+和 .cmake文件进行使用，帮助进行<strong>条件编译和宏定义传递</strong>。
+<figure class="highlight cmake"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 判断 XXX 变量是否定义</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">DEFINED</span> XXX)  <br>  <span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;XXX is defined, val=$&#123;XXX&#125;.&quot;</span>)<br><span class="hljs-keyword">endif</span>()<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">NOT</span> (<span class="hljs-keyword">DEFINED</span> XXX))<br>  <span class="hljs-keyword">message</span>(FATAL_ERROR <span class="hljs-string">&quot;XXX is not defined.&quot;</span>)<br><span class="hljs-keyword">endif</span>()<br><br><span class="hljs-comment"># 判断 YYY 变量是否定义，一般 YYY 为字符串时判断是否DEFINED</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">DEFINED</span> YYY)<br>  <span class="hljs-keyword">add_definitions</span>(-DXXX=<span class="hljs-number">100</span>) <span class="hljs-comment"># cpp带值宏定义</span><br><span class="hljs-keyword">endif</span>()<br><br><span class="hljs-comment"># 判断 YYY 变量是否为OFF，一般 YYY 为布尔类型时判断是否为 ON/OFF</span><br><span class="hljs-keyword">if</span> (YYY) <span class="hljs-comment"># if (NOT YYY)</span><br>  <span class="hljs-keyword">add_definitions</span>(-DUSE_XXX) <span class="hljs-comment"># cpp不带值宏定义</span><br><span class="hljs-keyword">endif</span>()<br></code></pre></td></tr></table></figure></p>
 <h4 id="内部定义">内部定义</h4>
-<p>bool 类型通过 OPTION 命令进行定义</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 语法: </span><br>  <span class="hljs-keyword">OPTION</span>(var_name <span class="hljs-string">&quot;var comments&quot;</span> 初始值: <span class="hljs-keyword">OFF</span>/<span class="hljs-keyword">ON</span>)<br><span class="hljs-comment"># 示例: </span><br>  <span class="hljs-keyword">OPTION</span>(USE_GPU <span class="hljs-string">&quot;whether to use gpu&quot;</span> <span class="hljs-keyword">OFF</span>)<br></code></pre></td></tr></table></figure>
-<p>string 类型通过 SET 命令进行定义</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><br><span class="hljs-keyword">SET</span>(var_name <span class="hljs-string">&quot;var_value&quot;</span>)<br><span class="hljs-keyword">SET</span>(BUILD_PLATFORM <span class="hljs-string">&quot;x86&quot;</span> CACHE <span class="hljs-keyword">STRING</span> <span class="hljs-string">&quot;select build cpu type&quot;</span>)<br><span class="hljs-comment"># 设置CXX_FLAGS, 如果options 太多, 可以分行写, \后面注意什么也不要加</span><br><span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS <span class="hljs-string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; \</span><br><span class="hljs-string">    -fno-omit-frame-pointer -fsanitize=undefined \</span><br><span class="hljs-string">    -fsanitize=leak -fsanitize=address -fsanitize-recover=address -lasan&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>bool 类型通过 OPTION 命令进行定义 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 语法: </span><br>  <span class="hljs-keyword">OPTION</span>(var_name <span class="hljs-string">&quot;var comments&quot;</span> 初始值: <span class="hljs-keyword">OFF</span>/<span class="hljs-keyword">ON</span>)<br><span class="hljs-comment"># 示例: </span><br>  <span class="hljs-keyword">OPTION</span>(USE_GPU <span class="hljs-string">&quot;whether to use gpu&quot;</span> <span class="hljs-keyword">OFF</span>)<br></code></pre></td></tr></table></figure></p>
+<p>string 类型通过 SET 命令进行定义 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><br><span class="hljs-keyword">SET</span>(var_name <span class="hljs-string">&quot;var_value&quot;</span>)<br><span class="hljs-keyword">SET</span>(BUILD_PLATFORM <span class="hljs-string">&quot;x86&quot;</span> CACHE <span class="hljs-keyword">STRING</span> <span class="hljs-string">&quot;select build cpu type&quot;</span>)<br><span class="hljs-comment"># 设置CXX_FLAGS, 如果options 太多, 可以分行写, \后面注意什么也不要加</span><br><span class="hljs-keyword">set</span>(CMAKE_CXX_FLAGS <span class="hljs-string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; \</span><br><span class="hljs-string">    -fno-omit-frame-pointer -fsanitize=undefined \</span><br><span class="hljs-string">    -fsanitize=leak -fsanitize=address -fsanitize-recover=address -lasan&quot;</span>)<br></code></pre></td></tr></table></figure></p>
 <p>命令不区分大小写，变量区分大小写</p>
-<p>gcc编译阶段打印宏定义的内容 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/suiyek/p/14164160.html">https://www.cnblogs.com/suiyek/p/14164160.html</a></p>
+<p>gcc编译阶段打印宏定义的内容
+https://www.cnblogs.com/suiyek/p/14164160.html</p>
 <h3 id="缓冲变量">缓冲变量</h3>
-<p>语法如下：<br>
-set(<variable> <value>… CACHE <type> <docstring> [FORCE])<br>
-variable：变量名称<br>
-value：变量值列表<br>
-CACHE：cache变量的标志<br>
-type：变量类型，取决于变量的值。类型分为：BOOL、FILEPATH、PATH、STRING、INTERNAL<br>
-docstring：必须是字符串，作为变量概要说明<br>
-FORCE：强制选项，强制修改变量值，第一次定义后，后面的修改需要使用 FORCE 选项</p>
+<p>语法如下： set(<variable> <value>... CACHE <type> <docstring>
+[FORCE]) variable：变量名称 value：变量值列表 CACHE：cache变量的标志
+type：变量类型，取决于变量的值。类型分为：BOOL、FILEPATH、PATH、STRING、INTERNAL
+docstring：必须是字符串，作为变量概要说明
+FORCE：强制选项，强制修改变量值，第一次定义后，后面的修改需要使用 FORCE
+选项</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 示例</span><br><span class="hljs-keyword">set</span>(MY_GLOBAL_VAR_STRING <span class="hljs-string">&quot;abc&quot;</span> CACHE <span class="hljs-keyword">STRING</span> <span class="hljs-string">&quot;定义一个STRING缓存变量&quot;</span> FORCE)<br></code></pre></td></tr></table></figure>
-<p>CMake中的缓存变量都会保存在CMakeCache.txt文件中, 也就是作为整个工程的全局变量</p>
+<p>CMake中的缓存变量都会保存在CMakeCache.txt文件中,
+也就是作为整个工程的全局变量</p>
 <h3 id="message-打印信息">message 打印信息</h3>
-<p>message(STATUS “”)</p>
+<p>message(STATUS "")</p>
 <h2 id="编译选项">编译选项</h2>
-<h3 id="isystem-和-I-的区别">-isystem 和 -I 的区别</h3>
-<p>搜索顺序: -I &gt; -isystem -&gt; 系统默认路径<br>
--isystem 会忽略警告</p>
-<h3 id="include-directories-SYSTEM-xxx">include_directories(SYSTEM xxx)</h3>
-<p>SYSTEM 选项的用途是告诉编译器，这些目录中的头文件应被视为“系统”头文件，即这些头文件不应被视为候选的警告来源。换句话说，如果编译器在这些系统头文件中发现了某些警告（如未使用的变量、类型不匹配等），则不会将这些警告报告给用户。</p>
-<h3 id="设置nvcc-编译器C-版本和编译选项">设置nvcc 编译器C++版本和编译选项</h3>
-<p>set(CMAKE_CUDA_STANDARD “14”)<br>
-set(CMAKE_CUDA_FLAGS “${CMAKE_CUDA_FLAGS} -Wall -Werror=return-type”)</p>
+<h3 id="isystem-和--i-的区别">-isystem 和 -I 的区别</h3>
+<p>搜索顺序: -I &gt; -isystem -&gt; 系统默认路径 -isystem 会忽略警告</p>
+<h3 id="include_directoriessystem-xxx">include_directories(SYSTEM
+xxx)</h3>
+<p>SYSTEM
+选项的用途是告诉编译器，这些目录中的头文件应被视为“系统”头文件，即这些头文件不应被视为候选的警告来源。换句话说，如果编译器在这些系统头文件中发现了某些警告（如未使用的变量、类型不匹配等），则不会将这些警告报告给用户。</p>
+<h3 id="设置nvcc-编译器c版本和编译选项">设置nvcc
+编译器C++版本和编译选项</h3>
+<p>set(CMAKE_CUDA_STANDARD "14") set(CMAKE_CUDA_FLAGS
+"${CMAKE_CUDA_FLAGS} -Wall -Werror=return-type")</p>
 <h2 id="链接">链接</h2>
 <h3 id="默认链接的是静态库还是动态库">默认链接的是静态库还是动态库</h3>
 <p>CMake在查找库时默认会优先找动态库（如.so文件或.dll文件），如果找不到或者特别指定了静态库，它会链接到静态库（如.a或.lib文件）。你可以通过<code>find_library</code>等命令及其相关参数来控制链接到静态库或动态库，或者添加定义来指定链接库的类型。</p>
-<h4 id="add-library-默认生成的静态库还是动态库">add_library 默认生成的静态库还是动态库</h4>
-<p><code>cmake</code> 中 <code>add_library</code> 命令默认生成的是静态库还是动态库取决于项目设置和 CMake 版本。在 CMake 3.0 及以上版本中，如果未指定库类型，它将根据变量 <code>BUILD_SHARED_LIBS</code> 的设置来决定，默认情况下，此变量不设定时<code>add_library</code>生成的是静态库。如果<code>BUILD_SHARED_LIBS</code>被设置为 ON，那么<code>add_library</code>不带库类型的情况下将生成动态库。</p>
+<h4 id="add_library-默认生成的静态库还是动态库">add_library
+默认生成的静态库还是动态库</h4>
+<p><code>cmake</code> 中 <code>add_library</code>
+命令默认生成的是静态库还是动态库取决于项目设置和 CMake 版本。在 CMake
+3.0 及以上版本中，如果未指定库类型，它将根据变量
+<code>BUILD_SHARED_LIBS</code>
+的设置来决定，默认情况下，此变量不设定时<code>add_library</code>生成的是静态库。如果<code>BUILD_SHARED_LIBS</code>被设置为
+ON，那么<code>add_library</code>不带库类型的情况下将生成动态库。</p>
 <p>可以这样设置来决定默认的库类型：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">set</span>(BUILD_SHARED_LIBS <span class="hljs-keyword">ON</span>) <span class="hljs-comment"># 默认生成动态库</span><br></code></pre></td></tr></table></figure>
 <p>或者，在<code>add_library</code>时直接指定库的类型：</p>
@@ -302,18 +319,34 @@ set(CMAKE_CUDA_FLAGS “${CMAKE_CUDA_FLAGS} -Wall -Werror=return-type”)</p>
 <h2 id="属性">属性</h2>
 <h3 id="二进制依赖库能否传递宏定义">二进制依赖库能否传递宏定义</h3>
 <ul>
-<li>
-<p><code>target_compile_definitions</code>：<br>
-这是传递宏定义的推荐方式。使用它时，可以设置私有（PRIVATE）宏，它们只会影响当前目标；接口（INTERFACE）宏，它们会影响链接了当前库的其他目标，但不会影响当前目标；或者是公共（PUBLIC）宏，它们既影响当前目标又影响链接了当前库的其他目标。</p>
-</li>
-<li>
-<p><code>add_definitions</code>：这个指令会给当前目录下所有目标添加宏定义，但是它不会传递给依赖的目标。且它的作用范围是全局的，会影响到后续所有的目标。</p>
-</li>
+<li><p><code>target_compile_definitions</code>：
+这是传递宏定义的推荐方式。使用它时，可以设置私有（PRIVATE）宏，它们只会影响当前目标；接口（INTERFACE）宏，它们会影响链接了当前库的其他目标，但不会影响当前目标；或者是公共（PUBLIC）宏，它们既影响当前目标又影响链接了当前库的其他目标。</p></li>
+<li><p><code>add_definitions</code>：这个指令会给当前目录下所有目标添加宏定义，但是它不会传递给依赖的目标。且它的作用范围是全局的，会影响到后续所有的目标。</p></li>
 </ul>
 <h2 id="自定义make-目标">自定义make 目标</h2>
-<p>add_custom_target 可以定义一个 target，然后通过 <code>make target_name</code> 命令进行目标的构建，该目标也可以是命令，比如下面这样</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">add_custom_target</span>(copy_file sh copy_file.sh)<br></code></pre></td></tr></table></figure>
-<p>然后在终端中可以通过执行 make copy_file 命令来执行 copy_file.sh 脚本。</p>
+<p>add_custom_target 可以定义一个 target，然后通过
+<code>make target_name</code>
+命令进行目标的构建，该目标也可以是命令，比如下面这样 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">add_custom_target</span>(copy_file sh copy_file.sh)<br></code></pre></td></tr></table></figure>
+然后在终端中可以通过执行 make copy_file 命令来执行 copy_file.sh
+脚本。</p>
+<h2 id="问题记录">问题记录</h2>
+<h3 id="版本问题">版本问题</h3>
+<ul>
+<li>3.24 版本 报 download_extract_timestamp warning</li>
+<li>3.21 版本报 find_package<br />
+Could not find philog using the following names: -- Configuring
+incomplete, errors occurred!</li>
+</ul>
+<p>https://github.com/nluhmann/BlastFrost/issues/8 说可以用 3.14
+解决</p>
+<h3 id="依赖库找不到问题">依赖库找不到问题</h3>
+<ul>
+<li>find_package(xxxx REQUIRED) 当 xxx 找不到的时候，采用
+<code>cmake -Dxxx_DIR=path/to/cmake</code> 的方式 path/to/cmake 是
+xxConfig.cmake 或 xxx-config.cmake
+的目录。不要用CMAKE_PREFIX_PATH，查找目录因平台而异，也会受其他变量的影响，最直接的就是直接使用
+xxx_DIR，下面就是要查找的.cmake文件</li>
+</ul>
 
             </div>
             <hr>

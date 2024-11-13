@@ -191,6 +191,132 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/08/02/qn-image-host/" target="_self">
+          qiniu 图床配置
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/08/02/qn-image-host/" target="_self">
+          
+          图床 搜素“好用的图床”，搜索结果中随机对比了下，qiniu个人用户可以免费享受每月 10GB的存储和流量，遂用之。  qiniu 的账户申请和配置省略，有很多教程，官方也有详细的引导和教程。 因为已经通过 hexo + github page有自己的播客了，之前简单理解只要把图片传到图床上就可以通过url 访问的图片了，但是qiniu图床不提供域名，没有域名也就没有可以访问图片的外链，因此需要在
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-02 21:11" pubdate>
+              2023-08-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
+            
+              <a href="/tags/%E5%9F%9F%E5%90%8D/">域名</a>
+            
+              <a href="/tags/cname/">cname</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/29/core-file/" target="_self">
+          core文件设置
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/07/29/core-file/" target="_self">
+          
+          core 文件设置 常规core文件设置 core 文件大小 查看：ulimit -c 临时设置： ulimit -c unlimited （当前终端有效） 修改core文件路径  临时修改（重启后失效） 修改 &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern 1echo &amp;#x27;&#x2F;corefile&#x2F;core_%e.%p&amp;#x27; | sudo tee &#x2F;proc&#x2F;sys&#x2F;kern
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-29 02:42" pubdate>
+              2023-07-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/core-dump/">core dump</a>
+            
+              <a href="/tags/core-file/">core file</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/14/template-meta-program/" target="_self">
+          template_meta_program
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/14/template-meta-program/" target="_self">
+          
+          常用方法 enable_if https:&#x2F;&#x2F;www.cnblogs.com&#x2F;3d-gis&#x2F;articles&#x2F;14392648.html std::enable_if&lt;&gt;是一种类型萃取（type trait）， 它会根据一个作为其（第一个）模 板参数的编译期表达式决定其行为： - 如果这个表达式结果为 true，它的 type 成员会返回一个类型： -- 如果没有第二个模板参数，返回类
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-14 17:44" pubdate>
+              2023-02-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/template/">template</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/02/14/readthedoc-usage/" target="_self">
           readthedoc_usage
         </a>
@@ -455,112 +581,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/orin/">orin</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/02/13/bug-record/" target="_self">
-          bug_record
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/02/13/bug-record/" target="_self">
-          
-          编译问题 -Wl,–no-as-needed https:&#x2F;&#x2F;sourceware.org&#x2F;binutils&#x2F;docs-2.16&#x2F;ld&#x2F;Options.html 只有简单的介绍，不能用来分析下面的问题。   问题描述 在一个可执行程序A 和一个动态库B 中，会使用到另外一个动态库C 中的单例，依赖关系是 A依赖B 和 C，B 依赖C，在链接过程中使用–as-no-needed 修饰B 时，会导致A
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-13 14:42" pubdate>
-              2023-02-13
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/11/21/cpp-shell-input-args/" target="_self">
-          C++和shell脚本的输入参数设置
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/11/21/cpp-shell-input-args/" target="_self">
-          
-          C++ 可执行文件输入参数 1. getopt_long()函数 使用手册： https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;3&#x2F;getopt_long 2. 设置参数选项 参数选项的形式可以分为两种，一是 -n, 二是 --name -n 这种需要设置短选项字符串；–name 这种需要设置长选项结构体。 2.1 段选项字符串 书写规则：  多个短选项可以连在一起 如果某个要解析的选项需要一个
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-11-21 15:57" pubdate>
-              2022-11-21
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/09/02/ffmpeg-usage/" target="_self">
-          ffmpeg usage
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/09/02/ffmpeg-usage/" target="_self">
-          
-          ffmpeg 命令行  FFMPEG命令行详细参数  播放rgb格式的视频 1ffplay -f rawvideo -pixel_format bgr24 -video_size 1280x1280 -framerate 10 video_cuda_1.rgb  播放 h264格式的视频 1ffplay -f h264 -width 1920 -height 1080 record_424_sen
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-02 11:11" pubdate>
-              2022-09-02
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ffmpeg/">ffmpeg</a>
             
           </div>
         

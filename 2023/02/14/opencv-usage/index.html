@@ -240,28 +240,42 @@
             <div class="markdown-body">
               <h3 id="保存图片">保存图片</h3>
 <figure class="highlight zephir"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs zephir">cv::Mat m(<span class="hljs-number">1080</span>, <span class="hljs-number">1920</span>, CV_8UC3);<br><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>* m_ptr = m.ptr&lt;<span class="hljs-keyword">uchar</span>&gt;(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> fgq_n = <span class="hljs-number">0</span>;<br>memcpy((void*)m_ptr, image_blob-&gt;cpu_data(), <span class="hljs-number">1080</span> * <span class="hljs-number">1920</span> * <span class="hljs-number">3</span>);<br>cv::imwrite(<span class="hljs-string">&quot;/home/caros/work/tmp/&quot;</span> + std::to_string(fgq_n++) + <span class="hljs-string">&quot;.png&quot;</span>, m);<br></code></pre></td></tr></table></figure>
-<h3 id="cv-Mat">cv::Mat</h3>
+<h3 id="cvmat">cv::Mat</h3>
 <h4 id="基础概念">基础概念</h4>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/507103729">OpenCV:Mat中的step、elemSize、channel和任意内存访问</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/507103729">OpenCV:Mat中的step、elemSize、channel和任意内存访问</a></p>
 <h4 id="判断是否连续">判断是否连续</h4>
-<p>isContinuous() 方法可以判断一个 cv::Mat 对象是否在内存中是连续的。</p>
-<p>如果是连续的返回 true，如果在每一行的结尾跳过一部分内存地址到达下一行，那么就会返回 false。</p>
+<p>isContinuous() 方法可以判断一个 cv::Mat
+对象是否在内存中是连续的。</p>
+<p>如果是连续的返回
+true，如果在每一行的结尾跳过一部分内存地址到达下一行，那么就会返回
+false。</p>
 <p>所以很显然，1x1 和 1xN 的对象一定是连续的，因为只有一行数据。</p>
-<p>使用 <code>cv::Mat::create</code> 创建的对象也是连续的，表示直接开辟了一个连续的内存空间进行对象的创建。</p>
-<p>但是，如果从一个 cv::Mat 对象中截取了一部分数据，或者构造数据来自外部存储的数据，那么就不一定是连续的了。</p>
+<p>使用 <code>cv::Mat::create</code>
+创建的对象也是连续的，表示直接开辟了一个连续的内存空间进行对象的创建。</p>
+<p>但是，如果从一个 cv::Mat
+对象中截取了一部分数据，或者构造数据来自外部存储的数据，那么就不一定是连续的了。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp">cv::Mat newM = cv::Mat::<span class="hljs-built_in">zeros</span>(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>, CV_32FC1);<br><br>cout &lt;&lt; newM.<span class="hljs-built_in">isContinuous</span>() &lt;&lt; endl;<br><br>cv::Mat segM = newM.<span class="hljs-built_in">colRange</span>(<span class="hljs-number">10</span>, <span class="hljs-number">15</span>);<br><br>cout &lt;&lt; segM.<span class="hljs-built_in">isContinuous</span>() &lt;&lt; endl;<br><br></code></pre></td></tr></table></figure>
-<h4 id="非连续Mat-如何拷贝">非连续Mat 如何拷贝</h4>
+<h4 id="非连续mat-如何拷贝">非连续Mat 如何拷贝</h4>
 <p>非连续是指行之间的地址是间断的，但是同一行的内存是连续，所以可以按行复制</p>
-<p>下面是把非连续的 Mat 复制给vector.data(), 把非连续变成了连续，如果不关注连续还是非连续，可以直接 a_mat.copyTo(b_mat)</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// apollo</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">BEVObstacleDetector::Mat2Vec</span><span class="hljs-params">(<span class="hljs-type">const</span> cv::Mat &amp;im, <span class="hljs-type">float</span> *data)</span> </span>&#123;<br>  <span class="hljs-built_in">ACHECK</span>(<span class="hljs-literal">nullptr</span> != data);<br>  <span class="hljs-type">int</span> rh = im.rows;<br>  <span class="hljs-type">int</span> rw = im.cols;<br>  <span class="hljs-type">int</span> rc = im.<span class="hljs-built_in">channels</span>();<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; rc; ++i) &#123;<br>    cv::<span class="hljs-built_in">extractChannel</span>(im, cv::<span class="hljs-built_in">Mat</span>(rh, rw, CV_32FC1, data + i * rh * rw), i);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面是把非连续的 Mat 复制给vector.data(),
+把非连续变成了连续，如果不关注连续还是非连续，可以直接
+a_mat.copyTo(b_mat) <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// apollo</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">BEVObstacleDetector::Mat2Vec</span><span class="hljs-params">(<span class="hljs-type">const</span> cv::Mat &amp;im, <span class="hljs-type">float</span> *data)</span> </span>&#123;<br>  <span class="hljs-built_in">ACHECK</span>(<span class="hljs-literal">nullptr</span> != data);<br>  <span class="hljs-type">int</span> rh = im.rows;<br>  <span class="hljs-type">int</span> rw = im.cols;<br>  <span class="hljs-type">int</span> rc = im.<span class="hljs-built_in">channels</span>();<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; rc; ++i) &#123;<br>    cv::<span class="hljs-built_in">extractChannel</span>(im, cv::<span class="hljs-built_in">Mat</span>(rh, rw, CV_32FC1, data + i * rh * rw), i);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <h4 id="深拷贝与浅拷贝">深拷贝与浅拷贝</h4>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 申请一块大内存</span><br><span class="hljs-function">Mat <span class="hljs-title">buffer</span><span class="hljs-params">(<span class="hljs-number">1024</span>*<span class="hljs-number">1024</span>*<span class="hljs-number">256</span>, <span class="hljs-number">5</span>, CV_32F)</span></span>;<br><br><span class="hljs-comment">// useful 是将要实际使用的行数</span><br><span class="hljs-comment">// rowRange 只是创建了个 mat 的 head，不会申请新的</span><br>handle = buffer.<span class="hljs-built_in">rowRange</span>(<span class="hljs-number">0</span>, useful)<br><span class="hljs-comment">// handle 相当于是 0 - useful 行的浅拷贝</span><br></code></pre></td></tr></table></figure>
-<h3 id="cv-cuda-GpuMat">cv::cuda::GpuMat</h3>
-<h4 id="cuda-kernel-访问-GpuMat">cuda kernel 访问 GpuMat</h4>
-<p>GpuMat的数据在gpu 上，那么如何在 cuda kernel 中访问 GpuMat 呢？可以直接访问吗，答案是不可以，因为 cuda kernel 不可以传入不带__device__修饰的构造和析构的对象，就是说GpuMat 的构造和析构没有用__device__修饰，所以无法直接传递给kernel</p>
-<p>opencv 提供了一个 PtrStepSz 类，其构造和析构函数是用__device__修饰的，所以可以传递给kernel。</p>
-<p>另外一个问题是 GpuMat 是如何转化为 PtrStepSz 的，在GpuMat 的成员函数实现了GpuMat 到 PtrStepSz 的类型转换，因此在调用kernel 的时候直接传递GpuMat，而在kernel 的形参中用 PtrStepSz 进行接收</p>
-<p>详细说明: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/73171101/how-does-cvcudagpumat-turn-into-cvcudaptrstepsz-when-passed-to-a-kernel">https://stackoverflow.com/questions/73171101/how-does-cvcudagpumat-turn-into-cvcudaptrstepsz-when-passed-to-a-kernel</a></p>
+<h3 id="cvcudagpumat">cv::cuda::GpuMat</h3>
+<h4 id="cuda-kernel-访问-gpumat">cuda kernel 访问 GpuMat</h4>
+<p>GpuMat的数据在gpu 上，那么如何在 cuda kernel 中访问 GpuMat
+呢？可以直接访问吗，答案是不可以，因为 cuda kernel
+不可以传入不带__device__修饰的构造和析构的对象，就是说GpuMat
+的构造和析构没有用__device__修饰，所以无法直接传递给kernel</p>
+<p>opencv 提供了一个 PtrStepSz
+类，其构造和析构函数是用__device__修饰的，所以可以传递给kernel。</p>
+<p>另外一个问题是 GpuMat 是如何转化为 PtrStepSz 的，在GpuMat
+的成员函数实现了GpuMat 到 PtrStepSz 的类型转换，因此在调用kernel
+的时候直接传递GpuMat，而在kernel 的形参中用 PtrStepSz 进行接收</p>
+<p>详细说明:
+https://stackoverflow.com/questions/73171101/how-does-cvcudagpumat-turn-into-cvcudaptrstepsz-when-passed-to-a-kernel</p>
 
             </div>
             <hr>

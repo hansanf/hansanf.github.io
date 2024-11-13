@@ -16,12 +16,12 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="什么是protobuf Protocol Buffers(简称Protobuf) ，是Google出品的序列化框架。 简单来讲，就是支持序列化与反序列化，用于数据的存储、传输。 protobuf将数据接口定义在.proto文件中，然后再利用protoc翻译为所需要的程序语言代码（类似于接口描述语言？） 官方Guide 怎么用protobuf 安装 …省略 C++使用 数据类型定义 数据类型对应关系">
+    <meta name="description" content="什么是protobuf Protocol Buffers(简称Protobuf) ，是Google出品的序列化框架。 简单来讲，就是支持序列化与反序列化，用于数据的存储、传输。 protobuf将数据接口定义在.proto文件中，然后再利用protoc翻译为所需要的程序语言代码（类似于接口描述语言？） 官方Guide ## 怎么用protobuf ### 安装 ...省略 ### C++使用 ##">
 <meta property="og:type" content="article">
 <meta property="og:title" content="protobuf">
 <meta property="og:url" content="http://example.com/2022/06/29/protobuf/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="什么是protobuf Protocol Buffers(简称Protobuf) ，是Google出品的序列化框架。 简单来讲，就是支持序列化与反序列化，用于数据的存储、传输。 protobuf将数据接口定义在.proto文件中，然后再利用protoc翻译为所需要的程序语言代码（类似于接口描述语言？） 官方Guide 怎么用protobuf 安装 …省略 C++使用 数据类型定义 数据类型对应关系">
+<meta property="og:description" content="什么是protobuf Protocol Buffers(简称Protobuf) ，是Google出品的序列化框架。 简单来讲，就是支持序列化与反序列化，用于数据的存储、传输。 protobuf将数据接口定义在.proto文件中，然后再利用protoc翻译为所需要的程序语言代码（类似于接口描述语言？） 官方Guide ## 怎么用protobuf ### 安装 ...省略 ### C++使用 ##">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-29T03:25:30.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.366Z">
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      735 字
+      753 字
     </span>
   
 
@@ -240,24 +240,18 @@
             
             <div class="markdown-body">
               <h2 id="什么是protobuf">什么是protobuf</h2>
-<p>Protocol Buffers(简称Protobuf) ，是Google出品的序列化框架。<br>
-简单来讲，就是支持序列化与反序列化，用于数据的存储、传输。<br>
+<p>Protocol Buffers(简称Protobuf) ，是Google出品的序列化框架。
+简单来讲，就是支持序列化与反序列化，用于数据的存储、传输。
 protobuf将数据接口定义在.proto文件中，然后再利用protoc翻译为所需要的程序语言代码（类似于接口描述语言？）</p>
-<p><a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/cpptutorial">官方Guide</a></p>
-<h2 id="怎么用protobuf">怎么用protobuf</h2>
-<h3 id="安装">安装</h3>
-<p>…省略</p>
-<h3 id="C-使用">C++使用</h3>
-<h4 id="数据类型定义">数据类型定义</h4>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangchong_fly/article/details/47614699">数据类型对应关系</a></p>
-<h4 id="demo">demo</h4>
-<p>step-1定义.proto</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// demo_msg.proto</span><br>syntax = <span class="hljs-string">&quot;proto2&quot;</span>; <span class="hljs-comment">//版本选择，proto2 or proto3</span><br>package fgq.demo; <span class="hljs-comment">// C++中的namespace,用.分隔</span><br><br>message PersonalInfo &#123;<br>	required bytes name = <span class="hljs-number">1</span>;<br>	optional bytes address = <span class="hljs-number">2</span>;<br>	repeated bytes friends = <span class="hljs-number">3</span>;<br>&#125;;<br><span class="hljs-comment">//等号后面是field number,从1开始计数</span><br><span class="hljs-comment">//C++中字段名不区分大小写，即name和Name，在C++接口中都是name</span><br></code></pre></td></tr></table></figure>
-<p>step-2 将.proto翻译为.cpp和.h</p>
+<p><a
+target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/cpptutorial">官方Guide</a>
+## 怎么用protobuf ### 安装 ...省略 ### C++使用 #### 数据类型定义 <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/wangchong_fly/article/details/47614699">数据类型对应关系</a>
+#### demo step-1定义.proto <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// demo_msg.proto</span><br>syntax = <span class="hljs-string">&quot;proto2&quot;</span>; <span class="hljs-comment">//版本选择，proto2 or proto3</span><br>package fgq.demo; <span class="hljs-comment">// C++中的namespace,用.分隔</span><br><br>message PersonalInfo &#123;<br>	required bytes name = <span class="hljs-number">1</span>;<br>	optional bytes address = <span class="hljs-number">2</span>;<br>	repeated bytes friends = <span class="hljs-number">3</span>;<br>&#125;;<br><span class="hljs-comment">//等号后面是field number,从1开始计数</span><br><span class="hljs-comment">//C++中字段名不区分大小写，即name和Name，在C++接口中都是name</span><br></code></pre></td></tr></table></figure> step-2
+将.proto翻译为.cpp和.h</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">protoc -I= demo_msg.proto的目录 --cpp_out=存放.cpp和.h的目录 demo_msg.proto的路径<br></code></pre></td></tr></table></figure>
 <p>-I参数和gcc的-I参数类似？</p>
-<p>step-3<br>
-.cpp中引入.pb.h头文件，就可以使用protobuf所提供的cpp接口了</p>
+<p>step-3 .cpp中引入.pb.h头文件，就可以使用protobuf所提供的cpp接口了</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// main.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;demo_msg.pb.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">g++ main.cpp -I [--cpp_out所指定的目录]<br></code></pre></td></tr></table></figure>
 

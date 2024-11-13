@@ -16,20 +16,18 @@
   <meta name="author" content="HansanF">
   <meta name="keywords" content="">
   
-    <meta name="description" content="docker 用法 docker教程： https:&#x2F;&#x2F;yeasy.gitbook.io&#x2F;docker_practice&#x2F;image&#x2F;build 运行容器 初次运行 docker run -itd image-id bash  &#x2F;&#x2F;i 交互 t 终端 d 运行但不关闭，不进入docker docker exec -it conatainer-id bash &#x2F;&#x2F; 进入docker,退出不关闭 do">
+    <meta name="description" content="docker 用法 docker教程： https:&#x2F;&#x2F;yeasy.gitbook.io&#x2F;docker_practice&#x2F;image&#x2F;build 运行容器 初次运行 docker run -itd image-id bash &#x2F;&#x2F;i 交互 t 终端 d 运行但不关闭，不进入docker docker exec -it conatainer-id bash &#x2F;&#x2F; 进入docker,退出不关闭 doc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker-usage">
 <meta property="og:url" content="http://example.com/2022/07/14/docker-usage/index.html">
 <meta property="og:site_name" content="HansanF&#39;s Studio">
-<meta property="og:description" content="docker 用法 docker教程： https:&#x2F;&#x2F;yeasy.gitbook.io&#x2F;docker_practice&#x2F;image&#x2F;build 运行容器 初次运行 docker run -itd image-id bash  &#x2F;&#x2F;i 交互 t 终端 d 运行但不关闭，不进入docker docker exec -it conatainer-id bash &#x2F;&#x2F; 进入docker,退出不关闭 do">
+<meta property="og:description" content="docker 用法 docker教程： https:&#x2F;&#x2F;yeasy.gitbook.io&#x2F;docker_practice&#x2F;image&#x2F;build 运行容器 初次运行 docker run -itd image-id bash &#x2F;&#x2F;i 交互 t 终端 d 运行但不关闭，不进入docker docker exec -it conatainer-id bash &#x2F;&#x2F; 进入docker,退出不关闭 doc">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/c39c902beb63427bb54f878b856fb08a.png">
 <meta property="article:published_time" content="2022-07-14T07:29:53.000Z">
 <meta property="article:modified_time" content="2023-07-28T17:54:40.365Z">
 <meta property="article:author" content="HansanF">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/c39c902beb63427bb54f878b856fb08a.png">
   
   
   <title>docker-usage - HansanF&#39;s Studio</title>
@@ -199,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.4k 字
+      5.5k 字
     </span>
   
 
@@ -241,100 +239,115 @@
             
             <div class="markdown-body">
               <h3 id="docker-用法">docker 用法</h3>
-<p>docker教程： <a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/image/build">https://yeasy.gitbook.io/docker_practice/image/build</a></p>
+<p>docker教程： https://yeasy.gitbook.io/docker_practice/image/build</p>
 <h3 id="运行容器">运行容器</h3>
-<p>初次运行<br>
-<code>docker run -itd image-id bash </code><br>
+<p>初次运行<br />
+<code>docker run -itd image-id bash</code><br />
 //i 交互 t 终端 d 运行但不关闭，不进入docker</p>
-<p><code>docker exec -it conatainer-id bash</code><br>
+<p><code>docker exec -it conatainer-id bash</code><br />
 // 进入docker,退出不关闭</p>
-<p><code>docker run -id image-id bash</code><br>
+<p><code>docker run -id image-id bash</code><br />
 // 进入docker，退出关闭</p>
 <h3 id="删除镜像和容器">删除镜像和容器</h3>
-<p><a target="_blank" rel="noopener" href="https://chinese.freecodecamp.org/news/how-to-remove-images-in-docker/">https://chinese.freecodecamp.org/news/how-to-remove-images-in-docker/</a></p>
-<p><code>docker stop container-id</code><br>
-// 关闭容器<br>
-<code>docker rm container-id</code><br>
-// 删除容器<br>
-<code>docker rmi image-id</code><br>
-// 删除镜像<br>
-<code>docker stop $(docker ps -a -q)</code><br>
-// 停止所有容器运行<br>
-<code>docker rm $(docker ps -a -q)</code><br>
+<p>https://chinese.freecodecamp.org/news/how-to-remove-images-in-docker/</p>
+<p><code>docker stop container-id</code><br />
+// 关闭容器 <code>docker rm container-id</code> // 删除容器
+<code>docker rmi image-id</code><br />
+// 删除镜像 <code>docker stop $(docker ps -a -q)</code><br />
+// 停止所有容器运行 <code>docker rm $(docker ps -a -q)</code><br />
 // 删除所有容器</p>
-<h3 id="根据Dockerfile制作镜像">根据Dockerfile制作镜像</h3>
-<p><code>docker buildx build -t hansanf/cuda-11.1:11.1.1-devel-cudnn-ubuntu18.04 --platform=x86_64  . --push</code><br>
-// buildx是制作多架构工具，可以不用<br>
-// -t tag, [仓库名]:[镜像tag]<br>
-// --platform buildx要制作的哪个平台的镜像<br>
-// . Dockerfile的路径<br>
-// --push 制作的镜像push到远程仓库，不会保留在本地，可以用 -o type=docker 替换</p>
+<h3 id="根据dockerfile制作镜像">根据Dockerfile制作镜像</h3>
+<p><code>docker buildx build -t hansanf/cuda-11.1:11.1.1-devel-cudnn-ubuntu18.04 --platform=x86_64  . --push</code><br />
+// buildx是制作多架构工具，可以不用 // -t tag, [仓库名]:[镜像tag] //
+--platform buildx要制作的哪个平台的镜像 // . Dockerfile的路径 // --push
+制作的镜像push到远程仓库，不会保留在本地，可以用 -o type=docker 替换</p>
 <h3 id="pull和push">pull和push</h3>
 <p><code>docker pull [仓库名]:[tag]</code></p>
 <p><code>docker push [仓库名]:[tag]</code></p>
-<h3 id="关闭、打开和重启docker">关闭、打开和重启docker</h3>
-<p>启动<br>
-<code>sudo systemctl start docker</code><br>
-关闭<br>
+<h3 id="关闭打开和重启docker">关闭、打开和重启docker</h3>
+<p>启动<br />
+<code>sudo systemctl start docker</code><br />
+关闭<br />
 <code>sudo  service docker stop</code></p>
-<p>重启</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs abnf">sudo systemctl daemon-reload<span class="hljs-comment">;</span><br>sudo systemctl restart  docker<span class="hljs-comment">;</span><br>sudo sudo service docker restart<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<p>重启 <figure class="highlight abnf"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs abnf">sudo systemctl daemon-reload<span class="hljs-comment">;</span><br>sudo systemctl restart  docker<span class="hljs-comment">;</span><br>sudo sudo service docker restart<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure></p>
 <h3 id="容器内进行可视化">容器内进行可视化</h3>
 <p>设置 DISPLAY 环境变量，令 docker 内外一致, 比如均设置为 :1</p>
 <p>冒号不能少</p>
-<p>启动容器的时候加上：<br>
--e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix</p>
-<h3 id="跨平台构建-Docker-镜像">跨平台构建 Docker 镜像</h3>
+<p>启动容器的时候加上： -e DISPLAY=$DISPLAY -v
+/tmp/.X11-unix/:/tmp/.X11-unix</p>
+<h3 id="跨平台构建-docker-镜像">跨平台构建 Docker 镜像</h3>
 <p>结论：在不使用nvidia的情况下，在开发机x86架构上构建arm64的docker镜像，在该镜像中进行开发，可以直接把程序移植到的arm盒子中运行</p>
-<h4 id="跨-CPU-架构编译程序的方法：">跨 CPU 架构编译程序的方法：</h4>
-<h5 id="方法一：直接在目标硬件上编译">方法一：直接在目标硬件上编译</h5>
-<p>缺点：需每个人都直接操作目标硬件，在硬件资源不充足的情况下开发效率低。</p>
-<h5 id="方法二：模拟目标硬件">方法二：模拟目标硬件</h5>
-<p>通过QEMU（quick emulator）模拟一个完整的操作系统，创建出通用的 ARM 虚拟机，该虚拟机可以引导 Linux，设置开发环境，也可以在虚拟机内编译程序。</p>
-<p>缺点：模拟整个系统，包括计时器、内存控制器、总线控制器等硬件，但编译程序不需要这些硬件。</p>
-<h5 id="方法三：使用交叉编译器">方法三：使用交叉编译器</h5>
-<p>类似于方法一，只不过将编译过程放在开发机</p>
-<h5 id="方法四：模拟目标硬件的用户空间">方法四：模拟目标硬件的用户空间</h5>
-<p>QEMU 将通过binfmt_misc（Miscellaneous Binary Format）在 Linux 内核中注册一个二进制转换处理程序，并在程序运行时动态翻译二进制文件，根据需要将系统调用从目标 CPU 架构转换为当前系统的 CPU 架构。最终的效果看起来就像在本地运行目标 CPU 架构的二进制文件。</p>
-<h5 id="跨平台构建docker就是方法四的演化">跨平台构建docker就是方法四的演化</h5>
-<p>背景：<br>
-目前手上ARM盒子只有一个，资源有限；<br>
+<h4 id="跨-cpu-架构编译程序的方法">跨 CPU 架构编译程序的方法：</h4>
+<h5 id="方法一直接在目标硬件上编译">方法一：直接在目标硬件上编译</h5>
+<p>缺点：需每个人都直接操作目标硬件，在硬件资源不充足的情况下开发效率低。
+##### 方法二：模拟目标硬件 通过QEMU（quick
+emulator）模拟一个完整的操作系统，创建出通用的 ARM
+虚拟机，该虚拟机可以引导
+Linux，设置开发环境，也可以在虚拟机内编译程序。</p>
+<p>缺点：模拟整个系统，包括计时器、内存控制器、总线控制器等硬件，但编译程序不需要这些硬件。
+##### 方法三：使用交叉编译器
+类似于方法一，只不过将编译过程放在开发机</p>
+<h5
+id="方法四模拟目标硬件的用户空间">方法四：模拟目标硬件的用户空间</h5>
+<p>QEMU 将通过binfmt_misc（Miscellaneous Binary Format）在 Linux
+内核中注册一个二进制转换处理程序，并在程序运行时动态翻译二进制文件，根据需要将系统调用从目标
+CPU 架构转换为当前系统的 CPU 架构。最终的效果看起来就像在本地运行目标
+CPU 架构的二进制文件。</p>
+<h5
+id="跨平台构建docker就是方法四的演化">跨平台构建docker就是方法四的演化</h5>
+<p>背景： 目前手上ARM盒子只有一个，资源有限；
 ARM盒子中，程序最终跑在docker里。</p>
-<p>目标：<br>
+<p>目标：
 以软件模拟的方式，实现开发机中使用ARM架构下的docker，使开发机中的docker环境和ARM盒子中的一样，从而在开发机中就可以进行移植。</p>
-<p><img src="https://img-blog.csdnimg.cn/c39c902beb63427bb54f878b856fb08a.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h5 id="实现路线：">实现路线：</h5>
-<p>使用 buildx 命令(使用 BuildKit实现的)构建多种系统架构支持的 Docker 镜像<br>
-BuildKit：镜像构建组件</p>
-<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs tcl">（<span class="hljs-number">1</span>）启动buildx插件<br>$ export DOCKER_CLI_EXPERIMENTAL=enabled<br>验证是否开启<br>$ docker buildx version<br>github.com/docker/buildx v0<span class="hljs-number">.3</span><span class="hljs-number">.1</span>-tp-docker <span class="hljs-number">6</span>db68d029599c6710a32aa7adcba8e5a344795a7<br><br>（<span class="hljs-number">2</span>）启动binfmt_misc<br>$ docker run --rm --privileged tonistiigi/binfmt:latest --install all<br>验证是 binfmt_misc 否开启：<br>$ ls -al /<span class="hljs-keyword">proc</span>/sys/fs/binfmt_misc/<br>总用量 0<br>总用量 0<br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-aarch64</span>   // 支持arrch64架构<br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-arm</span><br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-ppc64le</span><br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-s390x</span><br>--w------- 1<span class="hljs-title"> root</span> root 0 11月 18 00:09<span class="hljs-title"> register</span><br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> status</span><br>验证是否启用了arrch64处理器：<br>$<span class="hljs-title"> cat</span> /<span class="hljs-keyword">proc</span>/sys/fs/binfmt_misc/qemu-aarch64<span class="hljs-title"></span><br><span class="hljs-title">enabled</span><br>interpreter /usr/bin/qemu-aarch64<span class="hljs-title"></span><br><span class="hljs-title">flags:</span> OCF<span class="hljs-title"></span><br><span class="hljs-title">offset</span> 0<span class="hljs-title"></span><br><span class="hljs-title">magic</span> 7f454c460201010000000000000000000200b7<span class="hljs-title"></span><br><span class="hljs-title">mask</span> ffffffffffffff00fffffffffffffffffeffff<br><br>(3)新建<span class="hljs-title"> builder</span> 实例<br>$<span class="hljs-title"> docker</span> buildx<span class="hljs-title"> create</span> --use --name=mybuilder-cn --driver<span class="hljs-title"> docker-container</span> --driver-opt<span class="hljs-title"> image=dockerpracticesig/buildkit:master</span><br>启动构建器<br>$<span class="hljs-title"> docker</span> buildx<span class="hljs-title"> inspect</span> mybuilder --bootstrap<br>[+]<span class="hljs-title"> Building</span> 5.0s (1/1)<span class="hljs-title"> FINISHED</span><br> =&gt; [internal]<span class="hljs-title"> booting</span> buildkit                                                                                                                          5.0s<br> =&gt; =&gt;<span class="hljs-title"> pulling</span> image<span class="hljs-title"> moby/buildkit:buildx-stable-1</span>                                                                                                       4.4s<br> =&gt; =&gt;<span class="hljs-title"> creating</span> container<span class="hljs-title"> buildx_buildkit_mybuilder0</span>                                                                                                     0.6s<span class="hljs-title"></span><br><span class="hljs-title">Name:</span> <span class="hljs-title">  mybuilder</span><br>Driver:<span class="hljs-title"> docker-container</span><br><span class="hljs-title"></span><br><span class="hljs-title">Nodes:</span><br>Name:<span class="hljs-title">      mybuilder0</span><br>Endpoint:<span class="hljs-title">  unix:///var/run/docker.sock</span><br>Status:<span class="hljs-title">    running</span><br>Platforms:<span class="hljs-title"> linux/amd64,</span> linux/arm64,<span class="hljs-title"> linux/ppc64le,</span> linux/s390x,<span class="hljs-title"> linux/386,</span> linux/arm/v7,<span class="hljs-title"> linux/arm/v6</span><br><br>(4）新建<span class="hljs-title"> Dockerfile</span> 文件<span class="hljs-title"></span><br><span class="hljs-title">FROM</span> --platform=$TARGETPLATFORM<span class="hljs-title"> alpine</span><br><span class="hljs-title"></span><br><span class="hljs-title">RUN</span> uname -a &gt; /os.txt<span class="hljs-title"></span><br><span class="hljs-title"></span><br><span class="hljs-title">CMD</span> cat /os.txt<br><br>(5)本地创建镜像<br>$<span class="hljs-title"> docker</span> buildx<span class="hljs-title"> build</span> -t<span class="hljs-title"> hello-arch-arm64</span> --platform=linux/arm64 -o<span class="hljs-title"> type=docker</span> .<br></code></pre></td></tr></table></figure>
+<figure>
+<img
+src="https://img-blog.csdnimg.cn/c39c902beb63427bb54f878b856fb08a.png" srcset="/img/loading.gif" lazyload
+alt="在这里插入图片描述" />
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<h5 id="实现路线">实现路线：</h5>
+<p>使用 buildx 命令(使用 BuildKit实现的)构建多种系统架构支持的 Docker
+镜像 BuildKit：镜像构建组件 <figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs tcl">（<span class="hljs-number">1</span>）启动buildx插件<br>$ export DOCKER_CLI_EXPERIMENTAL=enabled<br>验证是否开启<br>$ docker buildx version<br>github.com/docker/buildx v0<span class="hljs-number">.3</span><span class="hljs-number">.1</span>-tp-docker <span class="hljs-number">6</span>db68d029599c6710a32aa7adcba8e5a344795a7<br><br>（<span class="hljs-number">2</span>）启动binfmt_misc<br>$ docker run --rm --privileged tonistiigi/binfmt:latest --install all<br>验证是 binfmt_misc 否开启：<br>$ ls -al /<span class="hljs-keyword">proc</span>/sys/fs/binfmt_misc/<br>总用量 0<br>总用量 0<br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-aarch64</span>   // 支持arrch64架构<br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-arm</span><br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-ppc64le</span><br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> qemu-s390x</span><br>--w------- 1<span class="hljs-title"> root</span> root 0 11月 18 00:09<span class="hljs-title"> register</span><br>-rw-r--r-- 1<span class="hljs-title"> root</span> root 0 11月 18 00:12<span class="hljs-title"> status</span><br>验证是否启用了arrch64处理器：<br>$<span class="hljs-title"> cat</span> /<span class="hljs-keyword">proc</span>/sys/fs/binfmt_misc/qemu-aarch64<span class="hljs-title"></span><br><span class="hljs-title">enabled</span><br>interpreter /usr/bin/qemu-aarch64<span class="hljs-title"></span><br><span class="hljs-title">flags:</span> OCF<span class="hljs-title"></span><br><span class="hljs-title">offset</span> 0<span class="hljs-title"></span><br><span class="hljs-title">magic</span> 7f454c460201010000000000000000000200b7<span class="hljs-title"></span><br><span class="hljs-title">mask</span> ffffffffffffff00fffffffffffffffffeffff<br><br>(3)新建<span class="hljs-title"> builder</span> 实例<br>$<span class="hljs-title"> docker</span> buildx<span class="hljs-title"> create</span> --use --name=mybuilder-cn --driver<span class="hljs-title"> docker-container</span> --driver-opt<span class="hljs-title"> image=dockerpracticesig/buildkit:master</span><br>启动构建器<br>$<span class="hljs-title"> docker</span> buildx<span class="hljs-title"> inspect</span> mybuilder --bootstrap<br>[+]<span class="hljs-title"> Building</span> 5.0s (1/1)<span class="hljs-title"> FINISHED</span><br> =&gt; [internal]<span class="hljs-title"> booting</span> buildkit                                                                                                                          5.0s<br> =&gt; =&gt;<span class="hljs-title"> pulling</span> image<span class="hljs-title"> moby/buildkit:buildx-stable-1</span>                                                                                                       4.4s<br> =&gt; =&gt;<span class="hljs-title"> creating</span> container<span class="hljs-title"> buildx_buildkit_mybuilder0</span>                                                                                                     0.6s<span class="hljs-title"></span><br><span class="hljs-title">Name:</span> <span class="hljs-title">  mybuilder</span><br>Driver:<span class="hljs-title"> docker-container</span><br><span class="hljs-title"></span><br><span class="hljs-title">Nodes:</span><br>Name:<span class="hljs-title">      mybuilder0</span><br>Endpoint:<span class="hljs-title">  unix:///var/run/docker.sock</span><br>Status:<span class="hljs-title">    running</span><br>Platforms:<span class="hljs-title"> linux/amd64,</span> linux/arm64,<span class="hljs-title"> linux/ppc64le,</span> linux/s390x,<span class="hljs-title"> linux/386,</span> linux/arm/v7,<span class="hljs-title"> linux/arm/v6</span><br><br>(4）新建<span class="hljs-title"> Dockerfile</span> 文件<span class="hljs-title"></span><br><span class="hljs-title">FROM</span> --platform=$TARGETPLATFORM<span class="hljs-title"> alpine</span><br><span class="hljs-title"></span><br><span class="hljs-title">RUN</span> uname -a &gt; /os.txt<span class="hljs-title"></span><br><span class="hljs-title"></span><br><span class="hljs-title">CMD</span> cat /os.txt<br><br>(5)本地创建镜像<br>$<span class="hljs-title"> docker</span> buildx<span class="hljs-title"> build</span> -t<span class="hljs-title"> hello-arch-arm64</span> --platform=linux/arm64 -o<span class="hljs-title"> type=docker</span> .<br></code></pre></td></tr></table></figure></p>
 <p>其他知识补充：</p>
-<p>Qemu（quick emulator）是一个开源的托管虚拟机，通过纯软件来实现虚拟化模拟器，几乎可以模拟任何硬件设备。比如：Qemu可以模拟出一个ARM系统中的：CPU、内存、IO设备等，然后在这个模拟层之上，可以跑一台 ARM虚拟机，这个ARM虚拟机认为自己在和硬件进行打交道，但实际上这些硬件都是Qemu模拟出来的。Qemu是使用纯软件模拟的，它的强项是模拟那些不涉及到外部的具体硬件设备的场景。因为QEMU是纯软件实现的，所有的指令都要经过QEMU，使得性能很差，而配合KVM则可以解决这一问题。</p>
-<p>参考资料<br>
-<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1543689">https://cloud.tencent.com/developer/article/1543689</a><br>
-<a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/buildx/multi-arch-images">https://yeasy.gitbook.io/docker_practice/buildx/multi-arch-images</a><br>
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sewain/p/14206365.html">https://www.cnblogs.com/sewain/p/14206365.html</a></p>
-<h3 id="ERRORS">ERRORS</h3>
-<p>error-1<br>
-W: GPG error: <a target="_blank" rel="noopener" href="https://developer.download.nvidia.cn/compute/cuda/repos/ubuntu1804/x86_64">https://developer.download.nvidia.cn/compute/cuda/repos/ubuntu1804/x86_64</a>  InRelease: At least one invalid signature was encountered.<br>
-E: The repository ‘<a target="_blank" rel="noopener" href="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64">https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64</a>  InRelease’ is not signed.<br>
-N: Updating from such a repository can’t be done securely, and is therefore disabled by default.<br>
-N: See apt-secure(8) manpage for repository creation and user configuration details.<br>
-W: GPG error: <a target="_blank" rel="noopener" href="http://security.ubuntu.com/ubuntu">http://security.ubuntu.com/ubuntu</a> bionic-security InRelease: At least one invalid signature was encountered.<br>
-E: The repository ‘<a target="_blank" rel="noopener" href="http://security.ubuntu.com/ubuntu">http://security.ubuntu.com/ubuntu</a> bionic-security InRelease’ is not signed.<br>
-N: Updating from such a repository can’t be done securely, and is therefore disabled by default.<br>
-N: See apt-secure(8) manpage for repository creation and user configuration details.<br>
-W: GPG error: <a target="_blank" rel="noopener" href="http://archive.ubuntu.com/ubuntu">http://archive.ubuntu.com/ubuntu</a> bionic InRelease: At least one invalid signature was encountered.<br>
-E: The repository ‘<a target="_blank" rel="noopener" href="http://archive.ubuntu.com/ubuntu">http://archive.ubuntu.com/ubuntu</a> bionic InRelease’ is not signed.<br>
-N: Updating from such a repository can’t be done securely, and is therefore disabled by default.<br>
-N: See apt-secure(8) manpage for repository creation and user configuration details.<br>
-W: GPG error: <a target="_blank" rel="noopener" href="http://archive.ubuntu.com/ubuntu">http://archive.ubuntu.com/ubuntu</a> bionic-updates InRelease: At least one invalid signature was encountered.<br>
-E: The repository ‘<a target="_blank" rel="noopener" href="http://archive.ubuntu.com/ubuntu">http://archive.ubuntu.com/ubuntu</a> bionic-updates InRelease’ is not signed.<br>
-N: Updating from such a repository can’t be done securely, and is therefore disabled by default.<br>
-N: See apt-secure(8) manpage for repository creation and user configuration details.<br>
-W: GPG error: <a target="_blank" rel="noopener" href="http://archive.ubuntu.com/ubuntu">http://archive.ubuntu.com/ubuntu</a> bionic-backports InRelease: At least one invalid signature was encountered.<br>
-E: The repository ‘<a target="_blank" rel="noopener" href="http://archive.ubuntu.com/ubuntu">http://archive.ubuntu.com/ubuntu</a> bionic-backports InRelease’ is not signed.<br>
-N: Updating from such a repository can’t be done securely, and is therefore disabled by default.<br>
-N: See apt-secure(8) manpage for repository creation and user configuration details.</p>
+<p>Qemu（quick
+emulator）是一个开源的托管虚拟机，通过纯软件来实现虚拟化模拟器，几乎可以模拟任何硬件设备。比如：Qemu可以模拟出一个ARM系统中的：CPU、内存、IO设备等，然后在这个模拟层之上，可以跑一台
+ARM虚拟机，这个ARM虚拟机认为自己在和硬件进行打交道，但实际上这些硬件都是Qemu模拟出来的。Qemu是使用纯软件模拟的，它的强项是模拟那些不涉及到外部的具体硬件设备的场景。因为QEMU是纯软件实现的，所有的指令都要经过QEMU，使得性能很差，而配合KVM则可以解决这一问题。</p>
+<p>参考资料 https://cloud.tencent.com/developer/article/1543689
+https://yeasy.gitbook.io/docker_practice/buildx/multi-arch-images
+https://www.cnblogs.com/sewain/p/14206365.html</p>
+<h3 id="errors">ERRORS</h3>
+<p>error-1 W: GPG error:
+https://developer.download.nvidia.cn/compute/cuda/repos/ubuntu1804/x86_64
+InRelease: At least one invalid signature was encountered. E: The
+repository
+'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64
+InRelease' is not signed. N: Updating from such a repository can't be
+done securely, and is therefore disabled by default. N: See
+apt-secure(8) manpage for repository creation and user configuration
+details. W: GPG error: http://security.ubuntu.com/ubuntu bionic-security
+InRelease: At least one invalid signature was encountered. E: The
+repository 'http://security.ubuntu.com/ubuntu bionic-security InRelease'
+is not signed. N: Updating from such a repository can't be done
+securely, and is therefore disabled by default. N: See apt-secure(8)
+manpage for repository creation and user configuration details. W: GPG
+error: http://archive.ubuntu.com/ubuntu bionic InRelease: At least one
+invalid signature was encountered. E: The repository
+'http://archive.ubuntu.com/ubuntu bionic InRelease' is not signed. N:
+Updating from such a repository can't be done securely, and is therefore
+disabled by default. N: See apt-secure(8) manpage for repository
+creation and user configuration details. W: GPG error:
+http://archive.ubuntu.com/ubuntu bionic-updates InRelease: At least one
+invalid signature was encountered. E: The repository
+'http://archive.ubuntu.com/ubuntu bionic-updates InRelease' is not
+signed. N: Updating from such a repository can't be done securely, and
+is therefore disabled by default. N: See apt-secure(8) manpage for
+repository creation and user configuration details. W: GPG error:
+http://archive.ubuntu.com/ubuntu bionic-backports InRelease: At least
+one invalid signature was encountered. E: The repository
+'http://archive.ubuntu.com/ubuntu bionic-backports InRelease' is not
+signed. N: Updating from such a repository can't be done securely, and
+is therefore disabled by default. N: See apt-secure(8) manpage for
+repository creation and user configuration details.</p>
 <p>硬盘空间不足了</p>
 
             </div>

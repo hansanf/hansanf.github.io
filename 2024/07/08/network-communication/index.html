@@ -197,7 +197,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.8k 字
     </span>
   
 
@@ -247,29 +247,37 @@
 <h4 id="通用socket-地址-sockaddr">通用socket 地址 sockaddr</h4>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr</span> &#123;<br>    <span class="hljs-type">sa_family_t</span> sa_family;<br>    <span class="hljs-type">char</span> sa_data[<span class="hljs-number">14</span>];<br>&#125;;<br></code></pre></td></tr></table></figure>
 <h4 id="专用socket地址">专用socket地址</h4>
-<p>UNIX本地协议族使用如下专用socket地址结构体：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_un</span> &#123;<br>    <span class="hljs-type">sa_family_t</span> sin_family; <span class="hljs-comment">/* 地址族: AF_UNIX */</span><br>    <span class="hljs-type">char</span> sun_path[<span class="hljs-number">108</span>];     <span class="hljs-comment">/* 文件路径名 */</span><br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>TCP/IP协议族有socket_in和sockaddr_in6两个专业socket地址结构体，它们分别用于IPv4和IPv6：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockadddr_in</span>&#123;<br>    <span class="hljs-type">sa_family_t</span> sun_family;        <span class="hljs-comment">/* 地址族: AF_INET */</span><br>    <span class="hljs-type">u_int16_t</span> sin_port;             <span class="hljs-comment">/* 端口号，要用网络字节序表示 */</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span> sin_addr        <span class="hljs-comment">/* IPv4地址结构体 */</span><br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span> &#123;<br>    <span class="hljs-type">u_int32_t</span> s_addr;                    <span class="hljs-comment">/* IPv4地址，要用网络字节序号表示 */</span><br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in6</span> &#123;<br>    <span class="hljs-type">sa_family_t</span> sin6_family;            <span class="hljs-comment">/* 地址族: AF_INET6 */</span><br>    <span class="hljs-type">u_int16_t</span> sin6_port;                    <span class="hljs-comment">/* 端口号，要用网络字节序表示 */</span><br>    <span class="hljs-type">u_int32_t</span> sin6_flowinfo;            <span class="hljs-comment">/* 流信息，应设置为0 */</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in6_addr</span> sin6_addr;        <span class="hljs-comment">/* IPv6地址结构体 */</span><br>    <span class="hljs-type">u_int32_t</span> sin6_scope_id;            <span class="hljs-comment">/* scope ID, 尚处于实验阶段 */</span><br>&#125;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">in6_addr</span> &#123;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> sa_addr[<span class="hljs-number">16</span>];         <span class="hljs-comment">/* IPv6地址，要用网络字节序表示 */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>UNIX本地协议族使用如下专用socket地址结构体： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_un</span> &#123;<br>    <span class="hljs-type">sa_family_t</span> sin_family; <span class="hljs-comment">/* 地址族: AF_UNIX */</span><br>    <span class="hljs-type">char</span> sun_path[<span class="hljs-number">108</span>];     <span class="hljs-comment">/* 文件路径名 */</span><br>&#125;;<br></code></pre></td></tr></table></figure></p>
+<p>TCP/IP协议族有socket_in和sockaddr_in6两个专业socket地址结构体，它们分别用于IPv4和IPv6：
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockadddr_in</span>&#123;<br>    <span class="hljs-type">sa_family_t</span> sun_family;        <span class="hljs-comment">/* 地址族: AF_INET */</span><br>    <span class="hljs-type">u_int16_t</span> sin_port;             <span class="hljs-comment">/* 端口号，要用网络字节序表示 */</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span> sin_addr        <span class="hljs-comment">/* IPv4地址结构体 */</span><br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">in_addr</span> &#123;<br>    <span class="hljs-type">u_int32_t</span> s_addr;                    <span class="hljs-comment">/* IPv4地址，要用网络字节序号表示 */</span><br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in6</span> &#123;<br>    <span class="hljs-type">sa_family_t</span> sin6_family;            <span class="hljs-comment">/* 地址族: AF_INET6 */</span><br>    <span class="hljs-type">u_int16_t</span> sin6_port;                    <span class="hljs-comment">/* 端口号，要用网络字节序表示 */</span><br>    <span class="hljs-type">u_int32_t</span> sin6_flowinfo;            <span class="hljs-comment">/* 流信息，应设置为0 */</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">in6_addr</span> sin6_addr;        <span class="hljs-comment">/* IPv6地址结构体 */</span><br>    <span class="hljs-type">u_int32_t</span> sin6_scope_id;            <span class="hljs-comment">/* scope ID, 尚处于实验阶段 */</span><br>&#125;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">in6_addr</span> &#123;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> sa_addr[<span class="hljs-number">16</span>];         <span class="hljs-comment">/* IPv6地址，要用网络字节序表示 */</span><br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>所有专用socket地址(以及sockaddr_storage)类型的变量在实际使用时都需要转化为通用socket类型sockaddr(强制类型转换)，因为socket编程接口使用的地址参数的类型都是sockaddr。</p>
 <h3 id="socket-api-调用流程">socket api 调用流程</h3>
-<p>服务器端：<br>
-创建 socket: 指定网络层协议（ipv4 or ipv6）和传输层协议（tcp or udp）-&gt;</p>
+<p>服务器端：<br />
+创建 socket: 指定网络层协议（ipv4 or ipv6）和传输层协议（tcp or
+udp）-&gt;</p>
 <p>绑定 socket: 与具体的服务端地址绑定（ip and port） -&gt;</p>
 <p>监听 socket: 创建一个监听队列存放待处理的客户端连接 -&gt;</p>
 <p>接收连接: 从监听队列中取出就绪的连接</p>
-<p>客户端：<br>
+<p>客户端：<br />
 创建 socket -&gt;</p>
 <p>发起连接: 向指定地址的服务端发起连接请求</p>
-<p>参考: <a target="_blank" rel="noopener" href="https://swordandtea.github.io/2020/11/06/hight_performance_linux_coding/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80API/">https://swordandtea.github.io/2020/11/06/hight_performance_linux_coding/Linux网络编程基础API/</a></p>
-<h3 id="IO-多路复用">IO 多路复用</h3>
-<p>一个socket 就是一个文件，每个socket 都对应一个 socket fd，IO多路复用是指将多个 socket fd 同时进行监听，从而获取多个事件状态。具体来讲，我们有三个IO多路复用的系统调用可以使用：</p>
-<h4 id="select">select</h4>
-<p>将所有已连接的socket fd 放在一个文件描述符集合中，然后调用select 将文件描述符集合拷贝到内核中，内核中对集合进行轮训以检查是否有事件发生，当有事件产生后则将对应的文件描述符标记为可读或可写，然后再将集合从内核拷贝到用户态，然后用户再遍历集合以查找有有事件产生的文件描述符</p>
-<p>所以通过select 实现IO多路复用需要对文件描述符集合进行两次拷贝和两次遍历。且select 使用固定长度BitMap 表示文件描述符集合，因此其所支持的复用路数是有限制的，默认最大值是1024</p>
+<p>参考:
+https://swordandtea.github.io/2020/11/06/hight_performance_linux_coding/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80API/</p>
+<h3 id="io-多路复用">IO 多路复用</h3>
+<p>一个socket 就是一个文件，每个socket 都对应一个 socket
+fd，IO多路复用是指将多个 socket fd
+同时进行监听，从而获取多个事件状态。具体来讲，我们有三个IO多路复用的系统调用可以使用：
+#### select 将所有已连接的socket fd
+放在一个文件描述符集合中，然后调用select
+将文件描述符集合拷贝到内核中，内核中对集合进行轮训以检查是否有事件发生，当有事件产生后则将对应的文件描述符标记为可读或可写，然后再将集合从内核拷贝到用户态，然后用户再遍历集合以查找有有事件产生的文件描述符</p>
+<p>所以通过select
+实现IO多路复用需要对文件描述符集合进行两次拷贝和两次遍历。且select
+使用固定长度BitMap
+表示文件描述符集合，因此其所支持的复用路数是有限制的，默认最大值是1024</p>
 <h3 id="poll">poll</h3>
-<p>poll 和 select 的整体流程一样，只是在文件描述符集合的实现上由 BitMap 修改为了链表，因此其所支持的文件描述符个数不再受限制</p>
-<h3 id=""></h3>
+<p>poll 和 select 的整体流程一样，只是在文件描述符集合的实现上由 BitMap
+修改为了链表，因此其所支持的文件描述符个数不再受限制</p>
+<h3 id="section"></h3>
 
             </div>
             <hr>

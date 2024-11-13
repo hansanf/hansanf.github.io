@@ -238,22 +238,28 @@
             
             <div class="markdown-body">
               <h2 id="sample-编译">sample 编译</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/tree/release/8.0?tab=readme-ov-file#prerequisites">https://github.com/NVIDIA/TensorRT/tree/release/8.0?tab=readme-ov-file#prerequisites</a></p>
-<ol>
-<li>github 上下载对应仓库，然后根据对应的 cuda 版本选择对应的tag进行下载。<br>
-比如选择 release/8.0，如果有 docker 环境，可以利用官方提供的 docker 镜像进行；裸机的话需要安装cuda、cudnn、tensorrt 三件套</li>
+<p>https://github.com/NVIDIA/TensorRT/tree/release/8.0?tab=readme-ov-file#prerequisites</p>
+<ol type="1">
+<li>github 上下载对应仓库，然后根据对应的 cuda
+版本选择对应的tag进行下载。<br />
+比如选择 release/8.0，如果有 docker 环境，可以利用官方提供的 docker
+镜像进行；裸机的话需要安装cuda、cudnn、tensorrt 三件套</li>
 </ol>
-<p>找到开发机中对应的 tensorrt lib 的路径，export TRT_LIBPATH=/usr/lib/aarch64-linux-gnu/</p>
-<ol start="2">
+<p>找到开发机中对应的 tensorrt lib 的路径，export
+TRT_LIBPATH=/usr/lib/aarch64-linux-gnu/</p>
+<ol start="2" type="1">
 <li>拉取三方依赖库的repo：git submodule update --init --recursive</li>
 </ol>
 <p>一般需要 vpn 才能下载下来</p>
-<ol start="3">
+<ol start="3" type="1">
 <li>release/8.0版本需要修改两个地方</li>
 </ol>
 <p>在 CMakeLists.txt中</p>
-<p>设置nvcc 路径：set(CMAKE_CUDA_COMPILER /usr/local/cuda-10.2/bin/nvcc)<br>
-设置cub 的路径：set(CUB_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/cub CACHE STRING “directory of CUB installation”)</p>
+<p>设置nvcc 路径：set(CMAKE_CUDA_COMPILER
+/usr/local/cuda-10.2/bin/nvcc)<br />
+设置cub 的路径：set(CUB_ROOT_DIR
+${CMAKE_CURRENT_SOURCE_DIR}/third_party/cub CACHE STRING "directory of
+CUB installation")</p>
 
             </div>
             <hr>
@@ -274,7 +280,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/31/cuda-notes/">
+                      <a href="/2024/01/31/cpp/cuda-notes/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">cuda-notes</span>
                         <span class="visible-mobile">Previous</span>

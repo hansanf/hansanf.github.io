@@ -191,6 +191,126 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2024/07/31/pytorch_notes/" target="_self">
+          pytorch-notes
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/31/pytorch_notes/" target="_self">
+          
+          pytorch-notes channles_last 内存格式 https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;7155302838636118047 一般是NCHW 格式内存排列，当数据为 (10x3x16x16) 时，对应的 stride 为 (768, 256, 16, 1)，不同颜色的通道是分开的，一个颜色对应着一张图  而 channels_last 是 NHWC 格式内存排列，对应的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-31 16:01" pubdate>
+              2024-07-31
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/pytorch/">pytorch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/07/31/cpp/rvalue_ref_qualifier/" target="_self">
+          ref-qualifier
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/31/cpp/rvalue_ref_qualifier/" target="_self">
+          
+          ref-qualifier https:&#x2F;&#x2F;en.cppreference.com&#x2F;w&#x2F;cpp&#x2F;language&#x2F;member_functions Member functions with ref-qualifier An implicit object member function can be declared with no ref-qualifier, with an lvalue r
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-31 14:20" pubdate>
+              2024-07-31
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cpp/">cpp</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2024/07/26/smart-ptr/" target="_self">
+          smart_ptr
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2024/07/26/smart-ptr/" target="_self">
+          
+          std::shared_ptr 引用计数是原子的， 大多数解释是 shared_ptr 本身是线程安全的，但是对指向对象的读写不是线程安全的。 本身是线程安全的是什么意思呢，理解为在多线程中对shared_ptr 的读、复制和当引用计数大于 1 时的写是线程安全的。特别注意的引用计数大于 1 时的写，可以是该shared_ptr 本身的析构，也可以是赋值为其他的 shared_ptr，因为引用计数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-07-26 16:55" pubdate>
+              2024-07-26
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2024/07/26/image-preprocess/" target="_self">
           image_preprocess
         </a>
@@ -377,13 +497,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2024/01/31/cuda-notes/" target="_self">
+        <a href="/2024/01/31/cpp/cuda-notes/" target="_self">
           cuda-notes
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2024/01/31/cuda-notes/" target="_self">
+        <a href="/2024/01/31/cpp/cuda-notes/" target="_self">
           
           杂记 1.可以在kernel 里设置同步点进行数据间的同步，__syncthreads()通常用于调整在相同块之间的线程通信 2.一个批处理中每一个多处理器可以处理多少个块，取决于每个线程中分配了多少个寄存器和已知内核中每 个时钟需要多少的共享内存 3.warp是硬件层面中SM对应执行线程的单位。 线程束Wrap是GPU的基本执行单元，目前cuda的warp的大小为32。 同在一个warp的线程执
         </a>
@@ -399,6 +519,13 @@
           </div>
         
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/cuda/">cuda</a>
+            
+          </div>
         
       </div>
     </article>
@@ -428,105 +555,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2024-01-19 16:30" pubdate>
               2024-01-19
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2024/01/10/pod-trivial-stardard-layout/" target="_self">
-          pod_trivial_stardard_layout
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2024/01/10/pod-trivial-stardard-layout/" target="_self">
-          
-          Plain Old Data (POD) pod 包含 trivial(普通)类型和standard layout 概念介绍： https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;cpp&#x2F;cpp&#x2F;trivial-standard-layout-and-pod-types?view&#x3D;msvc-170 trivial 类型的结构体支持用memcpy来操作二进制，并对齐进行序列化和反序列
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-10 19:46" pubdate>
-              2024-01-10
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/27/include-what-you-see/" target="_self">
-          include-what-you-see
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/12/27/include-what-you-see/" target="_self">
-          
-          简介 如何安装 根据gitlab 首页的提示：https:&#x2F;&#x2F;github.com&#x2F;include-what-you-use&#x2F;include-what-you-use 找到 How to build standalone，首先要知道IWYS是基于clang 和 llvm 构建，所以如果环境中已经安装好了 如何使用
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-27 22:11" pubdate>
-              2023-12-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/12/27/linux-deps/" target="_self">
-          linux_deps
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/12/27/linux-deps/" target="_self">
-          
-          libncurses5-dev 源码编译 https:&#x2F;&#x2F;blog.51cto.com&#x2F;liuzhenlife&#x2F;1892078 下载地址： http:&#x2F;&#x2F;ftp.gnu.org&#x2F;gnu&#x2F;ncurses&#x2F; http:&#x2F;&#x2F;ftp.gnu.org&#x2F;gnu&#x2F;ncurses&#x2F;ncurses-6.0.tar.gz 12345[root@bogon liuzhen]# tar -zxvf ncurses-6.0
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-27 21:59" pubdate>
-              2023-12-27
             </time>
           </div>
         

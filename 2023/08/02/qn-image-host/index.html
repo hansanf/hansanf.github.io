@@ -247,65 +247,87 @@
             
             <div class="markdown-body">
               <h3 id="图床">图床</h3>
-<p>搜素“好用的图床”，搜索结果中随机对比了下，qiniu个人用户可以免费享受每月 10GB的存储和流量，遂用之。</p>
-<img src="http://qn.save.hansanf.space/qiniu_personal_count_free_credit.png" srcset="/img/loading.gif" lazyload height="80%" width="80%">
-<p>qiniu 的账户申请和配置省略，有很多教程，官方也有详细的引导和教程。<br>
-因为已经通过 hexo + github page有自己的播客了，之前简单理解只要把图片传到图床上就可以通过url 访问的图片了，但是qiniu图床不提供域名，没有域名也就没有可以访问图片的外链，因此需要在qiniu 上额外提供一个域名。先是尝试了直接将xxx.github.io作为qiniu 外链域名，但是没法用。然后在阿里云上申请了个人域名，10 年才168。<br>
-下面介绍如何将个人域名绑定到github page，以及如何绑定图床的外链域名。</p>
+<p>搜素“好用的图床”，搜索结果中随机对比了下，qiniu个人用户可以免费享受每月
+10GB的存储和流量，遂用之。</p>
+<p><img src="http://qn.save.hansanf.space/qiniu_personal_count_free_credit.png" srcset="/img/loading.gif" lazyload height="80%" width="80%"></p>
+<p>qiniu
+的账户申请和配置省略，有很多教程，官方也有详细的引导和教程。<br />
+因为已经通过 hexo + github
+page有自己的播客了，之前简单理解只要把图片传到图床上就可以通过url
+访问的图片了，但是qiniu图床不提供域名，没有域名也就没有可以访问图片的外链，因此需要在qiniu
+上额外提供一个域名。先是尝试了直接将xxx.github.io作为qiniu
+外链域名，但是没法用。然后在阿里云上申请了个人域名，10 年才168。<br />
+下面介绍如何将个人域名绑定到github
+page，以及如何绑定图床的外链域名。</p>
 <h3 id="准备工作">准备工作</h3>
-<ol>
-<li>github pages  xxx.github.io可访问</li>
+<ol type="1">
+<li>github pages xxx.github.io可访问</li>
 <li>qiniu 图床，可以上传图像</li>
 <li>阿里云个人域名申请完成</li>
 </ol>
 <h3 id="github-page-绑定个人域名">github page 绑定个人域名</h3>
-<p>教程：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011203711">https://segmentfault.com/a/1190000011203711</a></p>
-<p><strong>绑定域名需要在 域名解析服务商 和 github 两边都进行操作</strong></p>
-<ol>
-<li>
-<p>在域名解析服务商进行个人域名解析，将域名绑定到个人 github pages。<br>
+<p>教程：https://segmentfault.com/a/1190000011203711</p>
+<p><strong>绑定域名需要在 域名解析服务商 和 github
+两边都进行操作</strong> 1.
+在域名解析服务商进行个人域名解析，将域名绑定到个人 github pages。<br />
 <img src="http://qn.save.hansanf.space/ali_domain_name_parse.jpeg" srcset="/img/loading.gif" lazyload height="50%" width="50%"></p>
-</li>
-<li>
-<p>github pages 配置 CNAME 文件重定向到阿里云域名<br>
-<img src="http://qn.save.hansanf.space//github_cname.png" srcset="/img/loading.gif" lazyload width="50%" height="50%"></p>
-</li>
+<ol start="2" type="1">
+<li>github pages 配置 CNAME 文件重定向到阿里云域名<br />
+<img src="http://qn.save.hansanf.space//github_cname.png" srcset="/img/loading.gif" lazyload width="50%" height="50%"></li>
 </ol>
-<p>完成后，在浏览器中输入hansanf.space 即可访问原来的 <a target="_blank" rel="noopener" href="http://hansanf.github.io">hansanf.github.io</a></p>
-<h4 id="hexo-重新生成博客push到repo后-页面显示404">hexo 重新生成博客push到repo后 页面显示404</h4>
-<p>github page 设置cname 后，重新生成博客的时候可能会将CNAME文件覆盖，浏览器访问博客会出现 404 错误，可以将CNAME文件放在 “博客目录/source目录” 下</p>
-<blockquote>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Belingda/article/details/100635572">https://blog.csdn.net/Belingda/article/details/100635572</a></p>
-</blockquote>
+<p>完成后，在浏览器中输入hansanf.space 即可访问原来的
+hansanf.github.io</p>
+<h4 id="hexo-重新生成博客push到repo后-页面显示404">hexo
+重新生成博客push到repo后 页面显示404</h4>
+<p>github page 设置cname
+后，重新生成博客的时候可能会将CNAME文件覆盖，浏览器访问博客会出现 404
+错误，可以将CNAME文件放在 “博客目录/source目录” 下<br />
+&gt; 参考：https://blog.csdn.net/Belingda/article/details/100635572</p>
 <h3 id="提供域名给qiniu-作为图床外链">提供域名给qiniu 作为图床外链</h3>
-<p>在左上角-》对象存储-》域名管理-》绑定域名<br>
-一定要在 <strong>自定义源站域名</strong> 栏绑定域名，一开始选择cdn 的搞了半天都白搞了。<br>
+<p>在左上角-》对象存储-》域名管理-》绑定域名<br />
+一定要在 <strong>自定义源站域名</strong> 栏绑定域名，一开始选择cdn
+的搞了半天都白搞了。<br />
 <img src="http://qn.save.hansanf.space//qiniu_cname.png" srcset="/img/loading.gif" lazyload width="50%" height="50%"></p>
-<p>输入域名前要先在阿里云域名解析处 <strong>添加记录</strong>，即添加一个新的 cname, 修改 <strong>主机记录</strong>(即添加域名前缀，比如qn.save)，然后将 qn.save.hansanf.space  添加到qiniu 的域名中。<br>
+<p>输入域名前要先在阿里云域名解析处
+<strong>添加记录</strong>，即添加一个新的 cname, 修改
+<strong>主机记录</strong>(即添加域名前缀，比如qn.save)，然后将
+qn.save.hansanf.space 添加到qiniu 的域名中。<br />
 <img src="http://qn.save.hansanf.space/qn_input_parse_domain_name.png" srcset="/img/loading.gif" lazyload width="50%" height="50%"></p>
-<p>然后即可通过qiniu的外链访问到图像，即可以将外链作为博客图像的链接地址进行访问，本文的所有图像都是通过qiniu 的外链进行访问的。</p>
+<p>然后即可通过qiniu的外链访问到图像，即可以将外链作为博客图像的链接地址进行访问，本文的所有图像都是通过qiniu
+的外链进行访问的。</p>
 <h3 id="补充知识">补充知识</h3>
-<ol>
+<ol type="1">
 <li>什么是cname:</li>
 </ol>
-<p>在计算机网络中，CNAME是Canonical Name的缩写，即规范名。CNAME是DNS（Domain Name System）中的一种资源记录类型，用于建立域名的别名关系。</p>
+<p>在计算机网络中，CNAME是Canonical
+Name的缩写，即规范名。CNAME是DNS（Domain Name
+System）中的一种资源记录类型，用于建立域名的别名关系。</p>
 <p>通常，一个域名可以有多个资源记录类型，例如A记录（指向IPv4地址）、AAAA记录（指向IPv6地址）、MX记录（指向邮件服务器）、TXT记录（用于存储任意文本信息）等。而CNAME记录允许将一个域名指向另一个域名，而不是直接指向IP地址。</p>
 <p>举个例子，假设有两个域名：</p>
-<p><a target="_blank" rel="noopener" href="http://www.example.com">www.example.com</a> - 一个网站的主要域名，其A记录指向服务器的IPv4地址。<br>
-<a target="_blank" rel="noopener" href="http://www.example.net">www.example.net</a> - 另一个域名，希望将其指向和访问www.example.com相同的内容。</p>
-<p>这时候，<a target="_blank" rel="noopener" href="http://xn--www-vs9dj4uqlf.example.net">可以在www.example.net</a> 的DNS配置中添加一个CNAME记录，<a target="_blank" rel="noopener" href="http://xn--www-633ej45apwaw27a.example.com">将它指向www.example.com</a>。  这样，当用户访问www.example.net时， <a target="_blank" rel="noopener" href="http://xn--DNSCNAMEwww-o68q04g06l7tec2swix56jb8dxu0abtrpuckr71akbj8px.example.com">DNS服务器会解析CNAME记录并将其转换为www.example.com</a>， <a target="_blank" rel="noopener" href="http://xn--www-l01em8iwy3auuicxs.example.com">然后再查找www.example.com</a>  的A记录，最终将用户重定向到服务器的IPv4地址。</p>
+<p>www.example.com - 一个网站的主要域名，其A记录指向服务器的IPv4地址。
+www.example.net -
+另一个域名，希望将其指向和访问www.example.com相同的内容。</p>
+<p>这时候，可以在www.example.net
+的DNS配置中添加一个CNAME记录，将它指向www.example.com。
+这样，当用户访问www.example.net时，
+DNS服务器会解析CNAME记录并将其转换为www.example.com，
+然后再查找www.example.com
+的A记录，最终将用户重定向到服务器的IPv4地址。</p>
 <p>CNAME记录有一些限制和注意事项，例如不能在CNAME记录和其他记录（如MX记录、NS记录）之间共存。同时，CNAME记录的使用也可能会导致额外的DNS查询，稍微增加一些延迟，因为它需要进一步解析其他域名。因此，在使用CNAME记录时，需要仔细考虑其适用场景和潜在影响。</p>
-<ol start="2">
+<ol start="2" type="1">
 <li>什么是cdn</li>
 </ol>
-<p>CDN是Content Delivery Network（内容分发网络）的缩写。它是一种用于加速互联网内容传输的技术架构。</p>
+<p>CDN是Content Delivery
+Network（内容分发网络）的缩写。它是一种用于加速互联网内容传输的技术架构。</p>
 <p>在传统的网络架构中，当用户访问一个网站或下载某个文件时，请求会直接发送到该网站或文件所在的服务器，然后服务器将相应的内容传送给用户。如果用户和服务器之间的距离较远，网络拥塞或服务器负载较高，可能会导致传输速度较慢，延迟较高，影响用户体验。</p>
 <p>CDN通过在全球范围内部署大量的服务器节点（也称为边缘节点），将网站的静态资源（例如图片、CSS、JavaScript、视频等）缓存到这些节点上。当用户请求访问网站内容时，CDN会自动将用户的请求路由到距离最近的边缘节点，从而加快内容的传输速度和加载时间。</p>
 <p>CDN的工作原理如下：</p>
-<p>缓存：CDN将网站的静态资源缓存在多个边缘节点上。<br>
-路由：当用户发起请求时，CDN会智能地选择距离用户最近的边缘节点，将请求路由到该节点。<br>
+<p>缓存：CDN将网站的静态资源缓存在多个边缘节点上。<br />
+路由：当用户发起请求时，CDN会智能地选择距离用户最近的边缘节点，将请求路由到该节点。<br />
 传输：边缘节点直接向用户提供所需的内容，从而避免了长距离传输和网络拥塞。</p>
-<p>简单来讲cdn 是为了访问加速，在qiniu 中通过外链访问图片只需要提供一个可以访问的域名，而不是对所提供的域名进行访问加速，所以在提供域名给qiniu 的时候要选择 <strong>自定义源站域名</strong>。</p>
+<p>简单来讲cdn 是为了访问加速，在qiniu
+中通过外链访问图片只需要提供一个可以访问的域名，而不是对所提供的域名进行访问加速，所以在提供域名给qiniu
+的时候要选择 <strong>自定义源站域名</strong>。</p>
 
             </div>
             <hr>
@@ -337,7 +359,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/04/cuda-usage/">
+                      <a href="/2023/08/04/cpp/cuda-usage/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">cuda_usage</span>
                         <span class="visible-mobile">Previous</span>

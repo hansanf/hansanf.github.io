@@ -238,19 +238,18 @@
             <h1 style="display: none">GFLAG_usage</h1>
             
             <div class="markdown-body">
-              <h3 id="GFLAG使用记录">GFLAG使用记录</h3>
-<p>在main()中调用gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true) 解析传入GFLAGS_xxx，在运行bin文件的时候，可以选择用命令传入flags参数，或者将参数放在一个文本文件中</p>
-<p>示例：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// main.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;gflags/gflags.h&quot;</span></span><br><span class="hljs-built_in">DEFINE_string</span>(local_ip, <span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-string">&quot;genenral local ip&quot;</span>);<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>** argv)</span></span>&#123;<br>    gflags::<span class="hljs-built_in">ParseCommandLineFlags</span>(&amp;argc, &amp;argv, <span class="hljs-literal">true</span>);   <span class="hljs-comment">// 解析GFLAS_XX </span><br>    std::cout &lt;&lt; FLAGS_local_ip &lt;&lt; std::endl; <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>g++ main.cpp 生成a.out可执行文件后，<br>
-命令行传入FLAGS_local_ip:<br>
+              <h3 id="gflag使用记录">GFLAG使用记录</h3>
+<p>在main()中调用gflags::ParseCommandLineFlags(&amp;argc, &amp;argv,
+true)
+解析传入GFLAGS_xxx，在运行bin文件的时候，可以选择用命令传入flags参数，或者将参数放在一个文本文件中</p>
+<p>示例： <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// main.cpp</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;gflags/gflags.h&quot;</span></span><br><span class="hljs-built_in">DEFINE_string</span>(local_ip, <span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-string">&quot;genenral local ip&quot;</span>);<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>** argv)</span></span>&#123;<br>    gflags::<span class="hljs-built_in">ParseCommandLineFlags</span>(&amp;argc, &amp;argv, <span class="hljs-literal">true</span>);   <span class="hljs-comment">// 解析GFLAS_XX </span><br>    std::cout &lt;&lt; FLAGS_local_ip &lt;&lt; std::endl; <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>g++ main.cpp 生成a.out可执行文件后， 命令行传入FLAGS_local_ip:
 <code>./a.out --local_ip=127.0.0.2</code></p>
-<p>文本文件传入：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> flags.txt<br>--local_ip=<span class="hljs-number">127.0</span>.<span class="hljs-number">0.2</span><br></code></pre></td></tr></table></figure>
-<p>./a.out --flagfile=./flags.txt</p>
-<p>如果不设置local_ip参数，默认打印 127.0.0.1；设置locol_ip参数后打印 127.0.0.2</p>
+<p>文本文件传入： <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> flags.txt<br>--local_ip=<span class="hljs-number">127.0</span>.<span class="hljs-number">0.2</span><br></code></pre></td></tr></table></figure> ./a.out --flagfile=./flags.txt</p>
+<p>如果不设置local_ip参数，默认打印 127.0.0.1；设置locol_ip参数后打印
+127.0.0.2</p>
 <p><strong>Note</strong>:</p>
-<p>define有且只能出现一次，所以当头文件会被多个文件包含时，一定不能定义在头文件中<br>
+<p>define有且只能出现一次，所以当头文件会被多个文件包含时，一定不能定义在头文件中
 因此，DEFINE在cpp中，DECLARE在头文件中，若只想被一个.cpp文件使用，则只定义在此.cpp文件中而不在.h文件中声明</p>
 
             </div>
